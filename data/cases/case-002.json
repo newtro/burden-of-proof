@@ -1,0 +1,798 @@
+{
+  "id": "case-002",
+  "title": "State v. Menendez",
+  "subtitle": "The Beverly Hills Murders",
+  "type": "criminal",
+  "charge": "First Degree Murder (Two Counts)",
+  "difficulty": 3,
+  "playerSide": "defense",
+  "baseBudget": 25000,
+  "investigationDays": 10,
+  "synopsis": "Lyle and Erik Menendez are charged with the shotgun murders of their parents, José and Kitty Menendez, in the family's Beverly Hills mansion on August 20, 1989. The brothers initially claimed they discovered the bodies, but months later Erik confessed to his psychologist, Dr. Jerome Oziel, who recorded the sessions. The prosecution says it was a cold-blooded execution motivated by a $14 million inheritance. The defense claims the brothers acted after years of horrific sexual, physical, and emotional abuse by their father, and snapped in genuine fear for their lives.\n\nThis is one of the most polarizing trials in American history. The first trial ended in two hung juries. Can you do better?\n\nAdapted from the real Menendez Brothers trial (1993-1996). Some details modified for gameplay.",
+  "truthNarrative": "Lyle and Erik Menendez did kill their parents with shotguns on August 20, 1989. The abuse claims have significant supporting evidence — family members, teachers, and a cousin all noticed troubling signs over the years. José Menendez was a domineering, controlling figure who demanded perfection. Erik later described years of sexual abuse starting at age 6. However, the immediate trigger for the killings was Lyle confronting José about the abuse, and the brothers believing José would kill them to keep the secret. The spending spree after the murders (Porsche, Rolex watches, tennis coach) undermines the sympathy of the abuse defense. The truth is complicated: real abuse occurred, but the killings were not a spontaneous act of self-defense — the brothers bought the shotguns days before.",
+  "prosecutionTheory": "Lyle and Erik Menendez planned and executed the cold-blooded murder of their parents to inherit the family's $14 million estate. They purchased shotguns days in advance, waited for an opportune moment, and fired multiple rounds into their parents as they sat in the TV room eating berries and ice cream. After the murders, they went on a lavish spending spree — buying Porsches, Rolex watches, and expensive clothes. The abuse claims are a fabricated defense strategy concocted after the fact.",
+  "defenseTheory": "Lyle and Erik Menendez were victims of years of brutal physical, sexual, and emotional abuse by their father José. When Lyle confronted José about the abuse of Erik, the brothers genuinely believed their parents would kill them to protect the family secret. They acted out of a lifetime of terror and a genuine fear for their lives. The spending after the murders was the confused behavior of deeply traumatized young men, not evidence of a premeditated inheritance grab.",
+
+  "judge": {
+    "id": "judge-weisberg",
+    "name": "Judge Stanley Weisberg",
+    "title": "The Honorable Stanley Weisberg",
+    "background": "A veteran Los Angeles Superior Court judge known for handling high-profile cases. Previously presided over the first Rodney King trial. Methodical, experienced, and keenly aware of media attention. Runs a strict courtroom but allows wide latitude in testimony, particularly regarding abuse claims. In the retrial, he made the controversial decision to limit abuse testimony and bar the manslaughter instruction.",
+    "strictness": 70,
+    "patience": 50,
+    "prosecutionLean": 55,
+    "petPeeves": ["media_grandstanding", "repetitive_testimony", "courtroom_outbursts", "sidebar_abuse"],
+    "hearsayStrictness": 65,
+    "relevanceThreshold": 55,
+    "contemptThreshold": 12,
+    "portraitAsset": "judges/weisberg",
+    "gavelStyle": "measured"
+  },
+
+  "opposingCounsel": {
+    "id": "opp-case002",
+    "name": "Deputy DA Pamela Bozanich",
+    "style": "relentless",
+    "difficulty": 3,
+    "description": "A fierce, experienced homicide prosecutor. She is laser-focused on the physical evidence and the timeline, and will aggressively challenge any abuse testimony as fabricated. She's skilled at emotional appeals to the jury — reminding them of the brutality of the shotgun murders and the callous spending spree afterward. She will repeatedly try to redirect focus from the abuse narrative to the cold facts of the murders."
+  },
+
+  "witnesses": [
+    {
+      "id": "wit-erik-menendez",
+      "name": "Erik Menendez",
+      "age": 22,
+      "role": "Defendant",
+      "occupation": "College Student / Tennis Player",
+      "side": "defense",
+      "background": "The younger Menendez brother. Sensitive, emotional, and deeply damaged by years of abuse. He is the more sympathetic of the two brothers. His testimony about the abuse is the emotional core of the defense. He confessed to Dr. Oziel and is now the defense's key witness.",
+      "confidence": 30,
+      "honesty": 75,
+      "cooperativeness": 85,
+      "emotionality": 90,
+      "intelligence": 60,
+      "truthKnowledge": "Erik experienced years of sexual abuse by his father starting at age 6. He told Lyle about it in the days before the murders. They bought shotguns because they genuinely feared their father would kill them. The night of the murders, they entered the TV room and opened fire. Erik shot his mother as she tried to flee. He is haunted by this. The spending spree afterward was a desperate attempt to feel normal, not calculated greed.",
+      "publicStory": "My father sexually abused me for years. When Lyle found out and confronted our father, we believed he would kill us. We were terrified. That night, we felt we had no choice. I loved my parents but I was terrified of my father. The spending afterward — I wasn't thinking clearly. I was in shock.",
+      "secrets": [
+        {
+          "id": "secret-erik-premeditation",
+          "description": "Erik and Lyle discussed the possibility of killing their parents for at least a week before the murders. They bought the shotguns in San Diego days in advance using fake IDs.",
+          "discoverable": true,
+          "evidenceRequired": "gun-purchase-records",
+          "impact": -15
+        }
+      ],
+      "lies": [
+        {
+          "id": "lie-erik-spontaneous",
+          "claim": "It was spontaneous — we snapped that night. We didn't plan it.",
+          "truth": "The shotguns were purchased days in advance. There was some degree of planning.",
+          "impeachmentEvidence": "gun-purchase-records",
+          "composureCostWhenCaught": 30
+        }
+      ],
+      "breakingPointThreshold": 15,
+      "breakingPointType": "breakdown",
+      "breakingPointTrigger": "abuse-details",
+      "portraitAsset": "witnesses/erik-menendez",
+      "expressionSet": "male-young-white",
+      "personality_prompt": "You are Erik Menendez. You are deeply traumatized, emotional, and sometimes barely holding it together on the stand. When describing the abuse, you become visibly distraught — your voice cracks, you cry, and you struggle to get words out. This is not performance; the pain is real. However, when pressed about the planning (buying guns, the timeline), you become evasive and defensive. You genuinely believe you had no choice, but the prosecution's questions about premeditation make you uncomfortable because there IS a gap between 'spontaneous fear' and 'bought shotguns days before.'"
+    },
+    {
+      "id": "wit-dr-oziel",
+      "name": "Dr. Jerome Oziel",
+      "age": 43,
+      "role": "Expert",
+      "occupation": "Psychologist",
+      "side": "prosecution",
+      "background": "Erik's therapist who secretly recorded sessions in which Erik confessed to the murders. Oziel is ethically compromised — he violated therapist-patient confidentiality and may have manipulated Erik. His ex-mistress, Judalon Smyth, alerted police to the tapes. Oziel is a key prosecution witness but deeply problematic.",
+      "confidence": 60,
+      "honesty": 40,
+      "cooperativeness": 55,
+      "emotionality": 25,
+      "intelligence": 75,
+      "truthKnowledge": "Oziel recorded therapy sessions with Erik without full informed consent. He was having an affair with Judalon Smyth at the time and told her about the confessions, violating confidentiality. He was later investigated by the psychology board. The recordings are genuine but his methods were unethical. He may have encouraged Erik to be more detailed in confessions than Erik would have been naturally.",
+      "publicStory": "Erik Menendez confessed to me during our therapy sessions that he and his brother murdered their parents. I recorded these sessions as was my professional practice. The confessions were voluntary and detailed. Erik showed no remorse during our sessions — he was matter-of-fact about the killings.",
+      "secrets": [
+        {
+          "id": "secret-oziel-affair",
+          "description": "Oziel was having an affair with Judalon Smyth and disclosed patient confidential information to her.",
+          "discoverable": true,
+          "evidenceRequired": "smyth-testimony",
+          "impact": 10
+        },
+        {
+          "id": "secret-oziel-board",
+          "description": "Oziel was under investigation by the California Board of Psychology for multiple ethical violations unrelated to this case.",
+          "discoverable": true,
+          "evidenceRequired": "psychology-board-records",
+          "impact": 12
+        },
+        {
+          "id": "secret-oziel-manipulation",
+          "description": "Oziel may have guided Erik toward more incriminating statements during the recorded sessions, using leading therapeutic questions.",
+          "discoverable": true,
+          "evidenceRequired": "tape-analysis-expert",
+          "impact": 15
+        }
+      ],
+      "lies": [
+        {
+          "id": "lie-oziel-ethics",
+          "claim": "My recording of sessions was standard professional practice and fully within ethical guidelines.",
+          "truth": "Recording without full informed consent and sharing content with his mistress were serious ethical violations.",
+          "impeachmentEvidence": "psychology-board-records",
+          "composureCostWhenCaught": 25
+        },
+        {
+          "id": "lie-oziel-remorse",
+          "claim": "Erik showed no remorse whatsoever during our sessions.",
+          "truth": "Erik was frequently emotional and distressed during sessions. Oziel is exaggerating Erik's coldness.",
+          "impeachmentEvidence": "tape-analysis-expert",
+          "composureCostWhenCaught": 20
+        }
+      ],
+      "breakingPointThreshold": 15,
+      "breakingPointType": "hostile",
+      "breakingPointTrigger": "ethics-violation",
+      "portraitAsset": "witnesses/dr-oziel",
+      "expressionSet": "male-middle-white",
+      "personality_prompt": "You are Dr. Jerome Oziel. You present yourself as a calm, professional psychologist, but underneath you're deeply anxious about your own exposure. You know your ethics are compromised. You'll be smooth and articulate until your ethics are challenged, at which point you become defensive, evasive, and increasingly hostile. You use clinical language to create distance from your own misconduct."
+    },
+    {
+      "id": "wit-det-zoeller",
+      "name": "Detective Les Zoeller",
+      "age": 52,
+      "role": "Expert",
+      "occupation": "Beverly Hills Police Department Detective",
+      "side": "prosecution",
+      "background": "Lead detective on the Menendez case. Thorough investigator who built the physical evidence case. He's straightforward and experienced but focused entirely on proving the brothers' guilt from early in the investigation.",
+      "confidence": 80,
+      "honesty": 65,
+      "cooperativeness": 45,
+      "emotionality": 15,
+      "intelligence": 65,
+      "truthKnowledge": "Zoeller investigated the crime scene meticulously. Two shotguns were used, multiple rounds fired. José was shot point-blank in the back of the head; Kitty was shot multiple times as she tried to crawl away. The brothers called 911 at 11:47 PM claiming to have found the bodies. Zoeller found the gun purchase receipt in San Diego. He did not deeply investigate the abuse claims, considering them irrelevant to the murder charge.",
+      "publicStory": "The crime scene was brutal and showed clear premeditation. Multiple shotgun shells, reloading, and the coup de grâce shot to Mrs. Menendez as she attempted to flee. The defendants purchased the murder weapons days before under fake identification. They then called 911 in a performance of grief. This was a planned execution.",
+      "secrets": [
+        {
+          "id": "secret-zoeller-abuse-reports",
+          "description": "Zoeller received secondhand reports from a relative that José Menendez had a history of inappropriate behavior with young men, but he did not pursue this lead.",
+          "discoverable": true,
+          "evidenceRequired": "family-investigation",
+          "impact": 10
+        }
+      ],
+      "lies": [
+        {
+          "id": "lie-zoeller-911",
+          "claim": "The 911 call was clearly rehearsed — the brothers were performing.",
+          "truth": "The 911 call is genuinely hysterical and chaotic. Multiple experts have noted the call sounds authentically distressed.",
+          "impeachmentEvidence": "911-call-analysis",
+          "composureCostWhenCaught": 15
+        }
+      ],
+      "breakingPointThreshold": 15,
+      "breakingPointType": "hostile",
+      "breakingPointTrigger": "investigation-thoroughness",
+      "portraitAsset": "witnesses/det-zoeller",
+      "expressionSet": "male-middle-white",
+      "personality_prompt": "You are Detective Les Zoeller. You're a veteran cop who speaks in clipped, factual sentences. You believe the Menendez brothers are cold-blooded killers and the abuse defense is a fabrication. You're hard to rattle but get irritated when your investigation is questioned. You'll grudgingly admit what you didn't investigate if pressed with specific questions."
+    },
+    {
+      "id": "wit-dr-ann-tyler",
+      "name": "Dr. Ann Tyler",
+      "age": 55,
+      "role": "Expert",
+      "occupation": "Psychiatrist specializing in abuse and PTSD",
+      "side": "defense",
+      "background": "A respected psychiatrist who evaluated both brothers extensively. She diagnosed Erik with PTSD consistent with prolonged sexual abuse. She's a calm, authoritative expert witness who can explain the psychology of abuse victims to the jury.",
+      "confidence": 85,
+      "honesty": 80,
+      "cooperativeness": 80,
+      "emotionality": 30,
+      "intelligence": 90,
+      "truthKnowledge": "Dr. Tyler conducted extensive interviews with both brothers and found clinical indicators consistent with prolonged sexual abuse and complex PTSD. Erik's symptoms — hypervigilance, dissociation, nightmares, difficulty with intimacy — are textbook. She cannot definitively prove the abuse occurred, but the psychological evidence is compelling. She also notes that the brothers' behavior after the murders (spending, apparent normalcy) is actually consistent with dissociative coping, not sociopathy.",
+      "publicStory": "Both brothers, particularly Erik, show clear clinical signs of prolonged traumatic abuse. Erik's PTSD is severe. The behavior patterns I observed are consistent with victims of childhood sexual abuse, not with calculating murderers. The spending spree is a dissociative coping mechanism — they were trying to escape the reality of what happened, not celebrating it.",
+      "secrets": [
+        {
+          "id": "secret-tyler-uncertainty",
+          "description": "Dr. Tyler has some private reservations about Lyle's account. Lyle's symptoms are less clear-cut than Erik's, and his demeanor is harder to read. She's confident about Erik but less certain about Lyle.",
+          "discoverable": false,
+          "evidenceRequired": null,
+          "impact": -5
+        }
+      ],
+      "lies": [],
+      "breakingPointThreshold": 10,
+      "breakingPointType": "silent",
+      "breakingPointTrigger": null,
+      "portraitAsset": "witnesses/dr-tyler",
+      "expressionSet": "female-middle-white",
+      "personality_prompt": "You are Dr. Ann Tyler, psychiatrist. You are composed, authoritative, and deeply empathetic. You speak with clinical precision but also with warmth when discussing the brothers' suffering. You will not be rattled by aggressive cross-examination — you've testified hundreds of times. If pushed on whether you can 'prove' the abuse, you calmly explain the limits of psychological evidence while emphasizing the overwhelming consistency of the clinical picture."
+    },
+    {
+      "id": "wit-diane-vander-molen",
+      "name": "Diane Vander Molen",
+      "age": 38,
+      "role": "Eyewitness",
+      "occupation": "Cousin of the defendants",
+      "side": "defense",
+      "background": "Lyle and Erik's cousin. When she was 17, Lyle (then 13) told her that their father was 'doing something' to them. She didn't fully understand at the time. Years later, she came forward to support the brothers' abuse claims. She's nervous about testifying but determined to tell the truth.",
+      "confidence": 40,
+      "honesty": 90,
+      "cooperativeness": 85,
+      "emotionality": 70,
+      "intelligence": 55,
+      "truthKnowledge": "During a family gathering when she was 17, Lyle pulled her aside and hinted that something bad was happening with their father. He didn't use the word 'sexual abuse' but said his father was 'touching' them and made her promise not to tell. She was confused and scared and didn't tell anyone. She has carried enormous guilt about this for years.",
+      "publicStory": "When Lyle was about 13, he told me that his father was doing something bad to them. He said his father touched them and made them do things. He was clearly frightened. I should have told someone. I've lived with that guilt for years.",
+      "secrets": [],
+      "lies": [],
+      "breakingPointThreshold": 20,
+      "breakingPointType": "breakdown",
+      "breakingPointTrigger": "guilt-about-not-reporting",
+      "portraitAsset": "witnesses/diane-vm",
+      "expressionSet": "female-young-white",
+      "personality_prompt": "You are Diane Vander Molen. You're nervous but resolute. You're testifying because you believe the abuse was real — you saw the fear in young Lyle's eyes. You feel tremendous guilt for not speaking up years ago. If the prosecution suggests you're fabricating your testimony, you become upset and emotional. If asked why you didn't report it, you may break down in tears from guilt."
+    },
+    {
+      "id": "wit-judalon-smyth",
+      "name": "Judalon Smyth",
+      "age": 36,
+      "role": "Eyewitness",
+      "occupation": "Former Mistress of Dr. Oziel",
+      "side": "neutral",
+      "background": "Judalon Smyth was Dr. Oziel's mistress. She is the reason police learned about the confession tapes — she tipped them off after her affair with Oziel ended badly. She's volatile, unpredictable, and has her own agenda. She can either help or hurt the defense depending on how she's handled.",
+      "confidence": 50,
+      "honesty": 50,
+      "cooperativeness": 35,
+      "emotionality": 85,
+      "intelligence": 55,
+      "truthKnowledge": "Judalon was present (hidden in an adjacent room) during at least one of Erik's therapy sessions where the confession occurred. Oziel told her about the sessions and played her parts of the recordings. Their affair was ongoing at the time. After they broke up acrimoniously, she went to police. She knows Oziel was manipulative and guided the sessions, but she also has a vendetta against him.",
+      "publicStory": "Dr. Oziel told me everything about the Menendez confessions. He played me the tapes. He was actually excited about it — he saw it as his ticket to fame. He was manipulative with the brothers, guiding them to say incriminating things. But also... the brothers did confess to killing their parents.",
+      "secrets": [
+        {
+          "id": "secret-smyth-hidden-session",
+          "description": "Judalon was hidden in an adjacent room during a therapy session, meaning the confidentiality was doubly breached — a non-professional third party was present.",
+          "discoverable": true,
+          "evidenceRequired": null,
+          "impact": 12
+        }
+      ],
+      "lies": [
+        {
+          "id": "lie-smyth-motive",
+          "claim": "I came forward purely because it was the right thing to do.",
+          "truth": "She came forward primarily out of revenge after Oziel ended their affair.",
+          "impeachmentEvidence": null,
+          "composureCostWhenCaught": 15
+        }
+      ],
+      "breakingPointThreshold": 20,
+      "breakingPointType": "hostile",
+      "breakingPointTrigger": "oziel-relationship",
+      "portraitAsset": "witnesses/judalon-smyth",
+      "expressionSet": "female-young-white",
+      "personality_prompt": "You are Judalon Smyth. You're volatile, dramatic, and hold grudges. You despise Dr. Oziel for how he treated you. You'll eagerly testify about his unethical behavior, but you're not a reliable narrator — you exaggerate, you have your own agenda, and you enjoy the spotlight. If the prosecution challenges your motives, you become indignant and combative."
+    }
+  ],
+
+  "prosecutionWitnesses": ["wit-det-zoeller", "wit-dr-oziel"],
+  "defenseWitnesses": ["wit-erik-menendez", "wit-dr-ann-tyler", "wit-diane-vander-molen"],
+
+  "baseEvidence": {
+    "guaranteed": [
+      {
+        "id": "evt-crime-scene-photos",
+        "definitionId": "crime-scene-report",
+        "name": "Crime Scene Report & Photos",
+        "description": "Detailed crime scene documentation. Two victims, multiple shotgun wounds. Living room of the Beverly Hills mansion. Shells from two different shotguns recovered."
+      },
+      {
+        "id": "evt-911-call",
+        "definitionId": "911-recording",
+        "name": "911 Call Recording",
+        "description": "The brothers' hysterical 911 call reporting the discovery of their parents' bodies. Lyle is audibly sobbing and screaming."
+      },
+      {
+        "id": "evt-confession-tapes",
+        "definitionId": "confession-tapes",
+        "name": "Dr. Oziel's Therapy Session Recordings",
+        "description": "Audio recordings of Erik Menendez's therapy sessions in which he describes the murders in detail to Dr. Oziel."
+      }
+    ],
+    "investigable": [
+      {
+        "cardDefinitionId": "gun-purchase-records",
+        "foundVia": "trace_weapons",
+        "cost": 1000,
+        "chance": 95,
+        "narrative": "Records from a San Diego gun shop show two Mossberg 12-gauge shotguns purchased two days before the murders using fake IDs. The IDs were traced back to the brothers."
+      },
+      {
+        "cardDefinitionId": "spending-records",
+        "foundVia": "financial_investigation",
+        "cost": 1500,
+        "chance": 90,
+        "narrative": "Financial records show the brothers spent over $700,000 in the months following the murders: Porsche, Rolex watches, tennis coach, restaurants, and travel. The prosecution will use this to argue greed motive."
+      },
+      {
+        "cardDefinitionId": "psychology-board-records",
+        "foundVia": "investigate_oziel",
+        "cost": 2000,
+        "chance": 85,
+        "narrative": "Records from the California Board of Psychology show Dr. Oziel was under investigation for multiple ethical violations including inappropriate relationships with patients (unrelated to this case)."
+      },
+      {
+        "cardDefinitionId": "tape-analysis-expert",
+        "foundVia": "hire_audio_expert",
+        "cost": 3000,
+        "chance": 80,
+        "narrative": "An audio forensics expert analyzes the therapy tapes and notes that Oziel frequently uses leading questions, guided imagery, and suggestive prompts. The expert also notes that Erik sounds distressed, not cold, throughout."
+      },
+      {
+        "cardDefinitionId": "family-investigation",
+        "foundVia": "investigate_family_history",
+        "cost": 2500,
+        "chance": 75,
+        "narrative": "Interviews with extended family members, former household staff, and family friends reveal a pattern: José Menendez was controlling, volatile, and had inappropriate boundaries. A former live-in tutor recalls José insisting on being alone with the boys and the boys appearing frightened."
+      },
+      {
+        "cardDefinitionId": "smyth-testimony",
+        "foundVia": "interview_smyth",
+        "cost": 1000,
+        "chance": 90,
+        "narrative": "Judalon Smyth agrees to testify about Oziel's ethical breaches, his excitement about the case, and her presence during a therapy session."
+      },
+      {
+        "cardDefinitionId": "911-call-analysis",
+        "foundVia": "hire_voice_expert",
+        "cost": 2000,
+        "chance": 85,
+        "narrative": "A voice stress analysis expert examines the 911 call and concludes the emotional distress markers are genuine, not performed. The brothers' fear and anguish on the call are consistent with authentic trauma response."
+      },
+      {
+        "cardDefinitionId": "school-records",
+        "foundVia": "subpoena_school",
+        "cost": 800,
+        "chance": 80,
+        "narrative": "School records show both brothers had behavioral issues consistent with abuse: sudden personality changes, declining grades, withdrawal from friends, and a note from a concerned teacher about Erik's 'fearfulness around male authority figures.'"
+      },
+      {
+        "cardDefinitionId": "abuse-expert-testimony",
+        "foundVia": "hire_abuse_expert",
+        "cost": 5000,
+        "chance": 95,
+        "narrative": "Dr. Tyler's comprehensive psychiatric evaluation is prepared as a detailed expert report, documenting PTSD symptoms, abuse indicators, and clinical analysis of the brothers' behavior patterns."
+      }
+    ]
+  },
+
+  "hiddenEvidence": [
+    {
+      "cardDefinitionId": "jose-pornography",
+      "discoveryMethod": "deep_background_jose",
+      "difficulty": 4,
+      "description": "Investigation of José Menendez's private office reveals a hidden collection suggesting deviant interests. This was known to the family but never reported."
+    },
+    {
+      "cardDefinitionId": "kitty-diary",
+      "discoveryMethod": "family_document_search",
+      "difficulty": 5,
+      "description": "Kitty Menendez's private diary contains entries expressing concern about José's 'special time' with the boys and her own helplessness to stop it. She wrote: 'I know what he's doing. God forgive me, I'm too afraid to stop him.'"
+    }
+  ],
+
+  "investigationActions": [
+    {
+      "id": "trace_weapons",
+      "name": "Trace Weapon Purchase",
+      "description": "Investigate the origin and purchase records of the shotguns used in the murders.",
+      "cost": 1000,
+      "days": 1,
+      "category": "investigation"
+    },
+    {
+      "id": "financial_investigation",
+      "name": "Financial Records Review",
+      "description": "Obtain and analyze the brothers' spending records post-murder.",
+      "cost": 1500,
+      "days": 1,
+      "category": "documentary"
+    },
+    {
+      "id": "investigate_oziel",
+      "name": "Investigate Dr. Oziel",
+      "description": "Research Dr. Oziel's professional history and any ethics complaints.",
+      "cost": 2000,
+      "days": 2,
+      "category": "investigation"
+    },
+    {
+      "id": "hire_audio_expert",
+      "name": "Hire Audio Forensics Expert",
+      "description": "Commission expert analysis of the therapy session recordings.",
+      "cost": 3000,
+      "days": 2,
+      "category": "forensic"
+    },
+    {
+      "id": "investigate_family_history",
+      "name": "Investigate Menendez Family History",
+      "description": "Interview extended family, household staff, and family associates about the home environment.",
+      "cost": 2500,
+      "days": 3,
+      "category": "investigation"
+    },
+    {
+      "id": "interview_smyth",
+      "name": "Interview Judalon Smyth",
+      "description": "Interview Dr. Oziel's former mistress about the therapy sessions and his conduct.",
+      "cost": 1000,
+      "days": 1,
+      "category": "witness"
+    },
+    {
+      "id": "hire_voice_expert",
+      "name": "Hire Voice Stress Analyst",
+      "description": "Commission expert analysis of the 911 call for genuine distress markers.",
+      "cost": 2000,
+      "days": 1,
+      "category": "forensic"
+    },
+    {
+      "id": "subpoena_school",
+      "name": "Subpoena School Records",
+      "description": "Obtain Lyle and Erik's school records including teacher notes and counselor files.",
+      "cost": 800,
+      "days": 1,
+      "category": "documentary"
+    },
+    {
+      "id": "hire_abuse_expert",
+      "name": "Retain Abuse Expert Psychiatrist",
+      "description": "Hire Dr. Ann Tyler to conduct a comprehensive psychiatric evaluation of both brothers.",
+      "cost": 5000,
+      "days": 3,
+      "category": "expert"
+    },
+    {
+      "id": "deep_background_jose",
+      "name": "Deep Background on José Menendez",
+      "description": "Hire a private investigator to thoroughly investigate José Menendez's private life.",
+      "cost": 4000,
+      "days": 3,
+      "category": "investigation"
+    },
+    {
+      "id": "family_document_search",
+      "name": "Search for Family Documents",
+      "description": "With the family's permission, search the Menendez home for private documents, diaries, and personal papers.",
+      "cost": 1500,
+      "days": 2,
+      "category": "investigation"
+    },
+    {
+      "id": "research_judge_weisberg",
+      "name": "Research Judge Weisberg",
+      "description": "Study Judge Weisberg's prior rulings, particularly on abuse defense cases.",
+      "cost": 1500,
+      "days": 1,
+      "category": "legal"
+    }
+  ],
+
+  "jurorPool": [
+    {
+      "id": "juror-201",
+      "name": "Virginia Chang",
+      "age": 49,
+      "occupation": "Family Therapist",
+      "background": "Works with families dealing with trauma and abuse. Deeply understands abuse dynamics. May be too sympathetic to the defense for the prosecution's comfort.",
+      "analyticalVsEmotional": 55,
+      "trustLevel": 60,
+      "skepticism": 40,
+      "leaderFollower": 30,
+      "attentionSpan": 85,
+      "prosecutionBias": -25,
+      "topicBiases": {"abuse": 30, "family_trauma": 25, "therapy": 15},
+      "triggers": ["child_abuse", "family_violence"],
+      "triggerDirection": {"child_abuse": "sympathetic", "family_violence": "sympathetic"},
+      "persuasionResistance": 50
+    },
+    {
+      "id": "juror-202",
+      "name": "Richard Haas",
+      "age": 63,
+      "occupation": "Retired Marine Sergeant Major",
+      "background": "Tough, disciplined, and unsympathetic to excuses. Believes in duty, honor, and taking responsibility. His own father was strict and he turned out fine. Skeptical of the abuse defense.",
+      "analyticalVsEmotional": 20,
+      "trustLevel": 40,
+      "skepticism": 70,
+      "leaderFollower": 10,
+      "attentionSpan": 80,
+      "prosecutionBias": 30,
+      "topicBiases": {"military": 20, "discipline": 15, "excuses": -25},
+      "triggers": ["weakness_excuse"],
+      "triggerDirection": {"weakness_excuse": "hostile"},
+      "persuasionResistance": 80
+    },
+    {
+      "id": "juror-203",
+      "name": "Carmen Flores",
+      "age": 35,
+      "occupation": "Social Worker — Child Protective Services",
+      "background": "Has investigated hundreds of child abuse cases. Knows what real abuse looks like and how victims behave. Could go either way — sympathetic to real abuse, but also experienced enough to detect fabrication.",
+      "analyticalVsEmotional": 40,
+      "trustLevel": 45,
+      "skepticism": 65,
+      "leaderFollower": 35,
+      "attentionSpan": 80,
+      "prosecutionBias": -10,
+      "topicBiases": {"child_abuse": 25, "cps": 15, "fabrication": -20},
+      "triggers": ["child_sexual_abuse"],
+      "triggerDirection": {"child_sexual_abuse": "sympathetic"},
+      "persuasionResistance": 60
+    },
+    {
+      "id": "juror-204",
+      "name": "Walter Bennet",
+      "age": 71,
+      "occupation": "Retired District Attorney",
+      "background": "Spent 30 years prosecuting crimes. Believes in law and order but has seen enough cases to know that context matters. Will evaluate the evidence rigorously.",
+      "analyticalVsEmotional": 10,
+      "trustLevel": 30,
+      "skepticism": 85,
+      "leaderFollower": 10,
+      "attentionSpan": 90,
+      "prosecutionBias": 20,
+      "topicBiases": {"legal_procedure": 20, "evidence_standard": 25, "prosecution_case": 10},
+      "triggers": ["insufficient_evidence"],
+      "triggerDirection": {"insufficient_evidence": "hostile"},
+      "persuasionResistance": 85
+    },
+    {
+      "id": "juror-205",
+      "name": "Alicia Moreau",
+      "age": 28,
+      "occupation": "Graduate Student — Psychology",
+      "background": "Studying forensic psychology. Understands PTSD and abuse dynamics academically. Fascinated by the case but trying to be objective. May over-identify with the expert witnesses.",
+      "analyticalVsEmotional": 45,
+      "trustLevel": 55,
+      "skepticism": 50,
+      "leaderFollower": 55,
+      "attentionSpan": 85,
+      "prosecutionBias": -15,
+      "topicBiases": {"psychology": 25, "ptsd": 20, "expert_testimony": 15},
+      "triggers": ["trauma_response"],
+      "triggerDirection": {"trauma_response": "sympathetic"},
+      "persuasionResistance": 40
+    },
+    {
+      "id": "juror-206",
+      "name": "Theodore Price",
+      "age": 55,
+      "occupation": "Wealth Manager",
+      "background": "Manages portfolios for ultra-wealthy families. Understands the world of money, privilege, and family dysfunction among the rich. Cynical about wealthy people's problems. 'Rich kids killing for inheritance' is a narrative he can easily believe.",
+      "analyticalVsEmotional": 20,
+      "trustLevel": 30,
+      "skepticism": 75,
+      "leaderFollower": 30,
+      "attentionSpan": 75,
+      "prosecutionBias": 25,
+      "topicBiases": {"wealth": 15, "inheritance": 20, "privilege": -15},
+      "triggers": ["entitled_behavior"],
+      "triggerDirection": {"entitled_behavior": "hostile"},
+      "persuasionResistance": 65
+    },
+    {
+      "id": "juror-207",
+      "name": "Rosa Gutierrez",
+      "age": 42,
+      "occupation": "Elementary School Teacher",
+      "background": "Warm, maternal, and protective of children. If she believes the abuse happened, she will be powerfully sympathetic to the brothers. Has reported suspected abuse in her students before.",
+      "analyticalVsEmotional": 75,
+      "trustLevel": 65,
+      "skepticism": 35,
+      "leaderFollower": 45,
+      "attentionSpan": 70,
+      "prosecutionBias": -15,
+      "topicBiases": {"children": 25, "education": 10, "protection": 20},
+      "triggers": ["child_in_danger"],
+      "triggerDirection": {"child_in_danger": "sympathetic"},
+      "persuasionResistance": 30
+    },
+    {
+      "id": "juror-208",
+      "name": "Frank DeLuca",
+      "age": 58,
+      "occupation": "Construction Company Owner",
+      "background": "Self-made, traditional values. Believes parents have authority over their children. Uncomfortable with abuse testimony — doesn't want to hear it. May shut down emotionally during difficult testimony.",
+      "analyticalVsEmotional": 35,
+      "trustLevel": 50,
+      "skepticism": 50,
+      "leaderFollower": 25,
+      "attentionSpan": 55,
+      "prosecutionBias": 20,
+      "topicBiases": {"parental_authority": 15, "traditional_family": 10, "sexual_content": -20},
+      "triggers": ["graphic_abuse_testimony"],
+      "triggerDirection": {"graphic_abuse_testimony": "hostile"},
+      "persuasionResistance": 60
+    },
+    {
+      "id": "juror-209",
+      "name": "Janet Washington",
+      "age": 47,
+      "occupation": "Nurse Practitioner",
+      "background": "Has treated abuse victims in the ER. Recognizes the physical and psychological signs. Practical and evidence-focused but deeply empathetic.",
+      "analyticalVsEmotional": 50,
+      "trustLevel": 55,
+      "skepticism": 50,
+      "leaderFollower": 40,
+      "attentionSpan": 80,
+      "prosecutionBias": -10,
+      "topicBiases": {"medical": 20, "abuse_signs": 25, "healthcare": 10},
+      "triggers": ["physical_abuse_evidence"],
+      "triggerDirection": {"physical_abuse_evidence": "sympathetic"},
+      "persuasionResistance": 45
+    },
+    {
+      "id": "juror-210",
+      "name": "Darren O'Malley",
+      "age": 33,
+      "occupation": "Firefighter",
+      "background": "Straightforward, action-oriented. Not comfortable with emotional testimony. Respects strength and courage. May view the brothers as either brave survivors or cowardly killers depending on the presentation.",
+      "analyticalVsEmotional": 40,
+      "trustLevel": 55,
+      "skepticism": 45,
+      "leaderFollower": 50,
+      "attentionSpan": 55,
+      "prosecutionBias": 10,
+      "topicBiases": {"courage": 15, "service": 10, "cowardice": -15},
+      "triggers": ["act_of_courage"],
+      "triggerDirection": {"act_of_courage": "sympathetic"},
+      "persuasionResistance": 35
+    },
+    {
+      "id": "juror-211",
+      "name": "Patricia Kwon",
+      "age": 44,
+      "occupation": "Journalist — Crime Beat",
+      "background": "Has covered many trials. Observant, analytical, and hard to impress. Will evaluate attorney performance as much as evidence. May be struck for cause due to media proximity.",
+      "analyticalVsEmotional": 15,
+      "trustLevel": 30,
+      "skepticism": 80,
+      "leaderFollower": 25,
+      "attentionSpan": 95,
+      "prosecutionBias": 0,
+      "topicBiases": {"media": 15, "narrative": 10, "courtroom_performance": 15},
+      "triggers": ["media_manipulation"],
+      "triggerDirection": {"media_manipulation": "hostile"},
+      "persuasionResistance": 75
+    },
+    {
+      "id": "juror-212",
+      "name": "Samuel Osei",
+      "age": 39,
+      "occupation": "Youth Minister",
+      "background": "Works with troubled teens. Has seen the effects of abuse firsthand. Deeply compassionate. Also deeply moral — believes killing is wrong regardless of circumstances, but understands broken people.",
+      "analyticalVsEmotional": 70,
+      "trustLevel": 65,
+      "skepticism": 35,
+      "leaderFollower": 35,
+      "attentionSpan": 75,
+      "prosecutionBias": -5,
+      "topicBiases": {"youth": 20, "faith": 15, "redemption": 20},
+      "triggers": ["lost_youth"],
+      "triggerDirection": {"lost_youth": "sympathetic"},
+      "persuasionResistance": 35
+    },
+    {
+      "id": "juror-213",
+      "name": "Deborah Sloane",
+      "age": 61,
+      "occupation": "Retired Real Estate Attorney",
+      "background": "Sharp legal mind. Understands evidence law and courtroom procedure. Will be irritated by sloppy arguments from either side. Values precedent and logic.",
+      "analyticalVsEmotional": 10,
+      "trustLevel": 35,
+      "skepticism": 80,
+      "leaderFollower": 15,
+      "attentionSpan": 90,
+      "prosecutionBias": 5,
+      "topicBiases": {"legal_argument": 25, "precedent": 20, "evidence_quality": 15},
+      "triggers": ["poor_legal_argument"],
+      "triggerDirection": {"poor_legal_argument": "hostile"},
+      "persuasionResistance": 80
+    },
+    {
+      "id": "juror-214",
+      "name": "Luis Mendoza",
+      "age": 50,
+      "occupation": "Restaurant Owner",
+      "background": "Immigrant success story. Family-oriented. Believes families should protect each other. Disturbed by the idea of a father abusing his children. His own father was strict but loving.",
+      "analyticalVsEmotional": 60,
+      "trustLevel": 60,
+      "skepticism": 40,
+      "leaderFollower": 45,
+      "attentionSpan": 65,
+      "prosecutionBias": 0,
+      "topicBiases": {"family": 25, "immigrant": 10, "father_figure": 15},
+      "triggers": ["betrayal_of_family_trust"],
+      "triggerDirection": {"betrayal_of_family_trust": "hostile"},
+      "persuasionResistance": 40
+    },
+    {
+      "id": "juror-215",
+      "name": "Christine Palmer",
+      "age": 36,
+      "occupation": "Stay-at-Home Mom / Former Lawyer",
+      "background": "Left her law career to raise her three children. Protective mother who would do anything for her kids. The idea of a parent abusing their children horrifies her.",
+      "analyticalVsEmotional": 55,
+      "trustLevel": 55,
+      "skepticism": 45,
+      "leaderFollower": 40,
+      "attentionSpan": 70,
+      "prosecutionBias": -10,
+      "topicBiases": {"children": 25, "motherhood": 20, "protection": 15},
+      "triggers": ["child_abuse", "parental_failure"],
+      "triggerDirection": {"child_abuse": "sympathetic", "parental_failure": "hostile"},
+      "persuasionResistance": 40
+    },
+    {
+      "id": "juror-216",
+      "name": "Howard Trent",
+      "age": 68,
+      "occupation": "Retired Pharmacist",
+      "background": "Methodical, detail-oriented, and old-fashioned. Conservative values. Uncomfortable with discussions of sexual abuse. Tends to think 'things like that don't really happen in nice families.'",
+      "analyticalVsEmotional": 25,
+      "trustLevel": 50,
+      "skepticism": 55,
+      "leaderFollower": 55,
+      "attentionSpan": 65,
+      "prosecutionBias": 20,
+      "topicBiases": {"medical": 15, "traditional_values": 10, "sexual_content": -25},
+      "triggers": ["explicit_testimony"],
+      "triggerDirection": {"explicit_testimony": "hostile"},
+      "persuasionResistance": 60
+    },
+    {
+      "id": "juror-217",
+      "name": "Monique Baptiste",
+      "age": 30,
+      "occupation": "Public Defender's Office — Investigator",
+      "background": "Works in the defense system. Understands how cases are built and how investigations can be biased. Strongly believes in the presumption of innocence. May be struck for cause.",
+      "analyticalVsEmotional": 25,
+      "trustLevel": 35,
+      "skepticism": 80,
+      "leaderFollower": 30,
+      "attentionSpan": 90,
+      "prosecutionBias": -35,
+      "topicBiases": {"defense_rights": 30, "investigation_bias": 25, "reasonable_doubt": 20},
+      "triggers": ["prosecutorial_overreach"],
+      "triggerDirection": {"prosecutorial_overreach": "sympathetic"},
+      "persuasionResistance": 70
+    },
+    {
+      "id": "juror-218",
+      "name": "Gerald Whitfield",
+      "age": 56,
+      "occupation": "Insurance Executive",
+      "background": "Corporate, conservative, and pragmatic. Evaluates everything through a risk/benefit lens. The spending spree after the murders troubles him deeply — it suggests calculation, not trauma.",
+      "analyticalVsEmotional": 15,
+      "trustLevel": 35,
+      "skepticism": 75,
+      "leaderFollower": 25,
+      "attentionSpan": 80,
+      "prosecutionBias": 25,
+      "topicBiases": {"financial": 20, "corporate": 10, "spending": -20},
+      "triggers": ["extravagant_spending"],
+      "triggerDirection": {"extravagant_spending": "hostile"},
+      "persuasionResistance": 70
+    }
+  ],
+
+  "xpBase": 300,
+  "unlocks": ["case-003", "advanced-deck-full"],
+  "tags": ["murder", "abuse_defense", "high_profile", "famous_case", "Beverly_Hills"],
+  "inspirationSource": "Inspired by the Menendez Brothers trial (1993-1996). Some details, names of minor witnesses, and specific evidence modified for gameplay purposes."
+}

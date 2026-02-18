@@ -1,0 +1,600 @@
+{
+  "id": "tutorial",
+  "title": "State v. Martinez",
+  "subtitle": "The Shoplifting Charge",
+  "type": "criminal",
+  "charge": "Petty Theft (Shoplifting)",
+  "difficulty": 1,
+  "playerSide": "defense",
+  "baseBudget": 5000,
+  "investigationDays": 5,
+  "synopsis": "Maria Martinez, a 24-year-old nursing student, has been charged with shoplifting a $200 portable speaker from ValueMart Electronics. The store clerk claims he saw her conceal the item in her bag and walk past the registers. Security footage exists but is grainy. Martinez insists she paid for the item at a self-checkout kiosk and has a receipt — but the receipt is for a different item of similar price.\n\nThis is a straightforward case that will teach you the fundamentals of courtroom strategy. Learn to examine witnesses, present evidence, read the jury, and manage your resources.",
+  "truthNarrative": "Maria Martinez did purchase an item at the self-checkout — a pair of wireless earbuds priced at $189. She also picked up the $200 speaker, intending to buy both. At the self-checkout, she scanned the earbuds but accidentally placed the speaker in her bag without scanning it, distracted by a phone call from the hospital where she interns. She genuinely believes she paid for both items. The store clerk, Derek Huang, has a history of overzealous loss-prevention reports and has been warned by management before. The security footage is ambiguous — it shows her at the self-checkout but the angle doesn't clearly show whether she scanned one or two items.",
+  "prosecutionTheory": "The defendant deliberately concealed a $200 portable speaker in her shopping bag and attempted to leave the store without paying. The store clerk witnessed the concealment, and security footage confirms the defendant bypassed the register with the unpaid merchandise.",
+  "defenseTheory": "Maria Martinez is an honest nursing student who made an innocent mistake at the self-checkout. She was distracted by an important phone call and genuinely believed she had scanned both items. The store clerk has a history of false accusations, and the security footage is too unclear to prove intent.",
+
+  "judge": {
+    "id": "judge-thompson",
+    "name": "Judge Patricia Thompson",
+    "title": "The Honorable Patricia Thompson",
+    "background": "15 years on the bench, formerly a public defender. Known for running an efficient courtroom. She respects prepared attorneys and has little tolerance for wasted time, but she's fundamentally fair and protective of defendants' rights.",
+    "strictness": 50,
+    "patience": 55,
+    "prosecutionLean": 45,
+    "petPeeves": ["repetitive_objections", "unprepared_counsel", "grandstanding"],
+    "hearsayStrictness": 60,
+    "relevanceThreshold": 50,
+    "contemptThreshold": 15,
+    "portraitAsset": "judges/thompson",
+    "gavelStyle": "measured"
+  },
+
+  "opposingCounsel": {
+    "id": "opp-tutorial",
+    "name": "ADA Kevin Park",
+    "style": "methodical",
+    "difficulty": 1,
+    "description": "A junior assistant district attorney on his third trial. Competent but predictable. He follows the textbook and rarely improvises. He'll present his witnesses in order and make standard objections but won't set traps or exploit weaknesses aggressively."
+  },
+
+  "witnesses": [
+    {
+      "id": "wit-derek-huang",
+      "name": "Derek Huang",
+      "age": 31,
+      "role": "Eyewitness",
+      "occupation": "ValueMart Electronics Store Clerk / Loss Prevention Associate",
+      "side": "prosecution",
+      "background": "Derek has worked at ValueMart for 4 years. He takes his loss prevention duties very seriously — perhaps too seriously. He's been reprimanded twice for confronting customers who turned out to be innocent. He genuinely believes he saw Martinez steal the speaker, but his certainty is partly fueled by his desire to prove himself after past mistakes.",
+      "confidence": 70,
+      "honesty": 55,
+      "cooperativeness": 75,
+      "emotionality": 40,
+      "intelligence": 50,
+      "truthKnowledge": "Derek was restocking shelves in the audio aisle when he noticed Martinez pick up the speaker. He then lost sight of her for about 2 minutes. He next saw her near the exit with her bag looking fuller. He did NOT actually see her put the speaker in the bag — he inferred it. He stopped her at the door and found the speaker in her bag.",
+      "publicStory": "I watched the defendant pick up the speaker, look around nervously, and slip it into her shopping bag. She then walked toward the exit without going to a register. I confronted her at the door and recovered the stolen merchandise.",
+      "secrets": [
+        {
+          "id": "secret-derek-gap",
+          "description": "Derek lost sight of Martinez for approximately 2 minutes between seeing her pick up the speaker and seeing her near the exit. He did not actually witness the concealment.",
+          "discoverable": true,
+          "evidenceRequired": "security-footage-enhanced",
+          "impact": 8
+        },
+        {
+          "id": "secret-derek-warnings",
+          "description": "Derek has received two formal warnings from management for falsely accusing customers of shoplifting in the past year.",
+          "discoverable": true,
+          "evidenceRequired": null,
+          "impact": 6
+        }
+      ],
+      "lies": [
+        {
+          "id": "lie-derek-saw",
+          "claim": "I watched her slip the speaker into her bag.",
+          "truth": "He did not see the actual concealment. He saw her pick it up, lost sight of her, then saw her near the exit.",
+          "impeachmentEvidence": "security-footage-enhanced",
+          "composureCostWhenCaught": 25
+        },
+        {
+          "id": "lie-derek-nervous",
+          "claim": "She was looking around nervously, like she was checking if anyone was watching.",
+          "truth": "He was too far away and at a bad angle to see her facial expressions clearly. He's embellishing based on his assumption.",
+          "impeachmentEvidence": "store-layout-diagram",
+          "composureCostWhenCaught": 15
+        }
+      ],
+      "breakingPointThreshold": 20,
+      "breakingPointType": "confession",
+      "breakingPointTrigger": "prior-warnings",
+      "portraitAsset": "witnesses/derek-huang",
+      "expressionSet": "male-young-asian",
+      "personality_prompt": "You are Derek Huang. You're earnest but defensive about your job performance. When pressed about inconsistencies, you get flustered and start over-explaining. You genuinely believe Martinez stole the speaker, but deep down you know you didn't see the actual concealment. If confronted with your prior false accusations, you become visibly upset and your confidence crumbles."
+    },
+    {
+      "id": "wit-carol-nash",
+      "name": "Carol Nash",
+      "age": 45,
+      "role": "Expert",
+      "occupation": "ValueMart Head of Security",
+      "side": "prosecution",
+      "background": "Carol has been the security manager at ValueMart for 8 years. She reviewed the security footage after the incident and prepared the store's case. She's professional and matter-of-fact. She didn't witness the incident directly — she only knows what the footage shows and what Derek reported.",
+      "confidence": 80,
+      "honesty": 70,
+      "cooperativeness": 60,
+      "emotionality": 20,
+      "intelligence": 65,
+      "truthKnowledge": "Carol reviewed the security footage carefully. The footage shows Martinez at the self-checkout, but the camera angle is poor — you can see her scanning something, but it's impossible to tell from the footage alone whether she scanned one item or two. The speaker was found in her bag. Carol knows the footage is ambiguous but has presented it as supportive of Derek's account.",
+      "publicStory": "I reviewed the security footage from three cameras. The footage shows the defendant at the self-checkout station scanning one item, then placing the speaker in her bag without scanning it. Combined with Derek's eyewitness account, the evidence is clear.",
+      "secrets": [
+        {
+          "id": "secret-carol-footage",
+          "description": "Carol knows the footage is genuinely ambiguous and does not clearly show whether one or two items were scanned. She's stretching her interpretation to support the store's case.",
+          "discoverable": true,
+          "evidenceRequired": "security-footage-enhanced",
+          "impact": 10
+        }
+      ],
+      "lies": [
+        {
+          "id": "lie-carol-clarity",
+          "claim": "The footage clearly shows only one item being scanned.",
+          "truth": "The footage is grainy and the angle makes it impossible to definitively count items scanned at the self-checkout.",
+          "impeachmentEvidence": "security-footage-enhanced",
+          "composureCostWhenCaught": 20
+        }
+      ],
+      "breakingPointThreshold": 15,
+      "breakingPointType": "silent",
+      "breakingPointTrigger": "footage-quality",
+      "portraitAsset": "witnesses/carol-nash",
+      "expressionSet": "female-middle-white",
+      "personality_prompt": "You are Carol Nash. You're professional, calm, and measured. You speak in a clipped, factual manner. You believe in the store's case but you're not passionate about it — this is just your job. If the defense proves the footage is ambiguous, you'll become increasingly terse and eventually stop volunteering information, answering only what's directly asked."
+    },
+    {
+      "id": "wit-jason-cole",
+      "name": "Jason Cole",
+      "age": 23,
+      "role": "Character",
+      "occupation": "EMT / Paramedic Student",
+      "side": "defense",
+      "background": "Jason is Maria's close friend and classmate in the nursing program. He was on the phone with Maria during the incident — he's the one who called her about a shift change at the hospital. He didn't witness the shopping but can testify to her character and the phone call that distracted her.",
+      "confidence": 45,
+      "honesty": 85,
+      "cooperativeness": 90,
+      "emotionality": 60,
+      "intelligence": 55,
+      "truthKnowledge": "Jason called Maria at approximately 3:42 PM about a shift swap at the hospital. They talked for about 4 minutes. Maria mentioned she was at the store checkout. He could hear beeping sounds (scanner) in the background. Maria sounded distracted, trying to handle the phone and checkout simultaneously. He knows Maria is honest and has never stolen anything.",
+      "publicStory": "I called Maria while she was checking out. She was distracted trying to handle the call and pay at the same time. Maria is one of the most honest people I know — she volunteers at the children's hospital on her days off. There's no way she intentionally stole anything.",
+      "secrets": [
+        {
+          "id": "secret-jason-feelings",
+          "description": "Jason has romantic feelings for Maria, which the prosecution could use to suggest his testimony is biased.",
+          "discoverable": true,
+          "evidenceRequired": null,
+          "impact": -3
+        }
+      ],
+      "lies": [],
+      "breakingPointThreshold": 15,
+      "breakingPointType": "breakdown",
+      "breakingPointTrigger": "maria-character-attack",
+      "portraitAsset": "witnesses/jason-cole",
+      "expressionSet": "male-young-black",
+      "personality_prompt": "You are Jason Cole. You're nervous about testifying but determined to help your friend Maria. You speak earnestly and sometimes ramble when anxious. You care deeply about Maria (more than just a friend, though you haven't told her). If the prosecution attacks Maria's character, you become emotional and defensive. You're truthful in everything you say but your obvious affection for Maria could undermine your credibility."
+    }
+  ],
+
+  "prosecutionWitnesses": ["wit-derek-huang", "wit-carol-nash"],
+  "defenseWitnesses": ["wit-jason-cole"],
+
+  "baseEvidence": {
+    "guaranteed": [
+      {
+        "id": "evt-police-report",
+        "definitionId": "police-report",
+        "name": "Police Report",
+        "description": "Standard police report documenting the shoplifting allegation, Derek's statement, and Martinez's arrest."
+      },
+      {
+        "id": "evt-store-layout",
+        "definitionId": "store-layout-diagram",
+        "name": "Store Layout Diagram",
+        "description": "Floor plan of ValueMart Electronics showing camera positions, self-checkout location, aisles, and the exit where Martinez was stopped. Notably shows Derek's claimed position was partially obstructed by a display rack.",
+        "cost": 0
+      }
+    ],
+    "investigable": [
+      {
+        "cardDefinitionId": "security-footage-enhanced",
+        "foundVia": "enhance_footage",
+        "cost": 500,
+        "chance": 90,
+        "narrative": "Your tech expert enhances the grainy footage. The improved video clearly shows Martinez scanning an item, but the angle still doesn't definitively show whether a second item was also scanned. However, it DOES show that Derek was not in a position to see the self-checkout area — contradicting his testimony that he watched her conceal the item."
+      },
+      {
+        "cardDefinitionId": "receipt-records",
+        "foundVia": "subpoena_records",
+        "cost": 200,
+        "chance": 95,
+        "narrative": "The store's electronic records show Martinez's self-checkout transaction: one item scanned — wireless earbuds at $189.99. The speaker ($199.99) does not appear in the transaction. However, the self-checkout system logs show a second barcode scan attempt that failed — possibly a misread."
+      },
+      {
+        "cardDefinitionId": "character-witness-professor",
+        "foundVia": "character_investigation",
+        "cost": 1000,
+        "chance": 85,
+        "narrative": "Professor Linda Chen from the nursing program is willing to testify about Martinez's exemplary character, volunteer work, and academic standing."
+      },
+      {
+        "cardDefinitionId": "character-witness-supervisor",
+        "foundVia": "character_investigation",
+        "cost": 1000,
+        "chance": 80,
+        "narrative": "Martinez's hospital internship supervisor, Dr. Reeves, will testify that she has handled medications and expensive equipment with complete trustworthiness."
+      },
+      {
+        "cardDefinitionId": "derek-employment-record",
+        "foundVia": "background_check_witness",
+        "cost": 800,
+        "chance": 75,
+        "narrative": "Derek Huang's employment file reveals two formal warnings for falsely accusing customers of theft. One customer threatened a lawsuit before the store quietly settled."
+      }
+    ]
+  },
+
+  "hiddenEvidence": [
+    {
+      "cardDefinitionId": "failed-scan-log",
+      "discoveryMethod": "digital_forensics",
+      "difficulty": 3,
+      "description": "Deep in the self-checkout system's diagnostic logs, there's a record of a failed barcode scan at Martinez's kiosk — timestamp matches the transaction. The scanner may have malfunctioned, failing to read the speaker's barcode."
+    }
+  ],
+
+  "investigationActions": [
+    {
+      "id": "enhance_footage",
+      "name": "Enhance Security Footage",
+      "description": "Hire a video specialist to enhance the grainy security camera footage.",
+      "cost": 500,
+      "days": 1,
+      "category": "forensic"
+    },
+    {
+      "id": "subpoena_records",
+      "name": "Subpoena Store Records",
+      "description": "Obtain the electronic transaction records from the self-checkout system.",
+      "cost": 200,
+      "days": 1,
+      "category": "documentary"
+    },
+    {
+      "id": "character_investigation",
+      "name": "Find Character Witnesses",
+      "description": "Interview Martinez's professors, coworkers, and supervisors to find character witnesses.",
+      "cost": 1000,
+      "days": 1,
+      "category": "witness"
+    },
+    {
+      "id": "background_check_witness",
+      "name": "Background Check: Derek Huang",
+      "description": "Investigate the store clerk's employment history and prior incident reports.",
+      "cost": 800,
+      "days": 1,
+      "category": "investigation"
+    },
+    {
+      "id": "digital_forensics",
+      "name": "Self-Checkout System Analysis",
+      "description": "Hire a digital forensics expert to examine the self-checkout system's diagnostic logs.",
+      "cost": 1500,
+      "days": 2,
+      "category": "forensic"
+    },
+    {
+      "id": "research_judge",
+      "name": "Research Judge Thompson",
+      "description": "Study Judge Thompson's prior rulings and courtroom preferences.",
+      "cost": 500,
+      "days": 1,
+      "category": "legal"
+    }
+  ],
+
+  "jurorPool": [
+    {
+      "id": "juror-01",
+      "name": "Robert Chen",
+      "age": 58,
+      "occupation": "Retired Accountant",
+      "background": "Meticulous and detail-oriented. Spent 30 years auditing financial records. Believes strongly in evidence over emotion. Volunteers as a tax preparer for seniors.",
+      "analyticalVsEmotional": 15,
+      "trustLevel": 35,
+      "skepticism": 80,
+      "leaderFollower": 25,
+      "attentionSpan": 85,
+      "prosecutionBias": -5,
+      "topicBiases": {"financial_records": 15, "procedure": 10, "youth": -5},
+      "triggers": ["mathematical_inconsistency"],
+      "triggerDirection": {"mathematical_inconsistency": "hostile"},
+      "persuasionResistance": 75
+    },
+    {
+      "id": "juror-02",
+      "name": "Destiny Williams",
+      "age": 26,
+      "occupation": "Social Worker",
+      "background": "Works with at-risk youth. Empathetic and idealistic. Believes the justice system is biased against minorities and young people. Grew up in a tough neighborhood.",
+      "analyticalVsEmotional": 75,
+      "trustLevel": 55,
+      "skepticism": 45,
+      "leaderFollower": 40,
+      "attentionSpan": 70,
+      "prosecutionBias": -25,
+      "topicBiases": {"youth": 20, "character": 15, "police": -15},
+      "triggers": ["racial_profiling", "systemic_bias"],
+      "triggerDirection": {"racial_profiling": "sympathetic", "systemic_bias": "sympathetic"},
+      "persuasionResistance": 40
+    },
+    {
+      "id": "juror-03",
+      "name": "Frank Morrison",
+      "age": 64,
+      "occupation": "Retired Police Officer",
+      "background": "32 years on the force, mostly patrol and then detective work. Trusts law enforcement testimony. Believes shoplifting is a gateway crime that stores suffer from daily.",
+      "analyticalVsEmotional": 30,
+      "trustLevel": 70,
+      "skepticism": 30,
+      "leaderFollower": 20,
+      "attentionSpan": 80,
+      "prosecutionBias": 35,
+      "topicBiases": {"police": 25, "law_enforcement": 20, "theft": 15},
+      "triggers": ["anti_police_sentiment"],
+      "triggerDirection": {"anti_police_sentiment": "hostile"},
+      "persuasionResistance": 70
+    },
+    {
+      "id": "juror-04",
+      "name": "Priya Patel",
+      "age": 34,
+      "occupation": "Software Engineer",
+      "background": "Analytical thinker who works on security systems. Understands technology well, including how self-checkout systems work. Skeptical of eyewitness testimony based on articles she's read.",
+      "analyticalVsEmotional": 20,
+      "trustLevel": 40,
+      "skepticism": 70,
+      "leaderFollower": 45,
+      "attentionSpan": 75,
+      "prosecutionBias": -10,
+      "topicBiases": {"technology": 20, "digital": 15, "eyewitness": -15},
+      "triggers": ["technology_malfunction"],
+      "triggerDirection": {"technology_malfunction": "sympathetic"},
+      "persuasionResistance": 60
+    },
+    {
+      "id": "juror-05",
+      "name": "Margaret O'Brien",
+      "age": 71,
+      "occupation": "Retired Elementary School Teacher",
+      "background": "Spent 40 years teaching. Kind but firm. Believes in personal responsibility but also in giving people the benefit of the doubt. Active in her church community.",
+      "analyticalVsEmotional": 60,
+      "trustLevel": 65,
+      "skepticism": 40,
+      "leaderFollower": 35,
+      "attentionSpan": 55,
+      "prosecutionBias": 5,
+      "topicBiases": {"character": 20, "education": 15, "honesty": 10},
+      "triggers": ["lying_to_authority"],
+      "triggerDirection": {"lying_to_authority": "hostile"},
+      "persuasionResistance": 45
+    },
+    {
+      "id": "juror-06",
+      "name": "Marcus Jackson",
+      "age": 42,
+      "occupation": "Small Business Owner (Convenience Store)",
+      "background": "Owns two convenience stores and deals with shoplifting regularly. Sympathetic to retail employees. Lost thousands to theft last year. However, he also knows that employees sometimes make mistakes.",
+      "analyticalVsEmotional": 45,
+      "trustLevel": 50,
+      "skepticism": 55,
+      "leaderFollower": 30,
+      "attentionSpan": 65,
+      "prosecutionBias": 20,
+      "topicBiases": {"theft": 20, "retail": 15, "small_business": 10},
+      "triggers": ["shoplifting_impact"],
+      "triggerDirection": {"shoplifting_impact": "hostile"},
+      "persuasionResistance": 55
+    },
+    {
+      "id": "juror-07",
+      "name": "Ashley Torres",
+      "age": 29,
+      "occupation": "Registered Nurse",
+      "background": "Works in the ER. Understands the stress of medical training. Empathetic toward the defendant as a fellow healthcare worker. Skeptical of corporate entities like big retail chains.",
+      "analyticalVsEmotional": 55,
+      "trustLevel": 60,
+      "skepticism": 50,
+      "leaderFollower": 50,
+      "attentionSpan": 70,
+      "prosecutionBias": -15,
+      "topicBiases": {"healthcare": 20, "nursing": 25, "corporate": -10},
+      "triggers": ["healthcare_worker_struggle"],
+      "triggerDirection": {"healthcare_worker_struggle": "sympathetic"},
+      "persuasionResistance": 35
+    },
+    {
+      "id": "juror-08",
+      "name": "William Grant",
+      "age": 55,
+      "occupation": "Construction Foreman",
+      "background": "Blue-collar, straightforward. Doesn't overthink things. Trusts his gut. Not very patient with technical arguments but respects honesty. Has been falsely accused of damaging property on a job site before.",
+      "analyticalVsEmotional": 65,
+      "trustLevel": 55,
+      "skepticism": 45,
+      "leaderFollower": 55,
+      "attentionSpan": 45,
+      "prosecutionBias": 0,
+      "topicBiases": {"false_accusation": -20, "honesty": 15, "working_class": 10},
+      "triggers": ["false_accusation"],
+      "triggerDirection": {"false_accusation": "sympathetic"},
+      "persuasionResistance": 40
+    },
+    {
+      "id": "juror-09",
+      "name": "Karen Stillwell",
+      "age": 48,
+      "occupation": "Real Estate Agent",
+      "background": "Assertive, opinionated, and impatient. Wants trials to be efficient. Forms opinions quickly and sticks to them. Believes people should take responsibility for their actions.",
+      "analyticalVsEmotional": 40,
+      "trustLevel": 45,
+      "skepticism": 55,
+      "leaderFollower": 15,
+      "attentionSpan": 50,
+      "prosecutionBias": 15,
+      "topicBiases": {"responsibility": 15, "excuses": -20},
+      "triggers": ["avoiding_responsibility"],
+      "triggerDirection": {"avoiding_responsibility": "hostile"},
+      "persuasionResistance": 80
+    },
+    {
+      "id": "juror-10",
+      "name": "David Kim",
+      "age": 38,
+      "occupation": "High School History Teacher",
+      "background": "Thoughtful and measured. Believes in the presumption of innocence. Reads a lot about wrongful convictions. Thinks the justice system makes too many mistakes.",
+      "analyticalVsEmotional": 35,
+      "trustLevel": 50,
+      "skepticism": 65,
+      "leaderFollower": 35,
+      "attentionSpan": 80,
+      "prosecutionBias": -20,
+      "topicBiases": {"wrongful_conviction": -25, "evidence_quality": 15},
+      "triggers": ["wrongful_accusation"],
+      "triggerDirection": {"wrongful_accusation": "sympathetic"},
+      "persuasionResistance": 55
+    },
+    {
+      "id": "juror-11",
+      "name": "Tammy Reeves",
+      "age": 33,
+      "occupation": "Stay-at-Home Mom / Former Retail Worker",
+      "background": "Worked retail for 6 years before having kids. Knows how self-checkout systems work and how often they malfunction. Sympathetic to both retail workers and customers. Moderate and fair-minded.",
+      "analyticalVsEmotional": 55,
+      "trustLevel": 60,
+      "skepticism": 45,
+      "leaderFollower": 60,
+      "attentionSpan": 60,
+      "prosecutionBias": -5,
+      "topicBiases": {"retail": 10, "self_checkout": 15, "motherhood": 10},
+      "triggers": ["self_checkout_error"],
+      "triggerDirection": {"self_checkout_error": "sympathetic"},
+      "persuasionResistance": 35
+    },
+    {
+      "id": "juror-12",
+      "name": "James Okafor",
+      "age": 50,
+      "occupation": "Bank Manager",
+      "background": "Professional, measured, and conservative. Believes in law and order but also in due process. Has managed fraud investigations at his bank and understands that evidence needs to be solid.",
+      "analyticalVsEmotional": 25,
+      "trustLevel": 45,
+      "skepticism": 65,
+      "leaderFollower": 20,
+      "attentionSpan": 80,
+      "prosecutionBias": 10,
+      "topicBiases": {"fraud": 15, "evidence_quality": 20, "procedure": 10},
+      "triggers": ["weak_evidence"],
+      "triggerDirection": {"weak_evidence": "sympathetic"},
+      "persuasionResistance": 65
+    },
+    {
+      "id": "juror-13",
+      "name": "Lisa Nakamura",
+      "age": 27,
+      "occupation": "Graphic Designer",
+      "background": "Creative, open-minded, and a bit dreamy. Tends to zone out during dry testimony but perks up during dramatic moments. Politically progressive and distrustful of corporations.",
+      "analyticalVsEmotional": 80,
+      "trustLevel": 60,
+      "skepticism": 35,
+      "leaderFollower": 70,
+      "attentionSpan": 40,
+      "prosecutionBias": -15,
+      "topicBiases": {"corporate": -20, "art": 10, "youth": 15},
+      "triggers": ["corporate_greed"],
+      "triggerDirection": {"corporate_greed": "sympathetic"},
+      "persuasionResistance": 25
+    },
+    {
+      "id": "juror-14",
+      "name": "Howard Briggs",
+      "age": 67,
+      "occupation": "Retired Military (Colonel)",
+      "background": "Disciplined, structured thinker. Values honor and integrity above all. Believes lying under oath is one of the worst things a person can do. Respects the chain of evidence.",
+      "analyticalVsEmotional": 20,
+      "trustLevel": 40,
+      "skepticism": 60,
+      "leaderFollower": 10,
+      "attentionSpan": 90,
+      "prosecutionBias": 15,
+      "topicBiases": {"military": 15, "honor": 20, "perjury": -30},
+      "triggers": ["perjury", "lying_under_oath"],
+      "triggerDirection": {"perjury": "hostile", "lying_under_oath": "hostile"},
+      "persuasionResistance": 80
+    },
+    {
+      "id": "juror-15",
+      "name": "Sandra Gutierrez",
+      "age": 44,
+      "occupation": "Immigration Attorney",
+      "background": "Fierce advocate for the underdog. Understands the legal system intimately. May try to become a leader during deliberations. Highly skeptical of prosecution narratives.",
+      "analyticalVsEmotional": 30,
+      "trustLevel": 40,
+      "skepticism": 75,
+      "leaderFollower": 10,
+      "attentionSpan": 90,
+      "prosecutionBias": -30,
+      "topicBiases": {"immigration": 20, "defense_rights": 25, "prosecution_overreach": -20},
+      "triggers": ["prosecution_overreach"],
+      "triggerDirection": {"prosecution_overreach": "sympathetic"},
+      "persuasionResistance": 75
+    },
+    {
+      "id": "juror-16",
+      "name": "Tommy DiNapoli",
+      "age": 36,
+      "occupation": "Plumber",
+      "background": "Down-to-earth, practical. Doesn't follow politics or legal dramas. Just wants to do his civic duty and go home. Will go with the majority unless something really strikes him.",
+      "analyticalVsEmotional": 50,
+      "trustLevel": 60,
+      "skepticism": 35,
+      "leaderFollower": 80,
+      "attentionSpan": 40,
+      "prosecutionBias": 5,
+      "topicBiases": {},
+      "triggers": [],
+      "triggerDirection": {},
+      "persuasionResistance": 20
+    },
+    {
+      "id": "juror-17",
+      "name": "Evelyn Marsh",
+      "age": 52,
+      "occupation": "Librarian",
+      "background": "Quiet, observant, and well-read. Pays close attention to details others miss. Has read extensively about criminal justice reform. Won't speak up much in deliberation but will hold firm on her opinion.",
+      "analyticalVsEmotional": 30,
+      "trustLevel": 50,
+      "skepticism": 70,
+      "leaderFollower": 65,
+      "attentionSpan": 95,
+      "prosecutionBias": -10,
+      "topicBiases": {"education": 15, "detail": 20, "reform": 10},
+      "triggers": ["overlooked_detail"],
+      "triggerDirection": {"overlooked_detail": "sympathetic"},
+      "persuasionResistance": 70
+    },
+    {
+      "id": "juror-18",
+      "name": "Ray Patterson",
+      "age": 60,
+      "occupation": "Auto Mechanic Shop Owner",
+      "background": "Gruff exterior but fair. Has been cheated by customers and has also been wrongly accused by a supplier. Sees both sides. Trusts physical evidence over testimony.",
+      "analyticalVsEmotional": 40,
+      "trustLevel": 40,
+      "skepticism": 60,
+      "leaderFollower": 40,
+      "attentionSpan": 55,
+      "prosecutionBias": 0,
+      "topicBiases": {"physical_evidence": 20, "testimony": -10, "small_business": 10},
+      "triggers": ["contradicted_testimony"],
+      "triggerDirection": {"contradicted_testimony": "hostile"},
+      "persuasionResistance": 55
+    }
+  ],
+
+  "xpBase": 50,
+  "unlocks": ["case-001"],
+  "tags": ["shoplifting", "tutorial", "simple", "self-checkout"],
+  "inspirationSource": null
+}

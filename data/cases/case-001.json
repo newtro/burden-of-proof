@@ -1,0 +1,825 @@
+{
+  "id": "case-001",
+  "title": "State v. Harrison",
+  "subtitle": "The Business Partner Murder",
+  "type": "criminal",
+  "charge": "First Degree Murder",
+  "difficulty": 2,
+  "playerSide": "defense",
+  "baseBudget": 15000,
+  "investigationDays": 7,
+  "synopsis": "Victor Langley, a successful real estate developer, was found dead in his office at Langley & Harrison Development on a Saturday evening. He had been struck twice on the back of the head with a heavy marble bookend. His business partner of 12 years, Thomas Harrison, was arrested the following morning after witnesses reported a heated argument between the two men that same afternoon.\n\nThe prosecution's case rests on motive (Harrison was about to be forced out of the partnership), opportunity (he was the last known person to see Langley alive), and circumstantial physical evidence. But the timeline is tight, the forensics are ambiguous, and not everyone is telling the truth.\n\nThis is your first real case. The stakes are life or death.",
+  "truthNarrative": "Thomas Harrison did argue with Victor Langley on Saturday afternoon about Langley's plan to dissolve their partnership and buy Harrison out at a fraction of fair market value. The argument was fierce, and Harrison left the office at approximately 4:30 PM, angry but not violent. Langley was killed between 6:00 and 8:00 PM. The actual killer was Langley's wife, Catherine Langley, who came to the office at 6:15 PM. She had discovered that Victor was having an affair with his secretary, Diana Ross, and was planning to leave her with nothing — he had secretly changed his will. In a rage, Catherine struck Victor with the bookend. She wore gloves and left through the parking garage, which has no cameras. She has been playing the grieving widow and subtly pointing the investigation toward Harrison.",
+  "prosecutionTheory": "Thomas Harrison, facing financial ruin from a forced buyout, went to Langley's office on Saturday and argued violently with his partner. After leaving briefly, he returned that evening and murdered Langley with a marble bookend in a premeditated act to preserve his stake in the $40 million development company. Harrison's fingerprints are on the murder weapon, he had clear motive, and he was the last known person at the scene.",
+  "defenseTheory": "Thomas Harrison argued with his partner but left the office alive and went home. His fingerprints on the bookend are explained by the fact that it was a shared office — he touched that bookend regularly. The prosecution has no direct evidence, no eyewitness to the killing, and a timeline that doesn't hold up. Someone else killed Victor Langley, and the investigation was too quick to look beyond the obvious suspect.",
+
+  "judge": {
+    "id": "judge-morrison",
+    "name": "Judge Arthur Morrison",
+    "title": "The Honorable Arthur Morrison",
+    "background": "25 years on the bench. Former prosecutor with a 90% conviction rate before becoming a judge. Known for strict adherence to procedure and zero tolerance for courtroom theatrics. He runs a tight ship and expects attorneys to know the rules of evidence cold. He's fair in his rulings but his prosecutorial background means he's comfortable with the state's perspective.",
+    "strictness": 80,
+    "patience": 35,
+    "prosecutionLean": 60,
+    "petPeeves": ["theatrics", "unprepared_counsel", "speaking_objections", "sidebar_abuse"],
+    "hearsayStrictness": 85,
+    "relevanceThreshold": 70,
+    "contemptThreshold": 10,
+    "portraitAsset": "judges/morrison",
+    "gavelStyle": "firm"
+  },
+
+  "opposingCounsel": {
+    "id": "opp-case001",
+    "name": "DA Victoria Steele",
+    "style": "aggressive",
+    "difficulty": 2,
+    "description": "A seasoned prosecutor with 15 years of homicide cases. She's thorough, confident, and knows how to build a narrative for the jury. She'll hammer the motive and opportunity, use emotional appeals about the victim, and aggressively cross-examine defense witnesses. She occasionally overreaches, which a sharp defense attorney can exploit."
+  },
+
+  "witnesses": [
+    {
+      "id": "wit-det-marcus-hall",
+      "name": "Detective Marcus Hall",
+      "age": 47,
+      "role": "Expert",
+      "occupation": "Homicide Detective, 18 years",
+      "side": "prosecution",
+      "background": "Lead detective on the case. Experienced and professional, but he latched onto Harrison as the suspect early and didn't fully investigate other leads. He's confident in his work but has a blind spot about tunnel vision in this case.",
+      "confidence": 85,
+      "honesty": 60,
+      "cooperativeness": 50,
+      "emotionality": 20,
+      "intelligence": 70,
+      "truthKnowledge": "Hall arrived at the scene Sunday morning. He found Langley dead at his desk, struck from behind. The marble bookend was nearby with Harrison's fingerprints. Multiple people confirmed the argument. Harrison had no alibi for the time of death (said he was home alone watching TV). Hall focused on Harrison from day one and did not thoroughly investigate Catherine Langley or Diana Ross as suspects. He noted but did not follow up on the parking garage having no cameras.",
+      "publicStory": "I led the investigation. The evidence clearly points to Thomas Harrison — fingerprints on the weapon, a violent argument hours before the murder, financial motive worth millions, and no alibi. This was a straightforward case of a man who killed his partner rather than lose everything.",
+      "secrets": [
+        {
+          "id": "secret-hall-tunnel",
+          "description": "Hall received an anonymous tip two days into the investigation suggesting Catherine Langley should be investigated. He dismissed it as a crank call and didn't document it.",
+          "discoverable": true,
+          "evidenceRequired": "phone-records-tipline",
+          "impact": 12
+        },
+        {
+          "id": "secret-hall-garage",
+          "description": "Hall knows the parking garage has no security cameras, meaning anyone could have entered the building undetected that evening. He downplayed this in his report.",
+          "discoverable": true,
+          "evidenceRequired": "building-security-analysis",
+          "impact": 8
+        }
+      ],
+      "lies": [
+        {
+          "id": "lie-hall-thorough",
+          "claim": "We conducted a thorough investigation and examined all possible suspects before focusing on Harrison.",
+          "truth": "Harrison was the primary and essentially only suspect from day one. No other individuals were seriously investigated.",
+          "impeachmentEvidence": "investigation-timeline",
+          "composureCostWhenCaught": 20
+        }
+      ],
+      "breakingPointThreshold": 15,
+      "breakingPointType": "hostile",
+      "breakingPointTrigger": "investigation-quality",
+      "portraitAsset": "witnesses/det-hall",
+      "expressionSet": "male-middle-black",
+      "personality_prompt": "You are Detective Marcus Hall. You're professional, authoritative, and confident. You speak in a measured, cop-like manner — direct and factual. You genuinely believe Harrison is guilty, but if pressed on the thoroughness of your investigation, you become defensive and clipped. You don't like being second-guessed, especially by defense attorneys. If cornered about the anonymous tip or the parking garage cameras, you'll get hostile rather than admit mistakes."
+    },
+    {
+      "id": "wit-dr-sarah-chen",
+      "name": "Dr. Sarah Chen",
+      "age": 39,
+      "role": "Expert",
+      "occupation": "Forensic Pathologist",
+      "side": "prosecution",
+      "background": "Chief forensic pathologist for the county. Meticulous and professional. She conducted the autopsy and analyzed the physical evidence. Unlike the detective, she's genuinely objective — she reports what the science says, not what the prosecution wants to hear.",
+      "confidence": 90,
+      "honesty": 85,
+      "cooperativeness": 65,
+      "emotionality": 10,
+      "intelligence": 90,
+      "truthKnowledge": "Langley died from blunt force trauma to the posterior skull — two blows with the marble bookend. Time of death is estimated between 6:00 and 8:00 PM Saturday. Harrison's fingerprints are on the bookend, but so are smudged partial prints that could belong to someone else. The angle of the blows suggests the attacker was shorter than Langley (6'1\") — Harrison is 6'0\" but Catherine Langley is 5'6\", which would actually be a better match. Dr. Chen included the height analysis in her report but it was not emphasized by the prosecution.",
+      "publicStory": "The victim died from two blows to the back of the head. The murder weapon was a marble bookend found at the scene with the defendant's fingerprints. Time of death was between 6 and 8 PM Saturday. The blows were delivered with significant force.",
+      "secrets": [
+        {
+          "id": "secret-chen-height",
+          "description": "Dr. Chen's full report notes that the angle of the blows is more consistent with an attacker of 5'4\" to 5'8\" height, not someone of Harrison's height (6'0\"). This detail was buried in the appendix.",
+          "discoverable": true,
+          "evidenceRequired": "forensic-report-full",
+          "impact": 15
+        },
+        {
+          "id": "secret-chen-prints",
+          "description": "There are additional smudged partial prints on the bookend that don't match Harrison. They were too degraded to identify but were not from Langley either.",
+          "discoverable": true,
+          "evidenceRequired": "fingerprint-analysis-extended",
+          "impact": 10
+        }
+      ],
+      "lies": [],
+      "breakingPointThreshold": 10,
+      "breakingPointType": "silent",
+      "breakingPointTrigger": null,
+      "portraitAsset": "witnesses/dr-chen",
+      "expressionSet": "female-young-asian",
+      "personality_prompt": "You are Dr. Sarah Chen, forensic pathologist. You are calm, precise, and scientific. You answer exactly what is asked and don't volunteer extra information, but you won't lie. If the defense asks the right questions about the angle of the blows or the partial prints, you'll answer honestly. You feel some discomfort that the prosecution hasn't highlighted certain findings, but you consider yourself a witness for the truth, not for a side."
+    },
+    {
+      "id": "wit-catherine-langley",
+      "name": "Catherine Langley",
+      "age": 52,
+      "role": "Eyewitness",
+      "occupation": "Philanthropist / Socialite",
+      "side": "prosecution",
+      "background": "The victim's wife of 20 years. She presents as the grieving widow — dignified, heartbroken, and subtly vengeful toward Harrison. In reality, she is the killer. She is intelligent, composed, and has spent weeks preparing her act. She discovered Victor's affair with Diana Ross and his secret will change, and murdered him in a rage she has now buried under layers of performance.",
+      "confidence": 75,
+      "honesty": 15,
+      "cooperativeness": 70,
+      "emotionality": 65,
+      "intelligence": 80,
+      "truthKnowledge": "Catherine went to Victor's office at approximately 6:15 PM after he didn't answer her calls. She found him alone, working. She confronted him about the affair and the will. Victor was dismissive and cruel. In a blind rage, she grabbed the marble bookend and struck him twice. She wore leather gloves (it was November). She left through the parking garage at approximately 6:35 PM. She disposed of the gloves in a public trash can three blocks away. She returned home, showered, and called her sister at 7:30 PM to establish a phone alibi.",
+      "publicStory": "I was at home all evening. I called Victor around 5 PM but he didn't answer — that wasn't unusual when he was working late. I spoke with my sister on the phone at 7:30. I learned about Victor's death Sunday morning when the police came to my door. Thomas Harrison had been threatening my husband for weeks about the buyout. Victor was afraid of him.",
+      "secrets": [
+        {
+          "id": "secret-catherine-killer",
+          "description": "Catherine Langley is the actual murderer.",
+          "discoverable": false,
+          "evidenceRequired": null,
+          "impact": 50
+        },
+        {
+          "id": "secret-catherine-affair",
+          "description": "Catherine knew about Victor's affair with Diana Ross and his plan to change his will.",
+          "discoverable": true,
+          "evidenceRequired": "victim-email-records",
+          "impact": 15
+        },
+        {
+          "id": "secret-catherine-alibi-gap",
+          "description": "Catherine's phone alibi starts at 7:30 PM, leaving a gap between 5 PM and 7:30 PM unaccounted for. She claims she was home alone reading.",
+          "discoverable": true,
+          "evidenceRequired": "phone-records-catherine",
+          "impact": 10
+        }
+      ],
+      "lies": [
+        {
+          "id": "lie-catherine-home",
+          "claim": "I was at home all evening, from about 4 PM onward.",
+          "truth": "She left home at approximately 5:45 PM and went to Victor's office.",
+          "impeachmentEvidence": "neighbor-doorbell-cam",
+          "composureCostWhenCaught": 30
+        },
+        {
+          "id": "lie-catherine-fear",
+          "claim": "Victor told me he was afraid of Thomas Harrison.",
+          "truth": "Victor never expressed fear of Harrison. He actually felt guilty about the unfair buyout terms.",
+          "impeachmentEvidence": "victim-email-records",
+          "composureCostWhenCaught": 20
+        }
+      ],
+      "breakingPointThreshold": 10,
+      "breakingPointType": "hostile",
+      "breakingPointTrigger": "affair-knowledge",
+      "portraitAsset": "witnesses/catherine-langley",
+      "expressionSet": "female-middle-white",
+      "personality_prompt": "You are Catherine Langley. You killed your husband but you are determined to get away with it. You present as the perfect grieving widow — dignified, tearful at the right moments, and quietly furious at Harrison for 'taking Victor from you.' You are an excellent performer. However, if the defense brings up Victor's affair or your unaccounted evening hours, cracks will appear. You become sharper, more defensive, and your composure slips. If both the affair AND your alibi gap are exposed, you may become openly hostile and make mistakes."
+    },
+    {
+      "id": "wit-diana-ross",
+      "name": "Diana Ross",
+      "age": 28,
+      "role": "Eyewitness",
+      "occupation": "Executive Secretary at Langley & Harrison Development",
+      "side": "neutral",
+      "background": "Diana was Victor Langley's personal secretary and secret lover. She was the last person at the office before Victor (she left at 3 PM that Saturday). She knows about the affair, the will change, and the partnership tensions. She's terrified of Catherine and conflicted about coming forward with what she knows.",
+      "confidence": 35,
+      "honesty": 70,
+      "cooperativeness": 55,
+      "emotionality": 80,
+      "intelligence": 60,
+      "truthKnowledge": "Diana and Victor had been having an affair for 8 months. Victor told her he was leaving Catherine and changing his will to leave everything to Diana. Diana left the office at 3 PM Saturday. Victor told her he had a meeting with Harrison at 4 PM about the buyout. She knows Catherine found out about the affair — Victor told her Catherine had confronted him about suspicious charges on his credit card the week before the murder. Diana is afraid Catherine killed Victor but has no proof and is terrified of accusing a wealthy, powerful woman.",
+      "publicStory": "I worked Saturday morning and left at 3 PM. Mr. Langley said he had a meeting with Mr. Harrison. I don't know anything about what happened that evening. Mr. Langley was a good boss.",
+      "secrets": [
+        {
+          "id": "secret-diana-affair",
+          "description": "Diana was having an affair with Victor Langley.",
+          "discoverable": true,
+          "evidenceRequired": "victim-email-records",
+          "impact": 12
+        },
+        {
+          "id": "secret-diana-will",
+          "description": "Diana knew Victor was changing his will to leave his estate to her instead of Catherine.",
+          "discoverable": true,
+          "evidenceRequired": "attorney-will-records",
+          "impact": 15
+        },
+        {
+          "id": "secret-diana-catherine-knew",
+          "description": "Diana knows Catherine found out about the affair before the murder.",
+          "discoverable": true,
+          "evidenceRequired": null,
+          "impact": 18
+        }
+      ],
+      "lies": [
+        {
+          "id": "lie-diana-relationship",
+          "claim": "Mr. Langley was just my boss. Our relationship was strictly professional.",
+          "truth": "They were having an affair and he was planning to leave his wife for her.",
+          "impeachmentEvidence": "victim-email-records",
+          "composureCostWhenCaught": 25
+        }
+      ],
+      "breakingPointThreshold": 20,
+      "breakingPointType": "confession",
+      "breakingPointTrigger": "affair-evidence",
+      "portraitAsset": "witnesses/diana-ross",
+      "expressionSet": "female-young-white",
+      "personality_prompt": "You are Diana Ross. You're scared, guilty, and conflicted. You loved Victor and you believe Catherine killed him, but you're terrified of saying that directly. You'll try to keep the affair secret but you're a poor liar — you fidget, avoid eye contact, and give too-short answers when hiding something. If confronted with evidence of the affair, you'll break down and eventually reveal everything you know, including that Catherine knew about the affair. You want justice for Victor but you're afraid for your own safety."
+    },
+    {
+      "id": "wit-george-park",
+      "name": "George Park",
+      "age": 68,
+      "role": "Eyewitness",
+      "occupation": "Retired Attorney / Neighbor",
+      "side": "prosecution",
+      "background": "George lives in the apartment above the Langley & Harrison office (mixed-use building). He heard the argument between Harrison and Langley on Saturday afternoon. He's a credible witness but his hearing isn't what it used to be, and he tends to embellish to feel important.",
+      "confidence": 65,
+      "honesty": 55,
+      "cooperativeness": 80,
+      "emotionality": 30,
+      "intelligence": 70,
+      "truthKnowledge": "George heard raised voices from the office below around 4:00-4:30 PM Saturday. He could make out two male voices arguing but couldn't hear specific words through the floor. He heard a door slam at approximately 4:30 PM and then silence. He did NOT hear anything between 6-8 PM (he was watching TV with the volume up). He also heard a car in the parking garage around 6:20 PM but didn't think anything of it.",
+      "publicStory": "I heard Harrison and Langley having a terrible fight — shouting, threats, the works. Harrison was yelling about money and the partnership. It sounded violent. Then I heard the door slam when Harrison stormed out. It was a very heated argument, the worst I've ever heard from that office.",
+      "secrets": [
+        {
+          "id": "secret-george-car",
+          "description": "George heard a car in the parking garage around 6:20 PM but didn't mention it to police because they didn't ask about that time period.",
+          "discoverable": true,
+          "evidenceRequired": null,
+          "impact": 8
+        },
+        {
+          "id": "secret-george-hearing",
+          "description": "George has significant hearing loss in his left ear and wears a hearing aid. His ability to make out specific words through a floor/ceiling is questionable.",
+          "discoverable": true,
+          "evidenceRequired": "medical-records-park",
+          "impact": 6
+        }
+      ],
+      "lies": [
+        {
+          "id": "lie-george-words",
+          "claim": "I could clearly hear Harrison threatening Langley and shouting about money.",
+          "truth": "He heard raised voices and a general angry tone but could not make out specific words through the floor.",
+          "impeachmentEvidence": "medical-records-park",
+          "composureCostWhenCaught": 20
+        },
+        {
+          "id": "lie-george-violent",
+          "claim": "It sounded violent — like things were being thrown.",
+          "truth": "He heard the argument and a door slam. He has no basis for claiming physical violence occurred.",
+          "impeachmentEvidence": null,
+          "composureCostWhenCaught": 15
+        }
+      ],
+      "breakingPointThreshold": 20,
+      "breakingPointType": "confession",
+      "breakingPointTrigger": "hearing-loss",
+      "portraitAsset": "witnesses/george-park",
+      "expressionSet": "male-elderly-white",
+      "personality_prompt": "You are George Park, a retired attorney. You enjoy the attention of being a key witness and you tend to embellish your account to sound more dramatic and important. You're not malicious — you genuinely believe Harrison probably did it — but your testimony includes exaggerations. If pressed about your hearing or the specifics of what you heard, you'll start qualifying your statements. If confronted about your hearing aid, you'll be embarrassed and start admitting you may have filled in some gaps. You also remember the car in the garage around 6:20 PM if specifically asked about sounds later that evening."
+    }
+  ],
+
+  "prosecutionWitnesses": ["wit-det-marcus-hall", "wit-dr-sarah-chen", "wit-catherine-langley", "wit-george-park"],
+  "defenseWitnesses": ["wit-diana-ross"],
+
+  "baseEvidence": {
+    "guaranteed": [
+      {
+        "id": "evt-police-report-001",
+        "definitionId": "police-report",
+        "name": "Police Report — Langley Homicide",
+        "description": "Official police report documenting the crime scene, initial findings, and Harrison's arrest. Notes the marble bookend as the murder weapon, Harrison's fingerprints, and the estimated time of death."
+      },
+      {
+        "id": "evt-autopsy-summary",
+        "definitionId": "autopsy-summary",
+        "name": "Autopsy Summary",
+        "description": "Summary of the autopsy findings. Two blows to the posterior skull, time of death 6-8 PM Saturday. Full detailed report available through investigation."
+      }
+    ],
+    "investigable": [
+      {
+        "cardDefinitionId": "forensic-report-full",
+        "foundVia": "obtain_full_forensics",
+        "cost": 2000,
+        "chance": 95,
+        "narrative": "The complete forensic report includes Dr. Chen's analysis of the blow angles, suggesting an attacker shorter than 5'8\" — significantly shorter than Harrison's 6'0\". This was in the appendix and not highlighted in the summary provided to the defense initially."
+      },
+      {
+        "cardDefinitionId": "fingerprint-analysis-extended",
+        "foundVia": "forensic_reanalysis",
+        "cost": 3000,
+        "chance": 85,
+        "narrative": "Extended fingerprint analysis reveals smudged partial prints on the bookend that don't match Harrison or Langley. They're too degraded for a full match but confirm a third person handled the weapon."
+      },
+      {
+        "cardDefinitionId": "victim-email-records",
+        "foundVia": "subpoena_digital",
+        "cost": 1500,
+        "chance": 90,
+        "narrative": "Victor Langley's email reveals an affair with Diana Ross, his plan to change his will, and emails from Catherine confronting him about suspicious credit card charges. One email from Victor to his attorney discusses the will change: 'Catherine cannot know about this until it's done.'"
+      },
+      {
+        "cardDefinitionId": "phone-records-catherine",
+        "foundVia": "subpoena_phone",
+        "cost": 1000,
+        "chance": 95,
+        "narrative": "Catherine's phone records show no calls or data usage between 5:45 PM and 7:28 PM on Saturday — a gap that contradicts her claim of being home all evening. Her sister's call at 7:30 PM lasted 45 minutes."
+      },
+      {
+        "cardDefinitionId": "neighbor-doorbell-cam",
+        "foundVia": "neighborhood_canvass",
+        "cost": 2000,
+        "chance": 70,
+        "narrative": "A neighbor three doors down from the Langleys has a doorbell camera. Footage shows Catherine's car leaving her driveway at 5:47 PM Saturday and returning at 7:15 PM — directly contradicting her alibi."
+      },
+      {
+        "cardDefinitionId": "building-security-analysis",
+        "foundVia": "security_assessment",
+        "cost": 1500,
+        "chance": 90,
+        "narrative": "Analysis of the office building's security reveals the parking garage has no cameras and the back stairwell has a broken lock. Anyone could have entered the building undetected during the evening."
+      },
+      {
+        "cardDefinitionId": "investigation-timeline",
+        "foundVia": "foia_request",
+        "cost": 500,
+        "chance": 80,
+        "narrative": "The investigation's own timeline shows Harrison was identified as the sole suspect within 6 hours of the body being discovered. No other suspects were formally investigated."
+      },
+      {
+        "cardDefinitionId": "attorney-will-records",
+        "foundVia": "subpoena_attorney",
+        "cost": 2000,
+        "chance": 75,
+        "narrative": "Victor Langley's estate attorney confirms that Langley had begun the process of changing his will one month before his death. The new will would have left the majority of his estate to Diana Ross, disinheriting Catherine almost entirely."
+      },
+      {
+        "cardDefinitionId": "phone-records-tipline",
+        "foundVia": "subpoena_police_records",
+        "cost": 1000,
+        "chance": 60,
+        "narrative": "Records from the police tip line reveal an anonymous call two days after the murder suggesting investigators 'look at the wife.' Detective Hall's notes dismiss it as 'likely crank call, no follow-up needed.'"
+      },
+      {
+        "cardDefinitionId": "medical-records-park",
+        "foundVia": "background_check_park",
+        "cost": 800,
+        "chance": 85,
+        "narrative": "George Park's medical records reveal he has been treated for significant hearing loss in his left ear and has worn a hearing aid for 5 years. His audiologist notes 'moderate to severe sensorineural hearing loss' affecting his ability to distinguish sounds through barriers."
+      }
+    ]
+  },
+
+  "hiddenEvidence": [
+    {
+      "cardDefinitionId": "glove-receipt",
+      "discoveryMethod": "pi_deep_investigation",
+      "difficulty": 4,
+      "description": "A private investigator discovers a receipt from a boutique shop showing Catherine Langley purchased leather gloves the week before the murder. The gloves have never been found."
+    },
+    {
+      "cardDefinitionId": "parking-garage-paint-transfer",
+      "discoveryMethod": "crime_scene_revisit",
+      "difficulty": 5,
+      "description": "A revisit to the parking garage reveals paint transfer on a pillar matching Catherine Langley's vehicle — suggesting her car was in the garage the night of the murder."
+    }
+  ],
+
+  "investigationActions": [
+    {
+      "id": "obtain_full_forensics",
+      "name": "Obtain Full Forensic Report",
+      "description": "Request the complete, unredacted forensic pathology report including all appendices.",
+      "cost": 2000,
+      "days": 1,
+      "category": "forensic"
+    },
+    {
+      "id": "forensic_reanalysis",
+      "name": "Independent Fingerprint Analysis",
+      "description": "Hire an independent forensic expert to re-examine the fingerprint evidence on the murder weapon.",
+      "cost": 3000,
+      "days": 2,
+      "category": "forensic"
+    },
+    {
+      "id": "subpoena_digital",
+      "name": "Subpoena Victim's Digital Records",
+      "description": "Obtain Victor Langley's emails, texts, and digital communications.",
+      "cost": 1500,
+      "days": 1,
+      "category": "documentary"
+    },
+    {
+      "id": "subpoena_phone",
+      "name": "Subpoena Phone Records",
+      "description": "Obtain phone records for Catherine Langley to verify her alibi timeline.",
+      "cost": 1000,
+      "days": 1,
+      "category": "documentary"
+    },
+    {
+      "id": "neighborhood_canvass",
+      "name": "Canvass the Neighborhood",
+      "description": "Send an investigator to check for doorbell cameras and witnesses near the Langley home.",
+      "cost": 2000,
+      "days": 2,
+      "category": "investigation"
+    },
+    {
+      "id": "security_assessment",
+      "name": "Building Security Assessment",
+      "description": "Analyze the office building's security systems and identify gaps in coverage.",
+      "cost": 1500,
+      "days": 1,
+      "category": "investigation"
+    },
+    {
+      "id": "foia_request",
+      "name": "FOIA: Investigation Records",
+      "description": "File a records request for the full investigation file, including internal notes.",
+      "cost": 500,
+      "days": 2,
+      "category": "legal"
+    },
+    {
+      "id": "subpoena_attorney",
+      "name": "Subpoena Estate Attorney",
+      "description": "Compel Victor Langley's estate attorney to produce will documents.",
+      "cost": 2000,
+      "days": 1,
+      "category": "legal"
+    },
+    {
+      "id": "subpoena_police_records",
+      "name": "Subpoena Police Tip Line Records",
+      "description": "Request records of all tips received regarding the Langley case.",
+      "cost": 1000,
+      "days": 1,
+      "category": "legal"
+    },
+    {
+      "id": "background_check_park",
+      "name": "Background Check: George Park",
+      "description": "Investigate the neighbor witness's background, including medical history.",
+      "cost": 800,
+      "days": 1,
+      "category": "investigation"
+    },
+    {
+      "id": "pi_deep_investigation",
+      "name": "Hire Private Investigator",
+      "description": "A deep investigation into Catherine Langley's movements and purchases in the weeks before the murder.",
+      "cost": 5000,
+      "days": 3,
+      "category": "investigation"
+    },
+    {
+      "id": "crime_scene_revisit",
+      "name": "Revisit Crime Scene",
+      "description": "Send a forensic team back to the office building to look for overlooked evidence.",
+      "cost": 3000,
+      "days": 2,
+      "category": "forensic"
+    },
+    {
+      "id": "research_judge_morrison",
+      "name": "Research Judge Morrison",
+      "description": "Study Judge Morrison's history, tendencies, and courtroom preferences.",
+      "cost": 1500,
+      "days": 1,
+      "category": "legal"
+    }
+  ],
+
+  "jurorPool": [
+    {
+      "id": "juror-101",
+      "name": "Angela Foster",
+      "age": 45,
+      "occupation": "Hospital Administrator",
+      "background": "Efficient, data-driven manager. Makes decisions based on evidence, not emotion. Divorced after her ex-husband's infidelity — affairs are a sore subject.",
+      "analyticalVsEmotional": 25,
+      "trustLevel": 40,
+      "skepticism": 70,
+      "leaderFollower": 20,
+      "attentionSpan": 85,
+      "prosecutionBias": -5,
+      "topicBiases": {"infidelity": -20, "medical": 15, "evidence_quality": 20},
+      "triggers": ["infidelity", "affair"],
+      "triggerDirection": {"infidelity": "hostile", "affair": "hostile"},
+      "persuasionResistance": 65
+    },
+    {
+      "id": "juror-102",
+      "name": "Earl Washington",
+      "age": 62,
+      "occupation": "Church Pastor",
+      "background": "Compassionate and forgiving. Believes in redemption. Has counseled many families through domestic crises. Tends to see the good in people.",
+      "analyticalVsEmotional": 70,
+      "trustLevel": 75,
+      "skepticism": 25,
+      "leaderFollower": 25,
+      "attentionSpan": 70,
+      "prosecutionBias": -20,
+      "topicBiases": {"faith": 20, "forgiveness": 15, "violence": -10},
+      "triggers": ["remorse", "family_destruction"],
+      "triggerDirection": {"remorse": "sympathetic", "family_destruction": "sympathetic"},
+      "persuasionResistance": 30
+    },
+    {
+      "id": "juror-103",
+      "name": "Nina Volkov",
+      "age": 34,
+      "occupation": "Criminal Defense Paralegal",
+      "background": "Works in a defense firm. Understands the system and its flaws. Highly skeptical of prosecution narratives. May be struck for cause due to professional bias.",
+      "analyticalVsEmotional": 20,
+      "trustLevel": 30,
+      "skepticism": 90,
+      "leaderFollower": 30,
+      "attentionSpan": 95,
+      "prosecutionBias": -40,
+      "topicBiases": {"defense_rights": 30, "police_procedure": -20, "reasonable_doubt": 25},
+      "triggers": ["prosecutorial_misconduct"],
+      "triggerDirection": {"prosecutorial_misconduct": "sympathetic"},
+      "persuasionResistance": 80
+    },
+    {
+      "id": "juror-104",
+      "name": "Dennis Crawford",
+      "age": 57,
+      "occupation": "Insurance Claims Adjuster",
+      "background": "Skeptical by profession — he evaluates claims for a living. Looks for inconsistencies and red flags. Methodical but can be swayed by strong evidence either way.",
+      "analyticalVsEmotional": 15,
+      "trustLevel": 30,
+      "skepticism": 85,
+      "leaderFollower": 35,
+      "attentionSpan": 80,
+      "prosecutionBias": 0,
+      "topicBiases": {"insurance": 10, "fraud": 15, "inconsistency": 20},
+      "triggers": ["inconsistent_testimony"],
+      "triggerDirection": {"inconsistent_testimony": "hostile"},
+      "persuasionResistance": 60
+    },
+    {
+      "id": "juror-105",
+      "name": "Maria Santos",
+      "age": 41,
+      "occupation": "Elementary School Principal",
+      "background": "Firm but fair leader. Good at reading people, especially when they're lying. Strong moral compass. Believes in accountability but also in fairness.",
+      "analyticalVsEmotional": 45,
+      "trustLevel": 50,
+      "skepticism": 55,
+      "leaderFollower": 15,
+      "attentionSpan": 80,
+      "prosecutionBias": 5,
+      "topicBiases": {"children": 20, "education": 15, "honesty": 15},
+      "triggers": ["lying_to_authority"],
+      "triggerDirection": {"lying_to_authority": "hostile"},
+      "persuasionResistance": 55
+    },
+    {
+      "id": "juror-106",
+      "name": "Trevor Banks",
+      "age": 29,
+      "occupation": "Financial Analyst",
+      "background": "Sharp with numbers, understands business disputes and financial motives. Can follow complex financial testimony. Somewhat cold and clinical in his analysis.",
+      "analyticalVsEmotional": 10,
+      "trustLevel": 35,
+      "skepticism": 75,
+      "leaderFollower": 40,
+      "attentionSpan": 85,
+      "prosecutionBias": 10,
+      "topicBiases": {"financial": 25, "business": 20, "motive": 15},
+      "triggers": ["financial_fraud"],
+      "triggerDirection": {"financial_fraud": "hostile"},
+      "persuasionResistance": 65
+    },
+    {
+      "id": "juror-107",
+      "name": "Brenda Holloway",
+      "age": 53,
+      "occupation": "Domestic Violence Counselor",
+      "background": "Has spent 20 years working with victims of domestic abuse. Attuned to power dynamics in relationships. Sympathetic to women who may be victims of controlling men.",
+      "analyticalVsEmotional": 65,
+      "trustLevel": 55,
+      "skepticism": 50,
+      "leaderFollower": 30,
+      "attentionSpan": 75,
+      "prosecutionBias": -10,
+      "topicBiases": {"domestic_violence": 25, "controlling_behavior": -20, "women": 15},
+      "triggers": ["spouse_abuse", "controlling_partner"],
+      "triggerDirection": {"spouse_abuse": "sympathetic", "controlling_partner": "hostile"},
+      "persuasionResistance": 50
+    },
+    {
+      "id": "juror-108",
+      "name": "Hank Mueller",
+      "age": 66,
+      "occupation": "Retired Construction Company Owner",
+      "background": "Self-made businessman. Had a contentious business partnership that ended in a lawsuit. Understands the stress of partnerships. Slightly sympathetic to Harrison's position.",
+      "analyticalVsEmotional": 40,
+      "trustLevel": 45,
+      "skepticism": 55,
+      "leaderFollower": 20,
+      "attentionSpan": 60,
+      "prosecutionBias": -15,
+      "topicBiases": {"business_partnership": 20, "betrayal": 15, "self_made": 10},
+      "triggers": ["unfair_business_deal"],
+      "triggerDirection": {"unfair_business_deal": "sympathetic"},
+      "persuasionResistance": 50
+    },
+    {
+      "id": "juror-109",
+      "name": "Keisha Brown",
+      "age": 37,
+      "occupation": "ER Nurse",
+      "background": "Seen the aftermath of violence daily. Practical and unflappable. Not easily shocked. Trusts forensic evidence heavily. Quick to make judgments but will change if presented with strong contrary evidence.",
+      "analyticalVsEmotional": 35,
+      "trustLevel": 50,
+      "skepticism": 60,
+      "leaderFollower": 45,
+      "attentionSpan": 70,
+      "prosecutionBias": 5,
+      "topicBiases": {"medical": 20, "forensic": 15, "violence": -5},
+      "triggers": ["graphic_violence"],
+      "triggerDirection": {"graphic_violence": "hostile"},
+      "persuasionResistance": 45
+    },
+    {
+      "id": "juror-110",
+      "name": "Philip Russo",
+      "age": 48,
+      "occupation": "High School Football Coach",
+      "background": "Straightforward, values loyalty and integrity. Quick temper but a fair man. Believes in standing by your friends but also in taking responsibility for your actions.",
+      "analyticalVsEmotional": 55,
+      "trustLevel": 60,
+      "skepticism": 40,
+      "leaderFollower": 20,
+      "attentionSpan": 55,
+      "prosecutionBias": 10,
+      "topicBiases": {"loyalty": 15, "integrity": 20, "sportsmanship": 10},
+      "triggers": ["betrayal"],
+      "triggerDirection": {"betrayal": "hostile"},
+      "persuasionResistance": 40
+    },
+    {
+      "id": "juror-111",
+      "name": "Yuki Tanaka",
+      "age": 31,
+      "occupation": "PhD Student — Criminology",
+      "background": "Studying wrongful convictions for her dissertation. Extremely knowledgeable about investigative failures and cognitive biases. Will scrutinize the investigation's methodology closely.",
+      "analyticalVsEmotional": 15,
+      "trustLevel": 30,
+      "skepticism": 90,
+      "leaderFollower": 35,
+      "attentionSpan": 95,
+      "prosecutionBias": -30,
+      "topicBiases": {"wrongful_conviction": -30, "investigation_quality": 25, "cognitive_bias": 20},
+      "triggers": ["tunnel_vision_investigation"],
+      "triggerDirection": {"tunnel_vision_investigation": "sympathetic"},
+      "persuasionResistance": 75
+    },
+    {
+      "id": "juror-112",
+      "name": "Roy Jennings",
+      "age": 59,
+      "occupation": "Retired Fire Captain",
+      "background": "Calm under pressure, used to making life-and-death decisions. Respects authority and procedure but knows that protocols exist for a reason — because mistakes happen without them.",
+      "analyticalVsEmotional": 30,
+      "trustLevel": 55,
+      "skepticism": 50,
+      "leaderFollower": 15,
+      "attentionSpan": 75,
+      "prosecutionBias": 5,
+      "topicBiases": {"procedure": 20, "emergency_services": 15, "protocol": 15},
+      "triggers": ["procedural_failure"],
+      "triggerDirection": {"procedural_failure": "hostile"},
+      "persuasionResistance": 55
+    },
+    {
+      "id": "juror-113",
+      "name": "Samantha Liu",
+      "age": 26,
+      "occupation": "Marketing Coordinator",
+      "background": "Young, impressionable, and a true crime podcast addict. Fascinated by murder cases. May be overly influenced by dramatic moments. Tends to construct narratives and get attached to them.",
+      "analyticalVsEmotional": 70,
+      "trustLevel": 65,
+      "skepticism": 30,
+      "leaderFollower": 70,
+      "attentionSpan": 80,
+      "prosecutionBias": 15,
+      "topicBiases": {"true_crime": 15, "drama": 10, "mystery": 10},
+      "triggers": ["plot_twist"],
+      "triggerDirection": {"plot_twist": "sympathetic"},
+      "persuasionResistance": 20
+    },
+    {
+      "id": "juror-114",
+      "name": "Arthur Perkins",
+      "age": 74,
+      "occupation": "Retired Federal Judge",
+      "background": "Knows the legal system inside and out. Highly analytical and nearly impossible to sway with emotion. Will hold the deliberation to a high standard. May dominate deliberation if selected as foreperson.",
+      "analyticalVsEmotional": 5,
+      "trustLevel": 35,
+      "skepticism": 80,
+      "leaderFollower": 5,
+      "attentionSpan": 90,
+      "prosecutionBias": 0,
+      "topicBiases": {"legal_procedure": 25, "evidence_standard": 20, "reasonable_doubt": 20},
+      "triggers": ["constitutional_violation"],
+      "triggerDirection": {"constitutional_violation": "sympathetic"},
+      "persuasionResistance": 90
+    },
+    {
+      "id": "juror-115",
+      "name": "Dolores Ramirez",
+      "age": 60,
+      "occupation": "Retired Postal Worker",
+      "background": "Salt of the earth. Trusts authority figures but also has a keen bullshit detector. She raised four kids and nothing gets past her. She'll make up her mind slowly but won't budge once she does.",
+      "analyticalVsEmotional": 50,
+      "trustLevel": 55,
+      "skepticism": 55,
+      "leaderFollower": 50,
+      "attentionSpan": 65,
+      "prosecutionBias": 5,
+      "topicBiases": {"family": 20, "working_class": 10, "common_sense": 15},
+      "triggers": ["family_betrayal"],
+      "triggerDirection": {"family_betrayal": "hostile"},
+      "persuasionResistance": 75
+    },
+    {
+      "id": "juror-116",
+      "name": "Jake Novak",
+      "age": 24,
+      "occupation": "Bartender / Aspiring Actor",
+      "background": "Charismatic but unfocused. Gets bored easily during technical testimony. Responds strongly to dramatic performances in the courtroom. Easily influenced by confident speakers.",
+      "analyticalVsEmotional": 80,
+      "trustLevel": 65,
+      "skepticism": 20,
+      "leaderFollower": 75,
+      "attentionSpan": 30,
+      "prosecutionBias": 0,
+      "topicBiases": {"drama": 15, "performance": 10},
+      "triggers": ["dramatic_moment"],
+      "triggerDirection": {"dramatic_moment": "sympathetic"},
+      "persuasionResistance": 15
+    },
+    {
+      "id": "juror-117",
+      "name": "Patricia Edgewood",
+      "age": 56,
+      "occupation": "Forensic Accountant",
+      "background": "Has testified as an expert witness herself. Understands evidence presentation deeply. Will evaluate the quality of forensic testimony with a professional eye. Hard to fool.",
+      "analyticalVsEmotional": 10,
+      "trustLevel": 35,
+      "skepticism": 80,
+      "leaderFollower": 25,
+      "attentionSpan": 90,
+      "prosecutionBias": 0,
+      "topicBiases": {"financial": 25, "forensic": 20, "expert_testimony": 15},
+      "triggers": ["sloppy_analysis"],
+      "triggerDirection": {"sloppy_analysis": "hostile"},
+      "persuasionResistance": 80
+    },
+    {
+      "id": "juror-118",
+      "name": "Michael Torres",
+      "age": 43,
+      "occupation": "UPS Driver",
+      "background": "Reliable, observant from years of navigating neighborhoods. Not particularly analytical but very perceptive about people. Trusts his instincts. Will defer to stronger personalities in deliberation.",
+      "analyticalVsEmotional": 60,
+      "trustLevel": 60,
+      "skepticism": 40,
+      "leaderFollower": 70,
+      "attentionSpan": 50,
+      "prosecutionBias": 5,
+      "topicBiases": {"community": 10, "observation": 15},
+      "triggers": [],
+      "triggerDirection": {},
+      "persuasionResistance": 25
+    }
+  ],
+
+  "xpBase": 150,
+  "unlocks": ["case-002", "advanced-deck-partial"],
+  "tags": ["murder", "business_partner", "circumstantial", "alternate_suspect"],
+  "inspirationSource": null
+}

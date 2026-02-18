@@ -1,0 +1,564 @@
+{
+  "deckId": "base-deck",
+  "name": "Base Deck",
+  "description": "The standard card set available to all players from the start.",
+  "cards": [
+    {
+      "id": "evi-dna-analysis",
+      "name": "DNA Analysis",
+      "type": "evidence",
+      "subtype": "forensic",
+      "rarity": "rare",
+      "costCP": 0,
+      "costPP": 8,
+      "effects": [
+        {"type": "JURY_OPINION", "value": 8, "target": "jury"},
+        {"type": "WITNESS_COMPOSURE", "value": -15, "target": "witness"}
+      ],
+      "description": "The cold language of genetics speaks louder than any witness. When the DNA matches, denials crumble.",
+      "effectDescription": "Strong jury impact (+8). Reduces witness composure by 15 when presented during cross-examination.",
+      "phases": ["PROSECUTION_CASE", "DEFENSE_CASE"],
+      "targetType": "jury",
+      "juryImpact": 8,
+      "tags": ["forensic", "scientific", "biological"],
+      "artAsset": "cards/evidence/dna-analysis"
+    },
+    {
+      "id": "evi-security-footage",
+      "name": "Security Footage",
+      "type": "evidence",
+      "subtype": "forensic",
+      "rarity": "uncommon",
+      "costCP": 0,
+      "costPP": 4,
+      "effects": [
+        {"type": "JURY_OPINION", "value": 4, "target": "jury"},
+        {"type": "REVEAL_INFO", "value": 1, "target": "witness"}
+      ],
+      "description": "The camera doesn't lie — but it doesn't always tell the whole truth either. What it captures depends on the angle.",
+      "effectDescription": "Moderate jury impact (+4). May reveal a witness lie if the footage contradicts their testimony.",
+      "phases": ["PROSECUTION_CASE", "DEFENSE_CASE"],
+      "targetType": "jury",
+      "juryImpact": 4,
+      "tags": ["forensic", "digital", "visual"],
+      "artAsset": "cards/evidence/security-footage"
+    },
+    {
+      "id": "evi-financial-records",
+      "name": "Financial Records",
+      "type": "evidence",
+      "subtype": "documentary",
+      "rarity": "uncommon",
+      "costCP": 0,
+      "costPP": 4,
+      "effects": [
+        {"type": "JURY_OPINION", "value": 4, "target": "jury"}
+      ],
+      "description": "Follow the money. Bank statements, wire transfers, and ledgers tell stories that people try very hard to hide.",
+      "effectDescription": "Moderate jury impact (+4). Extra effective in fraud and financial motive cases.",
+      "phases": ["PROSECUTION_CASE", "DEFENSE_CASE"],
+      "targetType": "jury",
+      "juryImpact": 4,
+      "tags": ["financial", "documentary", "paper_trail"],
+      "artAsset": "cards/evidence/financial-records"
+    },
+    {
+      "id": "evi-phone-records",
+      "name": "Phone Records",
+      "type": "evidence",
+      "subtype": "digital",
+      "rarity": "common",
+      "costCP": 0,
+      "costPP": 3,
+      "effects": [
+        {"type": "JURY_OPINION", "value": 3, "target": "jury"}
+      ],
+      "description": "Call logs, text messages, and cell tower pings paint a timeline that's hard to dispute.",
+      "effectDescription": "Moderate jury impact (+3). Useful for establishing timelines and contradicting alibis.",
+      "phases": ["PROSECUTION_CASE", "DEFENSE_CASE"],
+      "targetType": "jury",
+      "juryImpact": 3,
+      "tags": ["digital", "documentary", "timeline"],
+      "artAsset": "cards/evidence/phone-records"
+    },
+    {
+      "id": "evi-expert-testimony",
+      "name": "Expert Testimony",
+      "type": "evidence",
+      "subtype": "testimony",
+      "rarity": "rare",
+      "costCP": 0,
+      "costPP": 6,
+      "effects": [
+        {"type": "JURY_OPINION", "value": 6, "target": "jury"},
+        {"type": "CP_CHANGE", "value": 3, "target": "self"}
+      ],
+      "description": "When a recognized authority explains the science, even the most skeptical jurors take notice.",
+      "effectDescription": "Strong jury impact (+6). Grants +3 CP from demonstrated expertise.",
+      "phases": ["PROSECUTION_CASE", "DEFENSE_CASE"],
+      "targetType": "jury",
+      "juryImpact": 6,
+      "tags": ["expert", "scientific", "testimony"],
+      "artAsset": "cards/evidence/expert-testimony"
+    },
+    {
+      "id": "evi-eyewitness-id",
+      "name": "Eyewitness Identification",
+      "type": "evidence",
+      "subtype": "testimony",
+      "rarity": "common",
+      "costCP": 0,
+      "costPP": 3,
+      "effects": [
+        {"type": "JURY_OPINION", "value": 3, "target": "jury"},
+        {"type": "WITNESS_COMPOSURE", "value": -5, "target": "witness"}
+      ],
+      "description": "\"I'll never forget that face.\" Powerful words — but memory is a fragile thing.",
+      "effectDescription": "Moderate jury impact (+3). Slightly pressures the identified individual.",
+      "phases": ["PROSECUTION_CASE", "DEFENSE_CASE"],
+      "targetType": "jury",
+      "juryImpact": 3,
+      "tags": ["testimony", "identification", "eyewitness"],
+      "artAsset": "cards/evidence/eyewitness-id"
+    },
+    {
+      "id": "evi-physical-evidence",
+      "name": "Physical Evidence",
+      "type": "evidence",
+      "subtype": "forensic",
+      "rarity": "uncommon",
+      "costCP": 0,
+      "costPP": 5,
+      "effects": [
+        {"type": "JURY_OPINION", "value": 5, "target": "jury"}
+      ],
+      "description": "The murder weapon. The bloody glove. The torn fabric. Objects carry the weight of truth when words fail.",
+      "effectDescription": "Solid jury impact (+5). Physical evidence is trusted by analytical jurors.",
+      "phases": ["PROSECUTION_CASE", "DEFENSE_CASE"],
+      "targetType": "jury",
+      "juryImpact": 5,
+      "tags": ["forensic", "physical", "tangible"],
+      "artAsset": "cards/evidence/physical-evidence"
+    },
+    {
+      "id": "evi-digital-forensics",
+      "name": "Digital Forensics",
+      "type": "evidence",
+      "subtype": "digital",
+      "rarity": "rare",
+      "costCP": 0,
+      "costPP": 7,
+      "effects": [
+        {"type": "JURY_OPINION", "value": 6, "target": "jury"},
+        {"type": "REVEAL_INFO", "value": 1, "target": "witness"}
+      ],
+      "description": "Deleted files, browser history, metadata. The digital world remembers what people try to forget.",
+      "effectDescription": "Strong jury impact (+6). Can reveal hidden information or contradict testimony.",
+      "phases": ["PROSECUTION_CASE", "DEFENSE_CASE"],
+      "targetType": "jury",
+      "juryImpact": 6,
+      "tags": ["digital", "forensic", "technical"],
+      "artAsset": "cards/evidence/digital-forensics"
+    },
+    {
+      "id": "evi-character-reference",
+      "name": "Character Reference",
+      "type": "evidence",
+      "subtype": "testimony",
+      "rarity": "common",
+      "costCP": 0,
+      "costPP": 2,
+      "effects": [
+        {"type": "JURY_OPINION", "value": 2, "target": "jury"}
+      ],
+      "description": "\"I've known them for twenty years and they would never...\" Character speaks when evidence whispers.",
+      "effectDescription": "Mild jury impact (+2). More effective with emotional jurors.",
+      "phases": ["DEFENSE_CASE", "PROSECUTION_CASE"],
+      "targetType": "jury",
+      "juryImpact": 2,
+      "tags": ["testimony", "character", "emotional"],
+      "artAsset": "cards/evidence/character-reference"
+    },
+    {
+      "id": "evi-medical-records",
+      "name": "Medical Records",
+      "type": "evidence",
+      "subtype": "documentary",
+      "rarity": "uncommon",
+      "costCP": 0,
+      "costPP": 5,
+      "effects": [
+        {"type": "JURY_OPINION", "value": 5, "target": "jury"},
+        {"type": "WITNESS_COMPOSURE", "value": -10, "target": "witness"}
+      ],
+      "description": "Hospital visits, treatment records, and injury reports. The body keeps score even when the mind tries to forget.",
+      "effectDescription": "Solid jury impact (+5). Can undermine witness claims about injuries, timing, or physical condition.",
+      "phases": ["PROSECUTION_CASE", "DEFENSE_CASE"],
+      "targetType": "jury",
+      "juryImpact": 5,
+      "tags": ["medical", "documentary", "scientific"],
+      "artAsset": "cards/evidence/medical-records"
+    },
+
+    {
+      "id": "obj-hearsay",
+      "name": "Objection: Hearsay",
+      "type": "objection",
+      "subtype": "evidentiary",
+      "rarity": "common",
+      "costCP": 2,
+      "costPP": 0,
+      "effects": [
+        {"type": "OBJECTION", "value": 1, "target": "opponent"},
+        {"type": "JURY_OPINION", "value": -2, "target": "jury", "condition": "sustained"}
+      ],
+      "description": "\"Objection, Your Honor — hearsay!\" The witness is repeating what someone else said, not what they personally observed.",
+      "effectDescription": "If sustained: blocks testimony, reverses jury impact (-2 from opponent). If overruled: lose 1 extra CP.",
+      "phases": ["PROSECUTION_CASE", "DEFENSE_CASE"],
+      "targetType": "judge",
+      "juryImpact": 0,
+      "tags": ["procedural", "evidentiary", "FRE802"],
+      "artAsset": "cards/objection/hearsay"
+    },
+    {
+      "id": "obj-relevance",
+      "name": "Objection: Relevance",
+      "type": "objection",
+      "subtype": "evidentiary",
+      "rarity": "common",
+      "costCP": 2,
+      "costPP": 0,
+      "effects": [
+        {"type": "OBJECTION", "value": 1, "target": "opponent"},
+        {"type": "JURY_OPINION", "value": -2, "target": "jury", "condition": "sustained"}
+      ],
+      "description": "\"Objection — relevance?\" This line of questioning has nothing to do with the matter at hand.",
+      "effectDescription": "If sustained: blocks testimony/evidence, partial jury opinion reversal. If overruled: lose 1 extra CP.",
+      "phases": ["PROSECUTION_CASE", "DEFENSE_CASE", "CLOSING_ARGUMENTS"],
+      "targetType": "judge",
+      "juryImpact": 0,
+      "tags": ["procedural", "evidentiary", "FRE401"],
+      "artAsset": "cards/objection/relevance"
+    },
+    {
+      "id": "obj-leading",
+      "name": "Objection: Leading the Witness",
+      "type": "objection",
+      "subtype": "procedural",
+      "rarity": "common",
+      "costCP": 1,
+      "costPP": 0,
+      "effects": [
+        {"type": "OBJECTION", "value": 1, "target": "opponent"}
+      ],
+      "description": "\"Objection — leading!\" Counsel is putting words in the witness's mouth during direct examination.",
+      "effectDescription": "Low cost objection. Only valid during direct examination. If sustained: question stricken.",
+      "phases": ["PROSECUTION_CASE", "DEFENSE_CASE"],
+      "targetType": "judge",
+      "juryImpact": 0,
+      "tags": ["procedural", "examination", "FRE611"],
+      "artAsset": "cards/objection/leading"
+    },
+    {
+      "id": "obj-speculation",
+      "name": "Objection: Speculation",
+      "type": "objection",
+      "subtype": "evidentiary",
+      "rarity": "common",
+      "costCP": 2,
+      "costPP": 0,
+      "effects": [
+        {"type": "OBJECTION", "value": 1, "target": "opponent"},
+        {"type": "JURY_OPINION", "value": -1, "target": "jury", "condition": "sustained"}
+      ],
+      "description": "\"Objection — calls for speculation!\" The witness is being asked to guess rather than testify to what they know.",
+      "effectDescription": "If sustained: answer stricken, minor jury correction. If overruled: lose 1 extra CP.",
+      "phases": ["PROSECUTION_CASE", "DEFENSE_CASE"],
+      "targetType": "judge",
+      "juryImpact": 0,
+      "tags": ["procedural", "evidentiary", "FRE602"],
+      "artAsset": "cards/objection/speculation"
+    },
+    {
+      "id": "obj-foundation",
+      "name": "Objection: Lack of Foundation",
+      "type": "objection",
+      "subtype": "evidentiary",
+      "rarity": "uncommon",
+      "costCP": 2,
+      "costPP": 0,
+      "effects": [
+        {"type": "OBJECTION", "value": 1, "target": "opponent"},
+        {"type": "BLOCK_CARD", "value": 1, "target": "opponent", "condition": "sustained"}
+      ],
+      "description": "\"Objection — no foundation!\" Counsel hasn't established that the witness has personal knowledge or that the evidence is authentic.",
+      "effectDescription": "If sustained: blocks evidence card or testimony. Forces opponent to establish foundation first.",
+      "phases": ["PROSECUTION_CASE", "DEFENSE_CASE"],
+      "targetType": "judge",
+      "juryImpact": 0,
+      "tags": ["procedural", "evidentiary", "FRE901"],
+      "artAsset": "cards/objection/foundation"
+    },
+    {
+      "id": "obj-prejudicial",
+      "name": "Objection: Prejudicial",
+      "type": "objection",
+      "subtype": "evidentiary",
+      "rarity": "rare",
+      "costCP": 4,
+      "costPP": 0,
+      "effects": [
+        {"type": "OBJECTION", "value": 1, "target": "opponent"},
+        {"type": "JURY_OPINION", "value": -4, "target": "jury", "condition": "sustained"},
+        {"type": "JUDGE_FAVOR", "value": 2, "target": "judge", "condition": "sustained"}
+      ],
+      "description": "\"Objection! More prejudicial than probative, Your Honor.\" This evidence may be technically relevant, but its emotional impact far outweighs its factual value.",
+      "effectDescription": "If sustained: evidence excluded, significant jury opinion reversal (-4), judge appreciates proper legal argument (+2). High risk if overruled.",
+      "phases": ["PROSECUTION_CASE", "DEFENSE_CASE"],
+      "targetType": "judge",
+      "juryImpact": 0,
+      "tags": ["procedural", "evidentiary", "FRE403", "high_risk"],
+      "artAsset": "cards/objection/prejudicial"
+    },
+    {
+      "id": "obj-asked-answered",
+      "name": "Objection: Asked and Answered",
+      "type": "objection",
+      "subtype": "procedural",
+      "rarity": "common",
+      "costCP": 1,
+      "costPP": 0,
+      "effects": [
+        {"type": "OBJECTION", "value": 1, "target": "opponent"}
+      ],
+      "description": "\"Objection — asked and answered!\" Counsel is repeating the same question hoping for a different answer.",
+      "effectDescription": "Low cost. If sustained: forces opponent to move on. Shows judge you're paying attention.",
+      "phases": ["PROSECUTION_CASE", "DEFENSE_CASE"],
+      "targetType": "judge",
+      "juryImpact": 0,
+      "tags": ["procedural", "examination", "FRE611"],
+      "artAsset": "cards/objection/asked-answered"
+    },
+    {
+      "id": "obj-narrative",
+      "name": "Objection: Narrative",
+      "type": "objection",
+      "subtype": "procedural",
+      "rarity": "uncommon",
+      "costCP": 2,
+      "costPP": 0,
+      "effects": [
+        {"type": "OBJECTION", "value": 1, "target": "opponent"},
+        {"type": "JURY_OPINION", "value": -1, "target": "jury", "condition": "sustained"}
+      ],
+      "description": "\"Objection — the witness is narrating!\" The witness is giving a speech instead of answering the specific question asked.",
+      "effectDescription": "If sustained: witness is instructed to answer only what's asked. Limits opponent's control of testimony.",
+      "phases": ["PROSECUTION_CASE", "DEFENSE_CASE"],
+      "targetType": "judge",
+      "juryImpact": 0,
+      "tags": ["procedural", "examination", "FRE611"],
+      "artAsset": "cards/objection/narrative"
+    },
+
+    {
+      "id": "tac-request-recess",
+      "name": "Request Recess",
+      "type": "tactic",
+      "subtype": "procedural",
+      "rarity": "common",
+      "costCP": 2,
+      "costPP": 0,
+      "effects": [
+        {"type": "DRAW_CARDS", "value": 2, "target": "self"},
+        {"type": "CP_CHANGE", "value": -2, "target": "self"}
+      ],
+      "description": "\"Your Honor, the defense requests a brief recess.\" Sometimes stepping back is the best step forward.",
+      "effectDescription": "Draw 2 additional cards. Costs 2 CP. Resets jury engagement slightly. Judge may deny if patience is low.",
+      "phases": ["PROSECUTION_CASE", "DEFENSE_CASE"],
+      "targetType": "judge",
+      "juryImpact": 0,
+      "tags": ["procedural", "strategic", "recovery"],
+      "artAsset": "cards/tactic/request-recess"
+    },
+    {
+      "id": "tac-approach-bench",
+      "name": "Approach the Bench",
+      "type": "tactic",
+      "subtype": "procedural",
+      "rarity": "uncommon",
+      "costCP": 3,
+      "costPP": 0,
+      "effects": [
+        {"type": "JUDGE_FAVOR", "value": 3, "target": "judge"},
+        {"type": "REVEAL_INFO", "value": 1, "target": "judge"}
+      ],
+      "description": "\"May I approach the bench, Your Honor?\" A private word with the judge, away from the jury's ears.",
+      "effectDescription": "Private sidebar with judge. Can influence judge disposition (+3) and reveal judge's current leanings.",
+      "phases": ["PROSECUTION_CASE", "DEFENSE_CASE", "CLOSING_ARGUMENTS"],
+      "targetType": "judge",
+      "juryImpact": 0,
+      "tags": ["procedural", "strategic", "sidebar"],
+      "artAsset": "cards/tactic/approach-bench"
+    },
+    {
+      "id": "tac-move-to-strike",
+      "name": "Move to Strike",
+      "type": "tactic",
+      "subtype": "procedural",
+      "rarity": "uncommon",
+      "costCP": 3,
+      "costPP": 0,
+      "effects": [
+        {"type": "JURY_OPINION", "value": -3, "target": "jury", "condition": "granted"},
+        {"type": "OBJECTION", "value": 1, "target": "opponent"}
+      ],
+      "description": "\"Your Honor, I move to strike that testimony from the record.\" Words spoken can't be unheard, but they can be officially ignored.",
+      "effectDescription": "If granted: removes last testimony from record, partial jury opinion reversal (-3). Judge instructs jury to disregard.",
+      "phases": ["PROSECUTION_CASE", "DEFENSE_CASE"],
+      "targetType": "judge",
+      "juryImpact": -3,
+      "tags": ["procedural", "evidentiary", "correction"],
+      "artAsset": "cards/tactic/move-to-strike"
+    },
+    {
+      "id": "tac-redirect",
+      "name": "Redirect Examination",
+      "type": "tactic",
+      "subtype": "examination",
+      "rarity": "common",
+      "costCP": 0,
+      "costPP": 2,
+      "effects": [
+        {"type": "JURY_OPINION", "value": 3, "target": "jury"},
+        {"type": "WITNESS_COMPOSURE", "value": 10, "target": "witness"}
+      ],
+      "description": "\"Just a few more questions on redirect, Your Honor.\" Repair the damage, reinforce the message.",
+      "effectDescription": "Allows re-examination of your witness after cross. Restores some composure (+10) and reinforces testimony (+3 jury).",
+      "phases": ["PROSECUTION_CASE", "DEFENSE_CASE"],
+      "targetType": "witness",
+      "juryImpact": 3,
+      "tags": ["examination", "strategic", "recovery"],
+      "artAsset": "cards/tactic/redirect"
+    },
+    {
+      "id": "tac-sidebar",
+      "name": "Sidebar Conference",
+      "type": "tactic",
+      "subtype": "procedural",
+      "rarity": "uncommon",
+      "costCP": 3,
+      "costPP": 1,
+      "effects": [
+        {"type": "REVEAL_INFO", "value": 2, "target": "judge"},
+        {"type": "BLOCK_CARD", "value": 1, "target": "opponent"}
+      ],
+      "description": "Both attorneys approach. The jury strains to hear but catches nothing. Deals are made and lines are drawn at sidebar.",
+      "effectDescription": "Private conference. Can block opponent's next card play and reveal judge's stance on an issue.",
+      "phases": ["PROSECUTION_CASE", "DEFENSE_CASE"],
+      "targetType": "judge",
+      "juryImpact": 0,
+      "tags": ["procedural", "strategic", "sidebar"],
+      "artAsset": "cards/tactic/sidebar"
+    },
+    {
+      "id": "tac-motion-dismiss",
+      "name": "Motion to Dismiss",
+      "type": "tactic",
+      "subtype": "legal",
+      "rarity": "rare",
+      "costCP": 5,
+      "costPP": 3,
+      "effects": [
+        {"type": "JUDGE_FAVOR", "value": -5, "target": "judge", "condition": "denied"},
+        {"type": "JURY_OPINION", "value": 20, "target": "jury", "condition": "granted"}
+      ],
+      "description": "\"Your Honor, the defense moves for a directed verdict of acquittal.\" A bold play — if the prosecution hasn't met its burden, why continue?",
+      "effectDescription": "If granted: case dismissed, instant win. If denied: significant judge displeasure. Only effective when prosecution case is genuinely weak.",
+      "phases": ["DEFENSE_CASE"],
+      "targetType": "judge",
+      "juryImpact": 0,
+      "tags": ["legal", "bold", "high_risk"],
+      "artAsset": "cards/tactic/motion-dismiss"
+    },
+    {
+      "id": "tac-impeach-witness",
+      "name": "Impeach Witness",
+      "type": "tactic",
+      "subtype": "examination",
+      "rarity": "uncommon",
+      "costCP": 2,
+      "costPP": 3,
+      "effects": [
+        {"type": "WITNESS_COMPOSURE", "value": -20, "target": "witness"},
+        {"type": "JURY_OPINION", "value": 4, "target": "jury"},
+        {"type": "CP_CHANGE", "value": 2, "target": "self"}
+      ],
+      "description": "\"Isn't it true that you previously stated...\" Catch them in a contradiction and watch credibility crumble.",
+      "effectDescription": "Requires prior contradicting evidence. Major composure damage (-20), jury impact (+4), and CP gain (+2) from effective lawyering.",
+      "phases": ["PROSECUTION_CASE", "DEFENSE_CASE"],
+      "targetType": "witness",
+      "juryImpact": 4,
+      "tags": ["impeachment", "examination", "aggressive"],
+      "artAsset": "cards/tactic/impeach-witness"
+    },
+    {
+      "id": "tac-enter-evidence",
+      "name": "Enter Evidence into Record",
+      "type": "tactic",
+      "subtype": "procedural",
+      "rarity": "common",
+      "costCP": 0,
+      "costPP": 1,
+      "effects": [
+        {"type": "JURY_OPINION", "value": 1, "target": "jury"},
+        {"type": "COMBO_BONUS", "value": 2, "target": "jury"}
+      ],
+      "description": "\"Your Honor, we'd like to enter this as Exhibit A.\" Making it official gives evidence extra weight.",
+      "effectDescription": "Formally enters evidence. Small direct impact (+1) but enables combo bonuses with other evidence cards (+2).",
+      "phases": ["PROSECUTION_CASE", "DEFENSE_CASE"],
+      "targetType": "court",
+      "juryImpact": 1,
+      "tags": ["procedural", "documentary", "combo_enabler"],
+      "artAsset": "cards/tactic/enter-evidence"
+    },
+    {
+      "id": "tac-poll-jury",
+      "name": "Poll the Jury",
+      "type": "tactic",
+      "subtype": "strategic",
+      "rarity": "rare",
+      "costCP": 4,
+      "costPP": 0,
+      "effects": [
+        {"type": "REVEAL_INFO", "value": 3, "target": "jury"}
+      ],
+      "description": "A rare glimpse behind the curtain. Request individual polling and read their faces as they answer.",
+      "effectDescription": "Reveals current opinion trends for 3 random jurors. Expensive but invaluable for strategy adjustment.",
+      "phases": ["CLOSING_ARGUMENTS"],
+      "targetType": "jury",
+      "juryImpact": 0,
+      "tags": ["strategic", "information", "jury_reading"],
+      "artAsset": "cards/tactic/poll-jury"
+    },
+    {
+      "id": "tac-mistrial-motion",
+      "name": "Mistrial Motion",
+      "type": "tactic",
+      "subtype": "legal",
+      "rarity": "legendary",
+      "costCP": 8,
+      "costPP": 0,
+      "effects": [
+        {"type": "JUDGE_FAVOR", "value": -10, "target": "judge", "condition": "denied"},
+        {"type": "JURY_OPINION", "value": 0, "target": "jury"}
+      ],
+      "description": "\"Your Honor, we move for a mistrial!\" The nuclear option. If something has gone fundamentally wrong, blow it all up and start over.",
+      "effectDescription": "If granted: trial ends, case retried with new jury. If denied: massive judge displeasure and CP loss. Only viable with serious procedural violations.",
+      "phases": ["PROSECUTION_CASE", "DEFENSE_CASE", "CLOSING_ARGUMENTS"],
+      "targetType": "judge",
+      "juryImpact": 0,
+      "tags": ["legal", "nuclear", "high_risk", "last_resort"],
+      "artAsset": "cards/tactic/mistrial-motion"
+    }
+  ]
+}
