@@ -1,0 +1,308 @@
+{
+  "deckId": "advanced-deck",
+  "name": "Advanced Deck",
+  "description": "Powerful cards unlocked through career progression. Higher cost, higher impact.",
+  "unlockRequirement": "Complete case-001 or reach Senior Associate rank",
+  "cards": [
+    {
+      "id": "adv-expert-rebuttal",
+      "name": "Expert Rebuttal",
+      "type": "tactic",
+      "subtype": "examination",
+      "rarity": "rare",
+      "costCP": 2,
+      "costPP": 6,
+      "effects": [
+        {"type": "JURY_OPINION", "value": -6, "target": "jury"},
+        {"type": "CP_CHANGE", "value": 3, "target": "self"}
+      ],
+      "description": "Your expert takes the stand to dismantle their expert. Science versus science — let the jury decide who's more convincing.",
+      "effectDescription": "Counters opponent's expert testimony. Reverses up to 6 points of jury opinion. Grants +3 CP from effective counter-argument.",
+      "phases": ["PROSECUTION_CASE", "DEFENSE_CASE"],
+      "targetType": "jury",
+      "juryImpact": -6,
+      "tags": ["expert", "rebuttal", "scientific", "counter"],
+      "artAsset": "cards/advanced/expert-rebuttal"
+    },
+    {
+      "id": "adv-surprise-witness",
+      "name": "Surprise Witness",
+      "type": "wild",
+      "subtype": "dramatic",
+      "rarity": "legendary",
+      "costCP": 5,
+      "costPP": 10,
+      "effects": [
+        {"type": "JURY_OPINION", "value": 10, "target": "jury"},
+        {"type": "WITNESS_COMPOSURE", "value": -25, "target": "witness"}
+      ],
+      "description": "\"The defense calls...\" A gasp fills the courtroom. No one expected this. The witness who changes everything.",
+      "effectDescription": "Introduces a witness not on the original witness list. Massive jury impact (+10) and devastating to opposing witnesses (-25 composure). Judge may limit scope.",
+      "phases": ["DEFENSE_CASE"],
+      "targetType": "court",
+      "juryImpact": 10,
+      "tags": ["dramatic", "witness", "surprise", "game_changer"],
+      "artAsset": "cards/advanced/surprise-witness"
+    },
+    {
+      "id": "adv-sealed-evidence",
+      "name": "Sealed Evidence",
+      "type": "evidence",
+      "subtype": "documentary",
+      "rarity": "rare",
+      "costCP": 0,
+      "costPP": 8,
+      "effects": [
+        {"type": "JURY_OPINION", "value": 7, "target": "jury"},
+        {"type": "REVEAL_INFO", "value": 2, "target": "witness"}
+      ],
+      "description": "Locked away by court order, unsealed by your motion. What was hidden may be the key to everything.",
+      "effectDescription": "Powerful evidence that was previously sealed. Strong jury impact (+7) and reveals hidden information about witnesses.",
+      "phases": ["PROSECUTION_CASE", "DEFENSE_CASE"],
+      "targetType": "jury",
+      "juryImpact": 7,
+      "tags": ["documentary", "sealed", "hidden", "powerful"],
+      "artAsset": "cards/advanced/sealed-evidence"
+    },
+    {
+      "id": "adv-jury-instruction",
+      "name": "Jury Instruction Request",
+      "type": "tactic",
+      "subtype": "legal",
+      "rarity": "rare",
+      "costCP": 4,
+      "costPP": 2,
+      "effects": [
+        {"type": "JURY_OPINION", "value": 5, "target": "jury"},
+        {"type": "JUDGE_FAVOR", "value": 2, "target": "judge"}
+      ],
+      "description": "\"Your Honor, we request a special instruction to the jury regarding...\" Frame how they think about the evidence.",
+      "effectDescription": "Request specific jury instructions that frame evidence in your favor. If judge agrees: jury opinion shift (+5) and judge favor (+2).",
+      "phases": ["CLOSING_ARGUMENTS"],
+      "targetType": "judge",
+      "juryImpact": 5,
+      "tags": ["legal", "strategic", "jury_influence", "framing"],
+      "artAsset": "cards/advanced/jury-instruction"
+    },
+    {
+      "id": "adv-change-venue",
+      "name": "Change of Venue",
+      "type": "tactic",
+      "subtype": "legal",
+      "rarity": "legendary",
+      "costCP": 6,
+      "costPP": 4,
+      "effects": [
+        {"type": "JURY_OPINION", "value": 0, "target": "jury"},
+        {"type": "REVEAL_INFO", "value": 5, "target": "jury"}
+      ],
+      "description": "\"Your Honor, we move for a change of venue due to prejudicial media coverage.\" New location, new jury pool, new possibilities.",
+      "effectDescription": "If granted: replaces 4 jurors from the pool with new jurors. Reveals full bias information on all new jurors. Extremely rare to be granted.",
+      "phases": ["PROSECUTION_CASE"],
+      "targetType": "judge",
+      "juryImpact": 0,
+      "tags": ["legal", "nuclear", "jury_manipulation", "rare"],
+      "artAsset": "cards/advanced/change-venue"
+    },
+    {
+      "id": "adv-forensic-animation",
+      "name": "Forensic Animation",
+      "type": "evidence",
+      "subtype": "forensic",
+      "rarity": "rare",
+      "costCP": 0,
+      "costPP": 7,
+      "effects": [
+        {"type": "JURY_OPINION", "value": 6, "target": "jury"},
+        {"type": "WITNESS_COMPOSURE", "value": -10, "target": "witness"}
+      ],
+      "description": "A 3D reconstruction plays on the courtroom screens. The jury watches the events unfold as the evidence suggests they happened. Seeing is believing.",
+      "effectDescription": "Visual reconstruction of events based on evidence. High impact on visual learners and emotional jurors (+6). Undermines contradicting witnesses.",
+      "phases": ["PROSECUTION_CASE", "DEFENSE_CASE", "CLOSING_ARGUMENTS"],
+      "targetType": "jury",
+      "juryImpact": 6,
+      "tags": ["forensic", "visual", "technological", "dramatic"],
+      "artAsset": "cards/advanced/forensic-animation"
+    },
+    {
+      "id": "adv-cold-case-evidence",
+      "name": "Cold Case Evidence",
+      "type": "evidence",
+      "subtype": "forensic",
+      "rarity": "rare",
+      "costCP": 0,
+      "costPP": 9,
+      "effects": [
+        {"type": "JURY_OPINION", "value": 8, "target": "jury"},
+        {"type": "REVEAL_INFO", "value": 1, "target": "witness"}
+      ],
+      "description": "Evidence from a decades-old case resurfaces, connecting dots no one knew existed. The past has a way of catching up.",
+      "effectDescription": "Introduces evidence from a related past case. Very strong jury impact (+8). Can reveal patterns of behavior.",
+      "phases": ["DEFENSE_CASE", "PROSECUTION_CASE"],
+      "targetType": "jury",
+      "juryImpact": 8,
+      "tags": ["forensic", "historical", "pattern", "powerful"],
+      "artAsset": "cards/advanced/cold-case-evidence"
+    },
+    {
+      "id": "adv-plea-bargain",
+      "name": "Plea Bargain Offer",
+      "type": "tactic",
+      "subtype": "negotiation",
+      "rarity": "uncommon",
+      "costCP": 3,
+      "costPP": 0,
+      "effects": [
+        {"type": "JURY_OPINION", "value": 0, "target": "jury"}
+      ],
+      "description": "\"My client is willing to discuss terms.\" Sometimes the best victory is the one negotiated, not won.",
+      "effectDescription": "Initiates plea negotiation. Outcome depends on current case strength. Guaranteed resolution but reduced XP. Judge must approve.",
+      "phases": ["PROSECUTION_CASE", "DEFENSE_CASE"],
+      "targetType": "opponent",
+      "juryImpact": 0,
+      "tags": ["negotiation", "strategic", "resolution"],
+      "artAsset": "cards/advanced/plea-bargain"
+    },
+    {
+      "id": "adv-witness-protection",
+      "name": "Witness Protection Deal",
+      "type": "tactic",
+      "subtype": "negotiation",
+      "rarity": "rare",
+      "costCP": 4,
+      "costPP": 5,
+      "effects": [
+        {"type": "WITNESS_COMPOSURE", "value": 30, "target": "witness"},
+        {"type": "JURY_OPINION", "value": 5, "target": "jury"}
+      ],
+      "description": "\"In exchange for full and truthful testimony, we can guarantee your safety.\" Fear makes witnesses lie. Remove the fear.",
+      "effectDescription": "Grants immunity or protection to a reluctant witness, boosting their composure (+30) and encouraging truthful testimony (+5 jury).",
+      "phases": ["DEFENSE_CASE", "PROSECUTION_CASE"],
+      "targetType": "witness",
+      "juryImpact": 5,
+      "tags": ["negotiation", "witness", "immunity", "truth"],
+      "artAsset": "cards/advanced/witness-protection"
+    },
+    {
+      "id": "adv-constitutional-challenge",
+      "name": "Constitutional Challenge",
+      "type": "tactic",
+      "subtype": "legal",
+      "rarity": "legendary",
+      "costCP": 7,
+      "costPP": 5,
+      "effects": [
+        {"type": "BLOCK_CARD", "value": 3, "target": "opponent"},
+        {"type": "JUDGE_FAVOR", "value": 5, "target": "judge", "condition": "granted"},
+        {"type": "JURY_OPINION", "value": 8, "target": "jury", "condition": "granted"}
+      ],
+      "description": "\"Your Honor, this evidence was obtained in violation of the Fourth Amendment.\" The Constitution is the ultimate trump card.",
+      "effectDescription": "Challenge the constitutionality of evidence or procedure. If granted: suppresses up to 3 opponent cards, major jury swing. If denied: significant CP loss.",
+      "phases": ["PROSECUTION_CASE", "DEFENSE_CASE"],
+      "targetType": "judge",
+      "juryImpact": 8,
+      "tags": ["legal", "constitutional", "suppression", "powerful", "high_risk"],
+      "artAsset": "cards/advanced/constitutional-challenge"
+    },
+    {
+      "id": "adv-recall-witness",
+      "name": "Recall Witness",
+      "type": "tactic",
+      "subtype": "examination",
+      "rarity": "rare",
+      "costCP": 3,
+      "costPP": 5,
+      "effects": [
+        {"type": "WITNESS_COMPOSURE", "value": -15, "target": "witness"},
+        {"type": "JURY_OPINION", "value": 4, "target": "jury"}
+      ],
+      "description": "\"The defense recalls the witness to the stand.\" They thought they were done. They were wrong.",
+      "effectDescription": "Bring back a previously dismissed witness for additional examination. Composure penalty from the surprise (-15). Jury pays attention (+4).",
+      "phases": ["DEFENSE_CASE"],
+      "targetType": "witness",
+      "juryImpact": 4,
+      "tags": ["examination", "surprise", "strategic", "second_chance"],
+      "artAsset": "cards/advanced/recall-witness"
+    },
+    {
+      "id": "adv-evidence-cascade",
+      "name": "Evidence Cascade",
+      "type": "tactic",
+      "subtype": "strategic",
+      "rarity": "rare",
+      "costCP": 2,
+      "costPP": 4,
+      "effects": [
+        {"type": "DRAW_CARDS", "value": 3, "target": "self"},
+        {"type": "COMBO_BONUS", "value": 5, "target": "jury"}
+      ],
+      "description": "One piece connects to another connects to another. The evidence tells a story, and you're laying it out chapter by chapter.",
+      "effectDescription": "Draw 3 cards and play up to 2 evidence cards this turn. Combo bonus (+5) if evidence shares tags.",
+      "phases": ["PROSECUTION_CASE", "DEFENSE_CASE"],
+      "targetType": "self",
+      "juryImpact": 5,
+      "tags": ["strategic", "combo", "evidence_chain", "powerful"],
+      "artAsset": "cards/advanced/evidence-cascade"
+    },
+    {
+      "id": "adv-emotional-appeal",
+      "name": "Emotional Closing Appeal",
+      "type": "tactic",
+      "subtype": "persuasion",
+      "rarity": "uncommon",
+      "costCP": 5,
+      "costPP": 0,
+      "effects": [
+        {"type": "JURY_OPINION", "value": 7, "target": "jury"}
+      ],
+      "description": "\"Ladies and gentlemen of the jury, I ask you to look into your hearts...\" Logic has its limits. Sometimes you need to reach their souls.",
+      "effectDescription": "Powerful emotional appeal during closing. Strong impact on emotional jurors (+7). Less effective on analytical jurors. Risky if judge dislikes theatrics.",
+      "phases": ["CLOSING_ARGUMENTS"],
+      "targetType": "jury",
+      "juryImpact": 7,
+      "tags": ["persuasion", "emotional", "closing", "dramatic"],
+      "artAsset": "cards/advanced/emotional-appeal"
+    },
+    {
+      "id": "adv-hostile-witness",
+      "name": "Declare Hostile Witness",
+      "type": "tactic",
+      "subtype": "examination",
+      "rarity": "uncommon",
+      "costCP": 3,
+      "costPP": 2,
+      "effects": [
+        {"type": "WITNESS_COMPOSURE", "value": -10, "target": "witness"},
+        {"type": "JURY_OPINION", "value": 3, "target": "jury"}
+      ],
+      "description": "\"Your Honor, I request permission to treat this witness as hostile.\" Gloves off. Now you can ask the hard questions.",
+      "effectDescription": "Allows leading questions on your own witness. Opens aggressive examination tactics. Composure pressure (-10) and jury notices the drama (+3).",
+      "phases": ["PROSECUTION_CASE", "DEFENSE_CASE"],
+      "targetType": "witness",
+      "juryImpact": 3,
+      "tags": ["examination", "hostile", "aggressive", "tactical"],
+      "artAsset": "cards/advanced/hostile-witness"
+    },
+    {
+      "id": "adv-bombshell-revelation",
+      "name": "Bombshell Revelation",
+      "type": "wild",
+      "subtype": "dramatic",
+      "rarity": "legendary",
+      "costCP": 3,
+      "costPP": 12,
+      "effects": [
+        {"type": "JURY_OPINION", "value": 15, "target": "jury"},
+        {"type": "WITNESS_COMPOSURE", "value": -30, "target": "witness"},
+        {"type": "CP_CHANGE", "value": 5, "target": "self"}
+      ],
+      "description": "The courtroom falls silent. The evidence is irrefutable. Everything the jury thought they knew just changed. This is the moment that wins or loses the case.",
+      "effectDescription": "The ultimate evidence play. Massive jury swing (+15), devastating witness impact (-30), and CP gain (+5). Requires specific hidden evidence to play.",
+      "phases": ["DEFENSE_CASE", "PROSECUTION_CASE"],
+      "targetType": "court",
+      "juryImpact": 15,
+      "tags": ["dramatic", "game_changer", "legendary", "revelation"],
+      "artAsset": "cards/advanced/bombshell-revelation"
+    }
+  ]
+}
