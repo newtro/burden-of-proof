@@ -17,10 +17,25 @@ export interface GameActions {
   playCard: (cardId: string) => void;
   discardCard: (cardId: string) => void;
   setDeck: (library: Card[]) => void;
+  addCardToDeck: (card: Card) => void;
+  removeCardFromDeck: (cardId: string) => void;
 
   // Trial resources
   modifyCP: (delta: number) => void;
   modifyPP: (delta: number) => void;
+
+  // Pre-trial
+  spendBudget: (amount: number) => void;
+  spendDays: (days: number) => void;
+  completeAction: (actionId: string) => void;
+  addIntel: (intel: string) => void;
+
+  // Jury
+  setJurors: (jurors: import('./types').JurorState[]) => void;
+  removeJuror: (jurorId: string) => void;
+
+  // Witnesses
+  setWitnesses: (witnesses: import('./types').WitnessState[]) => void;
 
   // UI
   selectCard: (cardId: string | null) => void;
@@ -142,6 +157,49 @@ export const useGameStore = create<GameState & GameActions>()(
     modifyPP: (delta) => set((s) => {
       s.trial.preparationPoints = Math.max(0, Math.min(s.trial.maxPP, s.trial.preparationPoints + delta));
       s.eventLog.push(makeEvent(s, 'PP_CHANGE', 'system', `PP ${delta >= 0 ? '+' : ''}${delta}`, { delta }));
+    }),
+
+    addCardToDeck: (card) => set((s) => {
+      s.deck.library.push(card);
+    }),
+
+    removeCardFromDeck: (cardId) => set((s) => {
+      const idx = s.deck.library.findIndex(c => c.id === cardId);
+      if (idx !== -1) s.deck.library.splice(idx, 1);
+    }),
+
+    spendBudget: (amount) => set((s) => {
+      if (amount <= s.pretrial.budget - s.pretrial.budgetSpent) {
+        s.pretrial.budgetSpent += amount;
+      }
+    }),
+
+    spendDays: (days) => set((s) => {
+      if (days <= s.pretrial.daysRemaining) {
+        s.pretrial.daysRemaining -= days;
+      }
+    }),
+
+    completeAction: (actionId) => set((s) => {
+      if (!s.pretrial.completedActions.includes(actionId)) {
+        s.pretrial.completedActions.push(actionId);
+      }
+    }),
+
+    addIntel: (intel) => set((s) => {
+      s.eventLog.push(makeEvent(s, 'PHASE_CHANGE', 'system', `Intel: ${intel}`, { intel }));
+    }),
+
+    setJurors: (jurors) => set((s) => {
+      s.jury.jurors = jurors;
+    }),
+
+    removeJuror: (jurorId) => set((s) => {
+      s.jury.jurors = s.jury.jurors.filter(j => j.id !== jurorId);
+    }),
+
+    setWitnesses: (witnesses) => set((s) => {
+      s.witnesses = witnesses;
     }),
 
     selectCard: (cardId) => set((s) => { s.ui.selectedCard = cardId; }),
