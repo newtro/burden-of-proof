@@ -2,8 +2,11 @@ import { Application, Container } from 'pixi.js';
 import { COLORS } from '../lib/constants';
 import { MenuScene } from './scenes/MenuScene';
 import { CourtroomScene } from './scenes/CourtroomScene';
+import { PreTrialScene } from './scenes/PreTrialScene';
+import { JurySelectionScene } from './scenes/JurySelectionScene';
+import { DeckReviewScene } from './scenes/DeckReviewScene';
 
-export type SceneName = 'menu' | 'pretrial' | 'courtroom' | 'verdict';
+export type SceneName = 'menu' | 'pretrial' | 'jurySelection' | 'deckReview' | 'courtroom' | 'verdict';
 
 export class Game {
   public app: Application;
@@ -34,8 +37,14 @@ export class Game {
 
     // Create scenes
     const menu = new MenuScene(this);
+    const pretrial = new PreTrialScene(this);
+    const jurySelection = new JurySelectionScene(this);
+    const deckReview = new DeckReviewScene(this);
     const courtroom = new CourtroomScene(this);
     this.scenes.set('menu', menu.container);
+    this.scenes.set('pretrial', pretrial.container);
+    this.scenes.set('jurySelection', jurySelection.container);
+    this.scenes.set('deckReview', deckReview.container);
     this.scenes.set('courtroom', courtroom.container);
 
     this.switchScene('menu');

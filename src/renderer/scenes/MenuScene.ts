@@ -134,8 +134,11 @@ export class MenuScene {
       gsap.to(btnGlow, { alpha: 0, duration: 0.2 });
     });
     btnContainer.on('pointertap', () => {
-      useGameStore.getState().setPhase('CASE_SELECT');
-      this.game.switchScene('courtroom');
+      const store = useGameStore.getState();
+      store.newGame();
+      store.setPhase('CASE_SELECT');
+      store.setPhase('PRETRIAL');
+      this.game.switchScene('pretrial');
     });
 
     this.container.addChild(btnContainer);
