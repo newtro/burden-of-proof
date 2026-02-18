@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { llmCall, llmCallElevated, MOCK_RESPONSES } from '../client';
-import type { JudgePersona, JudgeState, GameEvent } from '../../state/types';
+import type { JudgePersona, JudgeState } from '../../state/types';
 
 // ── Schemas ──────────────────────────────────────────────────
 export const ObjectionRulingSchema = z.object({

@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { llmCall, MOCK_RESPONSES } from '../client';
-import type { JurorState, JurorPersona, ExpressionType, GameEvent } from '../../state/types';
+import type { JurorState, ExpressionType, GameEvent } from '../../state/types';
 
 // ── Schemas ──────────────────────────────────────────────────
 const JurorReactionSchema = z.object({

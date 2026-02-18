@@ -6,7 +6,6 @@ import { useGameStore } from '../../engine/state/store';
 import {
   INVESTIGATION_ACTIONS,
   getAvailableActions,
-  getActionsByCategory,
   resolveInvestigation,
   type InvestigationAction,
   type InvestigationCategory,

@@ -1,5 +1,5 @@
-import type { Card, CardDefinition, PlayerSkills } from '../state/types';
-import { instantiateCard, getDefinitionsByType, getAllDefinitions } from '../cards/registry';
+import type { Card, PlayerSkills } from '../state/types';
+import { instantiateCard, getAllDefinitions } from '../cards/registry';
 
 // ── Types ────────────────────────────────────────────────────
 export type InvestigationCategory = 'evidence' | 'witnesses' | 'intelligence' | 'preparation';
