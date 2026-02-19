@@ -32,6 +32,7 @@ export class PreTrialScene {
   private resultOverlay: Container | null = null;
   private budgetText!: Text;
   private daysText!: Text;
+  private unsubscribe: (() => void) | null = null;
 
   constructor(private game: Game) {
     this.container = new Container();
@@ -39,7 +40,10 @@ export class PreTrialScene {
     this.container.addChild(this.boardContainer);
     this.build();
 
-    useGameStore.subscribe(() => this.refresh());
+    // Only refresh when in pretrial phase
+    this.unsubscribe = useGameStore.subscribe((state) => {
+      if (state.phase === 'PRETRIAL') this.refresh();
+    });
   }
 
   private build() {
