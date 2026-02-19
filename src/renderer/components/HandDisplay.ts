@@ -6,6 +6,8 @@ import { useGameStore } from '../../engine/state/store';
 
 export class HandDisplay extends Container {
   private cards: CardSprite[] = [];
+  public onCardSelect?: (cardId: string) => void;
+  public onCardPlay?: (cardId: string) => void;
 
   constructor(private screenWidth: number, private screenHeight: number) {
     super();
@@ -34,15 +36,23 @@ export class HandDisplay extends Container {
       sprite.on('pointertap', () => {
         const store = useGameStore.getState();
         if (store.ui.selectedCard === card.id) {
-          store.playCard(card.id);
-          this.setCards(useGameStore.getState().deck.hand);
+          // Double-click: play the card
+          if (this.onCardPlay) {
+            this.onCardPlay(card.id);
+          } else {
+            // Fallback: direct store play
+            store.playCard(card.id);
+            this.setCards(useGameStore.getState().deck.hand);
+          }
+          store.selectCard(null);
         } else {
           store.selectCard(card.id);
           this.cards.forEach(c => c.setSelected(c.card.id === card.id));
+          this.onCardSelect?.(card.id);
         }
       });
 
-      // Animate in
+      // Play animation on card entry
       sprite.alpha = 0;
       sprite.scale.set(0.5);
       gsap.to(sprite, { alpha: 1, duration: 0.3, delay: i * 0.08 });
@@ -51,6 +61,26 @@ export class HandDisplay extends Container {
       this.addChild(sprite);
       this.cards.push(sprite);
     });
+  }
+
+  /** Animate a card flying from hand to a target position */
+  animateCardPlay(cardId: string, targetX: number, targetY: number): void {
+    const sprite = this.cards.find(c => c.card.id === cardId);
+    if (!sprite) return;
+
+    gsap.to(sprite, {
+      x: targetX,
+      y: targetY - this.screenHeight + 100, // offset from hand position
+      alpha: 0,
+      duration: 0.4,
+      ease: 'power2.in',
+      onComplete: () => {
+        sprite.removeFromParent();
+        sprite.destroy();
+        this.cards = this.cards.filter(c => c !== sprite);
+      },
+    });
+    gsap.to(sprite.scale, { x: 0.5, y: 0.5, duration: 0.4, ease: 'power2.in' });
   }
 
   updatePlayable(cp: number, pp: number) {

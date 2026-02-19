@@ -13,7 +13,7 @@ import type { Card } from '../../engine/state/types';
 import type { JurorReaction } from '../../engine/llm/agents/juror-agent';
 import {
   createTrialController, startTrial, advanceToNextPhase,
-  playerAskQuestion, playerEndCardPlay,
+  playerAskQuestion, playerPlayCard, playerEndCardPlay,
   playerPassObjection, playerObjectDuringOpponentTurn,
   type TrialController,
 } from '../../engine/trial/trial-loop';
@@ -72,6 +72,11 @@ export class CourtroomScene {
 
     // Hand display
     this.handDisplay = new HandDisplay(w, h);
+    this.handDisplay.onCardPlay = (cardId: string) => {
+      if (this.trialController) {
+        playerPlayCard(this.trialController, cardId);
+      }
+    };
     this.uiLayer.addChild(this.handDisplay);
 
     // Subscribe to store changes
