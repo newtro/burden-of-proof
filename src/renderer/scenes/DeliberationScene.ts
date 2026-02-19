@@ -11,7 +11,6 @@ import { JurorPortrait } from '../components/JurorPortrait';
 import type { JurorStateFull } from '../../engine/jury/persona-generator';
 import { calculateJurorExpression } from '../../engine/jury/persona-generator';
 import type {
-  DeliberationRound,
   DeliberationArgument,
   DeliberationVote,
 } from '../../engine/jury/deliberation';
@@ -288,9 +287,12 @@ export class DeliberationScene {
         fontWeight: 'bold',
         fill: verdictColors[verdict],
         letterSpacing: 8,
-        dropShadow: true,
-        dropShadowColor: 0x000000,
-        dropShadowDistance: 4,
+        dropShadow: {
+          color: 0x000000,
+          distance: 4,
+          angle: Math.PI / 4,
+          blur: 4,
+        },
       }),
     });
     text.anchor.set(0.5);

@@ -6,6 +6,7 @@ import type {
 } from './types';
 import { canTransition } from './phases';
 import { STARTING_CP, STARTING_PP, MAX_CP, MAX_PP, DEFAULT_HAND_SIZE } from '../../lib/constants';
+import { shuffleArray } from '../../lib/utils';
 
 export interface GameActions {
   // Phase
@@ -41,11 +42,26 @@ export interface GameActions {
   selectCard: (cardId: string | null) => void;
   hoverCard: (cardId: string | null) => void;
 
+  // Intel
+  addJudgeIntel: (trait: string) => void;
+  addWitnessIntel: (witnessId: string, info: string) => void;
+  addMiscIntel: (text: string) => void;
+
+  // Skill XP
+  addSkillXP: (skill: keyof import('./types').SkillXP, amount: number) => void;
+
+  // Trial control
+  setTrialState: (updates: Partial<import('./types').TrialState>) => void;
+
   // Events
   logEvent: (type: EventType, actor: EventActor, description: string, data?: Record<string, unknown>) => void;
 
   // Reset
   newGame: () => void;
+
+  // Save/Load
+  saveProfile: () => void;
+  loadProfile: () => boolean;
 }
 
 const initialState: GameState = {
@@ -79,6 +95,15 @@ const initialState: GameState = {
   deck: { library: [], hand: [], discard: [], removed: [], maxHandSize: DEFAULT_HAND_SIZE },
   ui: { selectedCard: null, hoveredCard: null, activeDialog: null, showEventLog: false, notifications: [] },
   eventLog: [],
+  intel: {
+    judgeTraits: [],
+    judgeRulingTendency: null,
+    witnessPersonalities: {},
+    witnessWeaknesses: {},
+    opponentStrategy: null,
+    miscIntel: [],
+  },
+  skillXP: { juryReading: 0, presentation: 0, interrogation: 0, legalKnowledge: 0, investigation: 0 },
 };
 
 export const useGameStore = create<GameState & GameActions>()(
@@ -205,11 +230,59 @@ export const useGameStore = create<GameState & GameActions>()(
     selectCard: (cardId) => set((s) => { s.ui.selectedCard = cardId; }),
     hoverCard: (cardId) => set((s) => { s.ui.hoveredCard = cardId; }),
 
+    addJudgeIntel: (trait) => set((s) => { s.intel.judgeTraits.push(trait); }),
+    addWitnessIntel: (witnessId, info) => set((s) => {
+      if (!s.intel.witnessPersonalities[witnessId]) s.intel.witnessPersonalities[witnessId] = [];
+      s.intel.witnessPersonalities[witnessId].push(info);
+    }),
+    addMiscIntel: (text) => set((s) => { s.intel.miscIntel.push(text); }),
+
+    addSkillXP: (skill, amount) => set((s) => {
+      s.skillXP[skill] += amount;
+      // Level up at 100 XP per level
+      const xpPerLevel = 100;
+      const currentLevel = s.player.skills[skill];
+      if (s.skillXP[skill] >= currentLevel * xpPerLevel && currentLevel < 5) {
+        s.player.skills[skill] = currentLevel + 1;
+        s.skillXP[skill] = 0;
+      }
+    }),
+
+    setTrialState: (updates) => set((s) => {
+      Object.assign(s.trial, updates);
+    }),
+
     logEvent: (type, actor, description, data = {}) => set((s) => {
       s.eventLog.push(makeEvent(s, type, actor, description, data));
     }),
 
     newGame: () => set(() => ({ ...initialState })),
+
+    saveProfile: () => {
+      const s = useGameStore.getState();
+      const profile = {
+        player: s.player,
+        skillXP: s.skillXP,
+      };
+      try {
+        localStorage.setItem('bop-profile', JSON.stringify(profile));
+      } catch { /* ignore */ }
+    },
+
+    loadProfile: () => {
+      try {
+        const raw = localStorage.getItem('bop-profile');
+        if (!raw) return false;
+        const profile = JSON.parse(raw);
+        set((s) => {
+          if (profile.player) Object.assign(s.player, profile.player);
+          if (profile.skillXP) Object.assign(s.skillXP, profile.skillXP);
+        });
+        return true;
+      } catch {
+        return false;
+      }
+    },
   }))
 );
 
@@ -217,11 +290,4 @@ function makeEvent(s: GameState, type: EventType, actor: EventActor, description
   return { id: crypto.randomUUID(), timestamp: Date.now(), turn: s.trial.turnNumber, phase: s.phase, type, actor, description, data };
 }
 
-function shuffleArray<T>(arr: T[]): T[] {
-  const a = [...arr];
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
-  }
-  return a;
-}
+// shuffleArray imported from lib/utils

@@ -67,7 +67,8 @@ export function scoreCard(card: Card, state: OpponentState, ctx: GameContext): n
 /**
  * Get playable cards from opponent hand.
  */
-function getPlayable(state: OpponentState, phase: GamePhase): Card[] {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function getPlayable(state: OpponentState, _phase?: GamePhase): Card[] {
   return state.hand.filter(c => {
     if (c.costCP > state.credibilityPoints) return false;
     if (c.costPP > state.preparationPoints) return false;

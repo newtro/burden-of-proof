@@ -199,6 +199,25 @@ export interface OpposingCounselState {
   strategy: string;
 }
 
+// ── Intel ─────────────────────────────────────────────────────
+export interface IntelState {
+  judgeTraits: string[];
+  judgeRulingTendency: string | null;
+  witnessPersonalities: Record<string, string[]>;
+  witnessWeaknesses: Record<string, string[]>;
+  opponentStrategy: string | null;
+  miscIntel: string[];
+}
+
+// ── Skill XP Tracking ────────────────────────────────────────
+export interface SkillXP {
+  juryReading: number;
+  presentation: number;
+  interrogation: number;
+  legalKnowledge: number;
+  investigation: number;
+}
+
 // ── Pre-Trial ────────────────────────────────────────────────
 export interface PreTrialState {
   budget: number;
@@ -271,6 +290,8 @@ export interface GameState {
   deck: DeckState;
   ui: UIState;
   eventLog: GameEvent[];
+  intel: IntelState;
+  skillXP: SkillXP;
 }
 
 // ── Zod Schemas ──────────────────────────────────────────────

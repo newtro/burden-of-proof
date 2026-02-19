@@ -199,15 +199,16 @@ export function applyJuryEvent(
     replacementJurorName: undefined as string | undefined,
   };
 
-  switch (event.consequence.type) {
+  const cons = event.consequence;
+  switch (cons.type) {
     case 'remove_juror': {
-      const idx = result.jurors.findIndex(j => j.seatIndex === event.consequence.seatIndex);
+      const idx = result.jurors.findIndex(j => j.seatIndex === cons.seatIndex);
       if (idx === -1) break;
       const removed = result.jurors[idx];
       result.removedJurorName = removed.persona.name;
 
       // Mark as removed
-      result.jurors[idx] = { ...removed, isRemoved: true, removalReason: (event.consequence as { reason: string }).reason };
+      result.jurors[idx] = { ...removed, isRemoved: true, removalReason: cons.reason };
 
       // Replace with alternate
       if (result.alternates.length > 0) {
@@ -223,22 +224,22 @@ export function applyJuryEvent(
       break;
     }
     case 'opinion_shift': {
-      const idx = result.jurors.findIndex(j => j.seatIndex === event.consequence.seatIndex);
+      const idx = result.jurors.findIndex(j => j.seatIndex === cons.seatIndex);
       if (idx === -1) break;
       const j = result.jurors[idx];
       result.jurors[idx] = {
         ...j,
-        opinion: Math.max(-100, Math.min(100, j.opinion + (event.consequence as { shift: number }).shift)),
+        opinion: Math.max(-100, Math.min(100, j.opinion + cons.shift)),
       };
       break;
     }
     case 'engagement_change': {
-      const idx = result.jurors.findIndex(j => j.seatIndex === event.consequence.seatIndex);
+      const idx = result.jurors.findIndex(j => j.seatIndex === cons.seatIndex);
       if (idx === -1) break;
       const j = result.jurors[idx];
       result.jurors[idx] = {
         ...j,
-        engagement: Math.max(0, Math.min(100, j.engagement + (event.consequence as { delta: number }).delta)),
+        engagement: Math.max(0, Math.min(100, j.engagement + cons.delta)),
       };
       break;
     }

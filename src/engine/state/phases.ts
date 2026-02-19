@@ -3,7 +3,7 @@ import type { GamePhase } from './types';
 /** Valid phase transitions */
 const TRANSITIONS: Record<GamePhase, GamePhase[]> = {
   MAIN_MENU: ['CASE_SELECT'],
-  CASE_SELECT: ['PRETRIAL', 'MAIN_MENU', 'TRIAL_OPENING'],
+  CASE_SELECT: ['PRETRIAL', 'MAIN_MENU', 'TRIAL_OPENING', 'CASE_SELECT'],
   PRETRIAL: ['JURY_SELECTION'],
   JURY_SELECTION: ['DECK_REVIEW'],
   DECK_REVIEW: ['TRIAL_OPENING'],

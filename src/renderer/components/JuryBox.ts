@@ -4,6 +4,7 @@
  */
 
 import { Container, Graphics, Text, TextStyle } from 'pixi.js';
+import { gsap } from 'gsap';
 import { JurorPortrait } from './JurorPortrait';
 import { COLORS } from '../../lib/constants';
 import type { ExpressionType } from '../../engine/state/types';
@@ -125,10 +126,6 @@ export class JuryBox extends Container {
    * Update visibility settings based on jury reading skill.
    */
   setSkillLevel(juryReadingLevel: number) {
-    const visibleCount = juryReadingLevel <= 1 ? 3 :
-                         juryReadingLevel === 2 ? 6 :
-                         12;
-
     // Which seats are visible (random but deterministic for level)
     const visibleSeats = new Set<number>();
     if (juryReadingLevel <= 1) {
@@ -193,7 +190,6 @@ export class JuryBox extends Container {
     this.addChild(portrait);
 
     // Fade in
-    const gsap = require('gsap').gsap;
     gsap.to(portrait, { alpha: 1, duration: 0.5 });
   }
 

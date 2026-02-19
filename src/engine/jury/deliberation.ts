@@ -6,7 +6,7 @@
 
 import { z } from 'zod';
 import { llmCall, MOCK_RESPONSES } from '../llm/client';
-import type { JurorStateFull, JurorPersonaFull } from './persona-generator';
+import type { JurorStateFull } from './persona-generator';
 import { checkForJuryEvent, applyJuryEvent, type JuryEvent } from './events';
 
 // ── Types ────────────────────────────────────────────────────
@@ -82,7 +82,7 @@ const MOCK_STATEMENTS: Record<string, string[]> = {
   ],
 };
 
-function getMockStatement(vote: VoteType, archetype: string): string {
+function getMockStatement(vote: VoteType): string {
   const pool = MOCK_STATEMENTS[vote] || MOCK_STATEMENTS.neutral;
   return pool[Math.floor(Math.random() * pool.length)];
 }
@@ -224,7 +224,7 @@ Make a brief argument (1-2 sentences) for your position. Stay in character. Be $
       jurorId: juror.id,
       jurorName: juror.persona.name,
       archetype: juror.persona.archetype,
-      statement: getMockStatement(vote, juror.persona.archetype),
+      statement: getMockStatement(vote),
       vote,
       persuasionPower,
       seatIndex: juror.seatIndex,

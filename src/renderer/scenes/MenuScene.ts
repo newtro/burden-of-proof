@@ -3,7 +3,7 @@ import { gsap } from 'gsap';
 import type { Game } from '../Game';
 import { COLORS } from '../../lib/constants';
 import { useGameStore } from '../../engine/state/store';
-import { createBaseDeck } from '../../engine/cards/registry';
+// Case loading happens in CaseSelectScene
 
 export class MenuScene {
   public container: Container;
@@ -137,10 +137,9 @@ export class MenuScene {
     btnContainer.on('pointertap', () => {
       const store = useGameStore.getState();
       store.newGame();
-      store.setDeck(createBaseDeck());
+      store.loadProfile(); // Load saved profile if exists
       store.setPhase('CASE_SELECT');
-      store.setPhase('PRETRIAL');
-      this.game.switchScene('pretrial');
+      this.game.switchScene('caseSelect');
     });
 
     this.container.addChild(btnContainer);

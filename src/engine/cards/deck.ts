@@ -1,12 +1,8 @@
 import type { Card, DeckState, GamePhase } from '../state/types';
+import { shuffleArray } from '../../lib/utils';
 
 export function shuffleCards(cards: Card[]): Card[] {
-  const a = [...cards];
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
-  }
-  return a;
+  return shuffleArray(cards);
 }
 
 export function drawFromDeck(deck: DeckState, count: number): { drawn: Card[]; deck: DeckState } {
@@ -50,11 +46,14 @@ export function canPlayCard(
   cp: number,
   pp: number,
   isPlayerTurn: boolean,
+  turnPhase?: string,
 ): boolean {
   if (!card.phases.includes(phase)) return false;
   if (card.costCP > cp) return false;
   if (card.costPP > pp) return false;
-  if (card.type === 'objection' && isPlayerTurn) return false;
+  // Objections can be played during opponent's turn (reaction)
+  if (card.type === 'objection' && isPlayerTurn && turnPhase !== 'CARD_PLAY') return false;
+  // Non-objection cards only during player's card play phase
   if (card.type !== 'objection' && !isPlayerTurn) return false;
   return true;
 }

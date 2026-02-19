@@ -5,6 +5,7 @@
 
 import type { Card, CardDefinition, CardRarity } from '../state/types';
 import { getAllDefinitions, instantiateCard } from '../cards/registry';
+import { shuffleArray } from '../../lib/utils';
 
 // ── Types ────────────────────────────────────────────────────
 
@@ -138,14 +139,7 @@ function pickCards(pool: CardDefinition[], rarity: CardRarity, count: number): C
   return cards;
 }
 
-function shuffleArray<T>(arr: T[]): T[] {
-  const a = [...arr];
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
-  }
-  return a;
-}
+// shuffleArray imported from lib/utils
 
 /**
  * Generate an opponent deck scaled by difficulty.
