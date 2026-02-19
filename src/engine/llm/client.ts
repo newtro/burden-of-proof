@@ -109,7 +109,53 @@ const isMockMode = (): boolean => {
   return process.env.MOCK_LLM === 'true' || !process.env.OPENAI_API_KEY;
 };
 
-// ── Mock Responses ───────────────────────────────────────────
+// ── Mock Responses (Randomized for varied gameplay) ──────────
+function pickRandom<T>(arr: T[]): T {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
+
+const MOCK_WITNESS_DIRECT = [
+  { answer: 'Yes, I was there that evening. I remember it clearly because it was raining heavily.', composureChange: 0, isLying: false, emotion: 'calm' as const },
+  { answer: 'I recall the events quite vividly. The defendant was calm, collected — not at all what you\'d expect.', composureChange: 0, isLying: false, emotion: 'calm' as const },
+  { answer: 'We were close friends for many years. I never thought I\'d be sitting here testifying about this.', composureChange: -2, isLying: false, emotion: 'emotional' as const },
+  { answer: 'The timeline is clear in my mind. First the phone call, then the argument, then... well, what happened next.', composureChange: 0, isLying: false, emotion: 'calm' as const },
+  { answer: 'I saw everything from my window. It was unusual enough that I made a mental note of the time.', composureChange: 0, isLying: false, emotion: 'calm' as const },
+];
+
+const MOCK_WITNESS_CROSS = [
+  { answer: 'I... I believe so, yes. It was dark, but I\'m fairly certain of what I saw.', composureChange: -5, isLying: false, emotion: 'nervous' as const },
+  { answer: 'That\'s not — look, I told you what happened. Why do you keep twisting my words?', composureChange: -8, isLying: false, emotion: 'defensive' as const },
+  { answer: 'I don\'t recall the exact details of that particular moment, no.', composureChange: -3, isLying: true, emotion: 'nervous' as const, tell: 'The witness avoids eye contact.' },
+  { answer: 'You\'re trying to confuse me. I know what I saw and I stand by my statement.', composureChange: -6, isLying: false, emotion: 'angry' as const },
+  { answer: 'Well... when you put it that way... I suppose there could have been some misunderstanding.', composureChange: -10, isLying: false, emotion: 'nervous' as const, tell: 'The witness shifts uncomfortably in their seat.' },
+];
+
+const MOCK_QUESTIONS_DIRECT = [
+  [
+    { id: 'q1', text: 'Can you describe what you witnessed that evening?', type: 'open', tone: 'supportive' },
+    { id: 'q2', text: 'How well did you know the defendant before this incident?', type: 'background', tone: 'supportive' },
+    { id: 'q3', text: 'What happened immediately after the incident?', type: 'timeline', tone: 'supportive' },
+  ],
+  [
+    { id: 'q1', text: 'Please walk us through the events as you remember them.', type: 'open', tone: 'supportive' },
+    { id: 'q2', text: 'What was your relationship to the victim?', type: 'background', tone: 'supportive' },
+    { id: 'q3', text: 'Did anything unusual happen in the days leading up to the incident?', type: 'timeline', tone: 'supportive' },
+  ],
+];
+
+const MOCK_QUESTIONS_CROSS = [
+  [
+    { id: 'q1', text: 'Isn\'t it true that visibility was poor that night?', type: 'challenge', tone: 'aggressive' },
+    { id: 'q2', text: 'You previously stated something different in your deposition, didn\'t you?', type: 'impeachment', tone: 'aggressive' },
+    { id: 'q3', text: 'How can you be certain of the time when you weren\'t wearing a watch?', type: 'credibility', tone: 'pressing' },
+  ],
+  [
+    { id: 'q1', text: 'You have a personal grudge against the defendant, don\'t you?', type: 'challenge', tone: 'aggressive' },
+    { id: 'q2', text: 'Isn\'t it true you were drinking that evening?', type: 'credibility', tone: 'pressing' },
+    { id: 'q3', text: 'Your story has changed three times now. Which version should the jury believe?', type: 'impeachment', tone: 'aggressive' },
+  ],
+];
+
 export const MOCK_RESPONSES: Record<AgentType, Record<string, unknown>> = {
   judge: {
     default: {
@@ -125,18 +171,8 @@ export const MOCK_RESPONSES: Record<AgentType, Record<string, unknown>> = {
     },
   },
   witness: {
-    direct: {
-      answer: 'Yes, I was there that evening. I remember it clearly because it was raining heavily.',
-      composureChange: 0,
-      isLying: false,
-      emotion: 'calm',
-    },
-    cross: {
-      answer: 'I... I believe so, yes. It was dark, but I\'m fairly certain of what I saw.',
-      composureChange: -5,
-      isLying: false,
-      emotion: 'nervous',
-    },
+    direct: pickRandom(MOCK_WITNESS_DIRECT),
+    cross: pickRandom(MOCK_WITNESS_CROSS),
     breaking: {
       answer: 'Fine! Yes, I lied about being there. I wasn\'t at the scene. I only said that because...',
       composureChange: -25,
@@ -149,8 +185,8 @@ export const MOCK_RESPONSES: Record<AgentType, Record<string, unknown>> = {
       reactions: Array.from({ length: 12 }, (_, i) => ({
         jurorIndex: i,
         opinionShift: Math.round((Math.random() - 0.5) * 6),
-        expression: ['neutral', 'skeptical', 'sympathetic', 'neutral', 'confused', 'neutral',
-                      'sympathetic', 'neutral', 'bored', 'neutral', 'skeptical', 'neutral'][i],
+        expression: pickRandom(['neutral', 'skeptical', 'sympathetic', 'neutral', 'confused', 'neutral',
+                      'sympathetic', 'neutral', 'bored', 'neutral', 'skeptical', 'shocked']),
         engagementChange: Math.round((Math.random() - 0.3) * 10),
       })),
     },
@@ -159,24 +195,33 @@ export const MOCK_RESPONSES: Record<AgentType, Record<string, unknown>> = {
   narrator: { default: 'The courtroom fell silent as the witness took the stand.' },
   generator: { default: {} },
   questions: {
-    direct: {
-      questions: [
-        { id: 'q1', text: 'Can you describe what you witnessed that evening?', type: 'open', tone: 'supportive' },
-        { id: 'q2', text: 'How well did you know the defendant before this incident?', type: 'background', tone: 'supportive' },
-        { id: 'q3', text: 'What happened immediately after the incident?', type: 'timeline', tone: 'supportive' },
-      ],
-    },
-    cross: {
-      questions: [
-        { id: 'q1', text: 'Isn\'t it true that visibility was poor that night?', type: 'challenge', tone: 'aggressive' },
-        { id: 'q2', text: 'You previously stated something different in your deposition, didn\'t you?', type: 'impeachment', tone: 'aggressive' },
-        { id: 'q3', text: 'How can you be certain of the time when you weren\'t wearing a watch?', type: 'credibility', tone: 'pressing' },
-      ],
-    },
+    direct: { questions: pickRandom(MOCK_QUESTIONS_DIRECT) },
+    cross: { questions: pickRandom(MOCK_QUESTIONS_CROSS) },
   },
 };
 
 function getMockResponse<T>(agent: AgentType, hint?: string): T {
+  // For witness and questions, generate fresh random responses each call
+  if (agent === 'witness') {
+    if (hint === 'cross') return pickRandom(MOCK_WITNESS_CROSS) as T;
+    if (hint === 'breaking') return MOCK_RESPONSES.witness.breaking as T;
+    return pickRandom(MOCK_WITNESS_DIRECT) as T;
+  }
+  if (agent === 'questions') {
+    if (hint === 'cross') return { questions: pickRandom(MOCK_QUESTIONS_CROSS) } as T;
+    return { questions: pickRandom(MOCK_QUESTIONS_DIRECT) } as T;
+  }
+  if (agent === 'juror') {
+    // Fresh random juror reactions each time
+    return {
+      reactions: Array.from({ length: 12 }, (_, i) => ({
+        jurorIndex: i,
+        opinionShift: Math.round((Math.random() - 0.5) * 6),
+        expression: pickRandom(['neutral', 'skeptical', 'sympathetic', 'confused', 'bored', 'shocked', 'angry']),
+        engagementChange: Math.round((Math.random() - 0.3) * 10),
+      })),
+    } as T;
+  }
   const agentMocks = MOCK_RESPONSES[agent];
   if (hint && agentMocks[hint]) return agentMocks[hint] as T;
   return (agentMocks['default'] ?? agentMocks[Object.keys(agentMocks)[0]]) as T;
