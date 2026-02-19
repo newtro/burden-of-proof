@@ -4,6 +4,7 @@ import type { Game } from '../Game';
 import { COLORS } from '../../lib/constants';
 import { useGameStore } from '../../engine/state/store';
 import type { DeliberationResult } from '../../engine/jury/deliberation';
+// PostCaseScene accessed via game reference
 
 export class VerdictScene {
   public container: Container;
@@ -123,16 +124,6 @@ export class VerdictScene {
     xpText.alpha = 0;
     this.container.addChild(xpText);
 
-    // Apply XP and stats
-    useGameStore.setState(s => {
-      s.player.xp += xpBase;
-      s.player.totalXP += xpBase;
-      s.player.casesTotal += 1;
-      if (isWin) s.player.casesWon += 1;
-      else s.player.casesLost += 1;
-    });
-    store.saveProfile();
-
     // Continue button
     const btn = new Container();
     const btnBg = new Graphics();
@@ -151,8 +142,33 @@ export class VerdictScene {
     btn.eventMode = 'static';
     btn.cursor = 'pointer';
     btn.on('pointertap', () => {
-      useGameStore.getState().newGame();
-      this.game.switchScene('menu');
+      // Go to post-case results or back to menu
+      useGameStore.getState().setPhase('POST_CASE');
+      const postCase = this.game.getPostCaseScene();
+      if (postCase && this.result) {
+        const store = useGameStore.getState();
+        const isWin = (verdict === 'not_guilty' && store.playerSide === 'defense') ||
+          (verdict === 'guilty' && store.playerSide === 'prosecution');
+        postCase.show({
+          verdict,
+          isWin,
+          xpBase: isWin ? 100 : 30,
+          xpBonus: Math.round(store.trial.credibilityPoints * 0.5),
+          credibilityRemaining: store.trial.credibilityPoints,
+          cardsPlayed: store.eventLog.filter(e => e.type === 'CARD_PLAYED').length,
+          turnsPlayed: store.trial.turnNumber,
+          juryVotes: { guilty: guiltyCount, notGuilty: notGuiltyCount },
+          skillXPGained: { presentation: 15, legalKnowledge: 10, interrogation: 8, juryReading: 5, investigation: 0 },
+          levelUps: [],
+          rankAdvanced: false,
+          oldRank: store.player.careerRank,
+          newRank: store.player.careerRank,
+        });
+        this.game.switchScene('postCase');
+      } else {
+        useGameStore.getState().newGame();
+        this.game.switchScene('menu');
+      }
     });
     this.container.addChild(btn);
 

@@ -17,6 +17,10 @@ import {
   playerPassObjection, playerObjectDuringOpponentTurn,
   type TrialController,
 } from '../../engine/trial/trial-loop';
+import { runDeliberation } from '../../engine/jury/deliberation';
+import type { JurorStateFull } from '../../engine/jury/persona-generator';
+import { soundManager } from '../../engine/audio/sound-manager';
+// PostCaseScene imported via game reference
 
 export class CourtroomScene {
   public container: Container;
@@ -110,7 +114,13 @@ export class CourtroomScene {
       onWaitingForInput: (type) => this.updateActionButtons(type),
       onOpponentCardPlayed: (card) => this.onCardPlayed(card, 'opponent'),
       onCombo: (name) => this.showCombo(name),
-      onPhaseTransition: (from, to) => this.showPhaseTransition(from, to),
+      onPhaseTransition: (from, to) => {
+        this.showPhaseTransition(from, to);
+        if (to === 'DELIBERATION') {
+          // Transition to deliberation scene
+          setTimeout(() => this.startDeliberation(), 2000);
+        }
+      },
     });
 
     // Draw initial hand
@@ -118,6 +128,109 @@ export class CourtroomScene {
     this.handDisplay.setCards(store.deck.hand);
 
     await startTrial(this.trialController);
+  }
+
+  // ── Deliberation → Verdict → Post-Case Flow ───────────────
+
+  private async startDeliberation(): Promise<void> {
+    const store = useGameStore.getState();
+    
+    // Convert juror state to JurorStateFull for deliberation engine
+    const jurorsForDelib: JurorStateFull[] = store.jury.jurors.map((j, i) => ({
+      id: j.id,
+      persona: {
+        id: j.id,
+        name: j.persona.name,
+        age: j.persona.age,
+        occupation: j.persona.occupation,
+        background: j.persona.personality,
+        archetypeId: '', archetype: j.persona.personality,
+        analyticalVsEmotional: 50, trustLevel: 50, skepticism: 50,
+        leaderFollower: 50, attentionSpan: 70, prosecutionBias: 0,
+        topicBiases: {} as Record<string, number>,
+        triggers: [] as string[],
+        triggerDirection: {} as Record<string, 'sympathetic' | 'hostile'>,
+        persuasionResistance: 50, leadershipScore: 50,
+        deliberationStyle: 'collaborative',
+        personalityTraits: j.persona.traits || [],
+        portraitSet: '', skinTone: 30,
+      },
+      opinion: j.opinion,
+      confidence: j.confidence,
+      engagement: j.engagement,
+      currentExpression: j.emotionalState,
+      memories: j.notableMemories.map((m, idx) => ({
+        turn: idx, phase: 'trial', description: m, impact: 3, emotional: false,
+      })),
+      opinionHistory: j.leanHistory.map((o, idx) => ({ turn: idx, opinion: o })),
+      isAlternate: false,
+      isRemoved: false,
+      seatIndex: i,
+    }));
+
+    // Switch to deliberation scene
+    const delibScene = this.game.getDeliberationScene();
+    if (delibScene) {
+      delibScene.setJurors(jurorsForDelib);
+      this.game.switchScene('deliberation');
+    }
+
+    // Run deliberation
+    const result = await runDeliberation(jurorsForDelib, [], 8, {
+      onRoundStart: (round) => delibScene?.setRound(round),
+      onArgument: async (arg) => {
+        if (delibScene) await delibScene.showArgument(arg);
+      },
+      onVoteUpdate: (votes) => delibScene?.updateVotes(votes),
+    });
+
+    // Show verdict in deliberation scene
+    soundManager.play('gavel');
+    if (delibScene) {
+      await delibScene.showVerdict(result.verdict);
+    }
+
+    // Wait then transition to verdict scene
+    await new Promise(r => setTimeout(r, 3000));
+
+    // Move to verdict  
+    store.setPhase('VERDICT');
+    const verdictScene = this.game.getVerdictScene();
+    if (verdictScene) {
+      verdictScene.showVerdict(result);
+      this.game.switchScene('verdict');
+    }
+
+    // After verdict, transition to post-case
+    // The verdict scene handles its own CONTINUE button which goes to post-case
+    this.buildPostCaseData(result);
+  }
+
+  private buildPostCaseData(result: import('../../engine/jury/deliberation').DeliberationResult): void {
+    const store = useGameStore.getState();
+    const isWin = (result.verdict === 'not_guilty' && store.playerSide === 'defense') ||
+      (result.verdict === 'guilty' && store.playerSide === 'prosecution');
+    
+    const xpBase = isWin ? 100 : 30;
+    const xpBonus = Math.round(store.trial.credibilityPoints * 0.5) + (result.unanimous ? 20 : 0);
+    
+    // Apply XP
+    const totalXP = xpBase + xpBonus;
+    useGameStore.setState(s => {
+      s.player.xp += totalXP;
+      s.player.totalXP += totalXP;
+      s.player.casesTotal += 1;
+      if (isWin) s.player.casesWon += 1;
+      else s.player.casesLost += 1;
+    });
+
+    // Add skill XP based on actions
+    store.addSkillXP('presentation', isWin ? 15 : 5);
+    store.addSkillXP('legalKnowledge', 10);
+    store.addSkillXP('interrogation', 8);
+    store.addSkillXP('juryReading', 5);
+    
+    store.saveProfile();
   }
 
   // ── Background ─────────────────────────────────────────────
@@ -399,6 +512,7 @@ export class CourtroomScene {
   // ── Objection Banner ───────────────────────────────────────
 
   private showObjectionBanner(by: 'player' | 'opponent', cardName: string): void {
+    soundManager.play('objection');
     const w = window.innerWidth;
     const h = window.innerHeight;
 
@@ -455,6 +569,7 @@ export class CourtroomScene {
   }
 
   private showGavelBang(): void {
+    soundManager.play('gavel');
     const w = window.innerWidth;
     const h = window.innerHeight;
 
@@ -485,6 +600,7 @@ export class CourtroomScene {
   // ── Card Play Feedback ─────────────────────────────────────
 
   private onCardPlayed(card: Card, by: 'player' | 'opponent'): void {
+    soundManager.play('card_play');
     const emoji = card.type === 'evidence' ? '📋' :
       card.type === 'objection' ? '⚡' :
       card.type === 'tactic' ? '🎯' : '🃏';
@@ -494,6 +610,7 @@ export class CourtroomScene {
   // ── Combo Display ──────────────────────────────────────────
 
   private showCombo(name: string): void {
+    soundManager.play('combo');
     const w = window.innerWidth;
     const h = window.innerHeight;
 

@@ -1,146 +1,150 @@
-# Burden of Proof ⚖️
+# ⚖️ Burden of Proof
 
-A browser-based courtroom strategy card game where every NPC — judge, jurors, witnesses, opposing counsel — is an LLM agent with distinct personality, biases, and emergent behavior. The verdict is never scripted; it emerges from 12 independent juror deliberations based on what actually happened in the trial.
+**A browser-based courtroom strategy card game where every NPC is an AI agent.**
 
-**Genre:** Strategy Card Game / Courtroom Drama  
-**Platform:** Browser (Chrome primary)  
-**Visual Style:** 2D PixiJS, stylized — Slay the Spire meets courtroom drama  
-**Session Length:** 30–90 minutes per case
+Play as a defense attorney or prosecutor. Investigate cases, build your deck, examine witnesses, read the jury, and fight for justice — or at least a favorable verdict.
 
-## Screenshots
+![Game Screenshot Placeholder](docs/screenshot-placeholder.png)
 
-*Coming soon — placeholder for screenshots*
+## 🎮 How to Play
 
-## How to Play
-
-### Full Game Loop
-1. **Select Case** — Choose from 3 cases (tutorial shoplifting, murder mystery, or the Menendez-inspired trial)
-2. **Pre-Trial Investigation** — Spend your case budget to gather evidence, interview witnesses, research the judge
-3. **Jury Selection (Voir Dire)** — Review juror profiles and strike up to 3 jurors
-4. **Deck Review** — Review your card deck and remove up to 3 weak cards
+### Game Flow
+1. **Select a Case** — Choose from available cases based on your career rank
+2. **Pre-Trial Investigation** — Spend your budget to investigate, interview witnesses, hire experts
+3. **Jury Selection** — Review juror profiles and strike biased jurors
+4. **Deck Review** — Review your cards and remove up to 3 weak ones
 5. **Trial** — The main event:
-   - **Opening Statements** → **Prosecution Case** → **Defense Case** → **Closing Arguments**
-   - Each turn: draw cards → see witness testimony → choose a question → witness responds → play cards → resolve effects
-   - Object to opponent's moves, play evidence, use tactics
-   - Watch the jury react in real-time
-6. **Deliberation** — Watch 12 jurors argue and vote
+   - **Opening Statements** — Set the stage
+   - **Prosecution Case** — Opponent examines witnesses; you can object and cross-examine
+   - **Defense Case** — You examine your witnesses; opponent objects
+   - **Closing Arguments** — Final pitch to the jury
+6. **Deliberation** — Watch 12 AI jurors argue and vote
 7. **Verdict** — Guilty, Not Guilty, or Hung Jury
+8. **Post-Case Results** — XP breakdown, skill progress, career advancement
 
 ### Three Currencies
-- **Case Budget ($)** — Spent in pre-trial investigation
-- **Credibility Points (CP)** — Your courtroom reputation; spent on objections and tactics
-- **Preparation Points (PP)** — Earned from investigation; spent on evidence cards
+- **💰 Case Budget ($)** — Spent in pre-trial to build your deck
+- **🔵 Credibility Points (CP)** — Your courtroom reputation; spent to play powerful cards
+- **🟢 Preparation Points (PP)** — How well-prepared you are; spent on evidence cards
 
 ### Card Types
-- 🔵 **Evidence** — Present proof to the jury (costs PP)
-- 🔴 **Objection** — Interrupt opposing counsel (costs CP, played during opponent's turn)
-- 🟡 **Tactic** — Strategic plays like sidebars, dramatic pauses, recalls (costs CP/PP)
-- 🟢 **Witness** — Call or manage witnesses
-- 🟣 **Wild** — Rare, game-changing plays
+- **📋 Evidence (Blue)** — Present facts to sway the jury
+- **⚡ Objection (Red)** — Interrupt opposing counsel's moves
+- **🎯 Tactic (Gold)** — Strategic plays that manipulate trial flow
+- **👤 Witness (Green)** — Call and manage witnesses
+- **🃏 Wild (Purple)** — Rare, game-changing plays
 
-## How to Run
+### Skills & Progression
+Level up 5 skills through gameplay:
+- **👁️ Jury Reading** — See juror reactions and predict votes
+- **🎤 Presentation** — Higher starting CP, stronger card effects
+- **🔥 Interrogation** — Break witnesses faster
+- **📚 Legal Knowledge** — Better objection success rates
+- **🔍 Investigation** — Cheaper and more effective pre-trial actions
 
+### Career Ranks
+Progress from Junior Associate to Legal Legend across 6 ranks, unlocking harder cases and bigger budgets.
+
+## 🚀 Running Locally
+
+### Prerequisites
+- Node.js 18+ 
+- pnpm (`npm install -g pnpm`)
+
+### Setup
 ```bash
-# Install dependencies
+git clone <repo-url>
+cd burden-of-proof
 pnpm install
+```
 
-# Run development server
+### Development
+```bash
 pnpm dev
-
-# Open in browser
-open http://localhost:3000/game
-
-# Run tests
-pnpm test
-
-# Build for production
-pnpm build
 ```
+Open [http://localhost:3000/game](http://localhost:3000/game) to play.
 
-### Environment Variables
+### Mock Mode (No API Key Required)
+The game works fully in mock mode — all AI responses use pre-written fallbacks. This is the default when no `OPENAI_API_KEY` is set.
 
-Create `.env.local`:
-
-```env
-# For LLM-powered NPCs (optional — mock mode works without)
+### With AI (Optional)
+To use real LLM-powered NPCs, create `.env.local`:
+```
 NEXT_PUBLIC_OPENAI_API_KEY=your-key-here
-
-# Force mock mode (game is fully playable without API keys)
-NEXT_PUBLIC_MOCK_LLM=true
 ```
 
-**Mock mode** is enabled by default when no API key is set. All witnesses, judges, and jurors use pre-written responses that feel natural and make the game fully playable.
+### Build
+```bash
+pnpm build
+pnpm start
+```
 
-## Tech Stack
+### Tests
+```bash
+npx vitest run
+```
+
+## 🛠️ Tech Stack
 
 - **Framework:** Next.js 14 (App Router, TypeScript)
-- **Renderer:** PixiJS 8 (2D WebGL)
-- **State:** Zustand + Immer
-- **Animation:** GSAP
-- **LLM:** OpenAI API (gpt-5-nano / gpt-5-mini) with full mock mode
-- **Validation:** Zod schemas for LLM response validation
-- **Testing:** Vitest (89 tests)
-- **Styling:** Tailwind CSS (for non-game UI)
+- **Rendering:** PixiJS 8 — 2D WebGL canvas
+- **Animation:** GSAP — smooth tweens and transitions
+- **State:** Zustand + Immer — immutable game state management
+- **AI:** OpenAI API (gpt-5-nano/mini) with full mock fallback
+- **Audio:** Howler.js — sound effects and music hooks
+- **Validation:** Zod — runtime type checking for LLM responses
+- **Testing:** Vitest
+- **Styling:** Tailwind CSS (for React overlays)
 
-## Architecture
+## 📁 Project Structure
 
 ```
 src/
-├── engine/           # Framework-agnostic game logic
-│   ├── state/        # Zustand store, types, phase machine
-│   ├── cards/        # Card registry, deck management, effects
-│   ├── trial/        # Trial turn loop orchestrator
-│   ├── jury/         # Persona generation, deliberation, events
-│   ├── pretrial/     # Investigation actions, intel gathering
-│   ├── opponent/     # AI opponent: deck, heuristics, strategy
-│   ├── llm/          # LLM client with rate limiting, caching, mock mode
-│   │   └── agents/   # Judge, witness, juror, question generators
-│   └── case-loader.ts # Load case JSON files
-├── renderer/         # PixiJS rendering layer
-│   ├── Game.ts       # Scene manager
-│   ├── scenes/       # Menu, CaseSelect, PreTrial, JurySelection, DeckReview, Courtroom, Deliberation, Verdict
-│   └── components/   # CardSprite, HandDisplay, ResourceBar, JurorPortrait
-├── data/             # Card definitions (base-deck.json)
-├── lib/              # Constants, shared utilities
-└── app/              # Next.js pages and API routes
+├── app/                    # Next.js pages and API routes
+├── engine/                 # Core game logic (framework-agnostic)
+│   ├── state/              # Zustand store, types, phase machine
+│   ├── cards/              # Card registry, deck, effects, combos
+│   ├── trial/              # Trial turn loop orchestrator
+│   ├── jury/               # Deliberation, personas, events
+│   ├── pretrial/           # Investigation system
+│   ├── opponent/           # AI opponent heuristics and strategy
+│   ├── llm/                # LLM client, agents (judge, witness, juror)
+│   ├── progression/        # Skills, career ranks, save system
+│   └── audio/              # Sound manager
+├── renderer/               # PixiJS rendering layer
+│   ├── scenes/             # Game scenes (Menu, Courtroom, etc.)
+│   ├── components/         # Reusable UI components (cards, portraits)
+│   └── utils/              # Layout helpers
+├── data/                   # Card definitions (JSON)
+└── lib/                    # Constants, utilities
 data/
-└── cases/            # Case JSON files (tutorial, case-001, case-002)
+├── cases/                  # Case JSON files
+├── cards/                  # Card decks
+└── juror-templates.json    # Juror archetype templates
 ```
 
-## Cases
+## 🎯 Cases
 
-| Case | Difficulty | Charge | Description |
-|------|-----------|--------|-------------|
-| State v. Martinez | ★☆☆☆☆ | Petty Theft | Tutorial — nursing student accused of shoplifting |
-| State v. Harrison | ★★☆☆☆ | First Degree Murder | Murder mystery with a twist — the killer isn't who you think |
-| People v. Menendez | ★★★☆☆ | Murder (2 counts) | Based on the infamous case — complex abuse defense |
+### Available Cases
+1. **State v. Martinez** ★☆☆☆☆ — Shoplifting tutorial case
+2. **State v. Harrison** ★★☆☆☆ — Murder mystery with hidden killer
+3. **People v. Menendez** ★★★☆☆ — Brothers on trial, abuse defense
 
-## Skills (Player Progression)
+## 📸 Screenshots
 
-| Skill | Effect |
-|-------|--------|
-| Jury Reading | See more juror reactions and opinion indicators |
-| Presentation | Higher starting CP, bonus CP from successful plays |
-| Interrogation | Faster witness composure drain |
-| Legal Knowledge | Better objection success rates |
-| Investigation | Cheaper pre-trial actions, better evidence quality |
+*Coming soon — placeholder for game screenshots*
 
-## Development
+## 🎵 Audio
 
-```bash
-# Run tests
-pnpm test
+The game includes hook points for all sound effects and music. Place audio files in `public/audio/sfx/` and `public/audio/music/` to enable sounds. The game works perfectly without audio files.
 
-# Run tests in watch mode
-pnpm test -- --watch
+## 📜 License
 
-# Type check
-pnpm tsc --noEmit
+MIT License — © 2026 Newtro Studios
 
-# Build
-pnpm build
-```
+## 🙏 Credits
 
-## License
-
-Private — All rights reserved.
+- **Game Design & Development:** Newtro Studios
+- **AI Integration:** OpenAI API
+- **Rendering:** PixiJS
+- **Animation:** GreenSock (GSAP)

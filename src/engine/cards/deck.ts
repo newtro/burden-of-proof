@@ -51,10 +51,15 @@ export function canPlayCard(
   if (!card.phases.includes(phase)) return false;
   if (card.costCP > cp) return false;
   if (card.costPP > pp) return false;
-  // Objections can be played during opponent's turn (reaction)
-  if (card.type === 'objection' && isPlayerTurn && turnPhase !== 'CARD_PLAY') return false;
-  // Non-objection cards only during player's card play phase
-  if (card.type !== 'objection' && !isPlayerTurn) return false;
+  // Objections can be played during opponent's turn (reaction/objection window)
+  if (card.type === 'objection') {
+    // Objections playable during opponent turns OR during player card_play phase
+    if (isPlayerTurn && turnPhase !== 'CARD_PLAY') return false;
+  } else {
+    // Non-objection cards only during player's card play phase
+    if (!isPlayerTurn) return false;
+    if (turnPhase && turnPhase !== 'CARD_PLAY') return false;
+  }
   return true;
 }
 
